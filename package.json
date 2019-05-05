@@ -1,37 +1,66 @@
 {
-  "name": "ecommerce",
-  "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
-  "keywords": [],
+  "name": "express-graphql",
+  "version": "1.0.0",
+  "description": "project research express +  graphQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --colors --progress",
+    "start-docker": "docker-compose up -d",
+    "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
+    "test": "npm run test:unit",
+    "fix": "standard '**/*.js' '**/*.*.js' --fix",
+    "prisma-deploy": "cd src/prisma && prisma deploy"
+  },
+  "keywords": [
+    "express",
+    "nodeJS",
+    "graphQL",
+    "prisma"
+  ],
+  "author": "tuevu",
+  "license": "ISC",
   "dependencies": {
-    "sails": "^1.0.2",
-    "grunt": "1.0.1",
-    "sails-hook-grunt": "^3.0.2",
-    "sails-hook-orm": "^2.0.0-16",
-    "sails-hook-sockets": "^1.4.0",
-    "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "@sailshq/lodash": "^3.10.3",
-    "async": "2.0.1"
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "apollo-server-express": "^2.4.8",
+    "babel-loader": "^8.0.5",
+    "bcrypt": "^3.0.5",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.5.1"
   },
   "devDependencies": {
-    "@sailshq/eslint": "^4.19.3"
+    "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
+    "@babel/plugin-transform-regenerator": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/plugin-transform-template-literals": "^7.2.0",
+    "@babel/preset-env": "^7.4.3",
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "clean-webpack-plugin": "^2.0.1",
+    "dotenv": "^7.0.0",
+    "dotenv-webpack": "^1.7.0",
+    "graphql-import": "^0.7.1",
+    "graphql-tag": "^2.10.1",
+    "husky": "^1.3.1",
+    "mocha": "^6.1.3",
+    "mocha-webpack": "^1.1.0",
+    "prettier": "^1.17.0",
+    "prettier-webpack-plugin": "^1.2.0",
+    "prisma-client-lib": "^1.31.1",
+    "raw-loader": "^2.0.0",
+    "source-map-support": "^0.5.12",
+    "standard": "^12.0.1",
+    "start-server-webpack-plugin": "^2.2.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
   },
-  "scripts": {
-    "start": "NODE_ENV=production node app.js",
-    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
-    "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
-    "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
-  },
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/anonymous node/sails user/ecommerce.git"
-  },
-  "author": "anonymous node/sails user",
-  "license": "",
-  "engines": {
-    "node": ">=10.8"
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn fix"
+    }
   }
 }

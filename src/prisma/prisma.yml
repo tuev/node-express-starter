@@ -1,0 +1,21 @@
+# *PRIMARY FIELD*
+# The endpoint represents the HTTP endpoint for your Prisma API.
+# It encodes several pieces of information:
+# * Prisma server (`localhost:4466` in this example)
+# * Service name (`myservice` in this example)
+# * Stage (`dev` in this example)
+# NOTE: When service name and stage are set to `default`, they
+# can be omitted.
+# Meaning http://myserver.com/default/default can be written
+# as http://myserver.com.
+endpoint: http://localhost:4466
+# *PRIMARY FIELD*
+# This service is based on the type definitions
+datamodel:
+  - models/feed.prisma
+  - models/user.prisma
+databaseType: document
+# Specifies language & location for the generated Prisma client
+generate:
+  - generator: javascript-client
+    output: ../generated/prisma-client

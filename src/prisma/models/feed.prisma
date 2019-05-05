@@ -1,0 +1,9 @@
+type Feed {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  description: String!
+  url: String!
+  author: User! @relation(link: INLINE, name: "LinkAuthor", onDelete: SET_NULL)
+  liked: [User]! @relation(link: INLINE, name: "UserLike", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+}
