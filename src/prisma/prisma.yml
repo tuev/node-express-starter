@@ -12,7 +12,15 @@ endpoint: http://localhost:4466
 # *PRIMARY FIELD*
 # This service is based on the type definitions
 datamodel:
+  - models/brand.prisma
+  - models/category.prisma
+  - models/color.prisma
+  - models/department.prisma
   - models/feed.prisma
+  - models/image.prisma
+  - models/product.prisma
+  - models/productEntity.prisma
+  - models/size.prisma
   - models/user.prisma
 databaseType: document
 # Specifies language & location for the generated Prisma client

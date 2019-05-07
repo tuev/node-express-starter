@@ -45,13 +45,13 @@ const likeFeed = async (_, { id }, { prisma, auth }) => {
   })
   isLiked
     ? await prisma.updateFeed({
-        where: { id },
-        data: { liked: { disconnect: { id: userId } } }
-      })
+      where: { id },
+      data: { liked: { disconnect: { id: userId } } }
+    })
     : await prisma.updateFeed({
-        where: { id },
-        data: { liked: { connect: { id: userId } } }
-      })
+      where: { id },
+      data: { liked: { connect: { id: userId } } }
+    })
 
   return `${isLiked ? 'Dislike' : 'Like'} successfully!`
 }

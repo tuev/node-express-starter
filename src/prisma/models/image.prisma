@@ -1,0 +1,5 @@
+type Image @embedded {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  url: String!
+}

@@ -1,0 +1,10 @@
+type ProductEntity {
+  id: ID! @id
+  color: Color! @relation(name: "Color", storage: Embedded)
+  size: Size! @relation(name: "Size", storage: Embedded)
+  images: [Image!] @relation(name: "Images", storage: Embedded)
+  product: Product! @relation(name: "ProductEntity", link: INLINE)
+  price: Int!
+  quantity: Int!
+  releaseDate: DateTime
+}

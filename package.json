@@ -4,6 +4,7 @@
   "description": "project research express +  graphQL",
   "main": "index.js",
   "scripts": {
+    "postinstall": "yarn start-docker && cd src/prisma && prisma deploy",
     "start": "webpack --colors --progress",
     "start-docker": "docker-compose up -d",
     "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
@@ -20,10 +21,7 @@
   "author": "tuevu",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/runtime": "^7.4.3",
     "apollo-server-express": "^2.4.8",
-    "babel-loader": "^8.0.5",
     "bcrypt": "^3.0.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
@@ -31,6 +29,9 @@
     "mongoose": "^5.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "babel-loader": "^8.0.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
     "@babel/plugin-transform-regenerator": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.3",
