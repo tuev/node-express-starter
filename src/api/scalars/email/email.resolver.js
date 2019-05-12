@@ -1,29 +1,28 @@
 import { GraphQLScalarType, GraphQLString } from 'graphql'
 import { ApolloError } from 'apollo-server-express'
+import { emailRegEx } from '@utils'
 
-export const passwordRegEx = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,50})/
-
-class PasswordType extends GraphQLScalarType {
+class EmailType extends GraphQLScalarType {
   constructor (type) {
     super({
-      name: 'Password',
+      name: 'Email',
       parseValue: value => type.parseValue(value),
       serialize: value => type.serialize(value),
       parseLiteral: ast => {
-        if (passwordRegEx.test(ast.value)) {
+        if (emailRegEx.test(ast.value)) {
           return type.parseLiteral(ast)
         }
         throw new ApolloError(
-          'Password failed validation. ',
-          'INVALID_PASSWORD'
+          'Email address failed validation',
+          'INVALID_EMAIL'
         )
       }
     })
   }
 }
 
-export { PasswordType }
+export { EmailType }
 
-export const passwordResolvers = {
-  Password: new PasswordType(GraphQLString)
+export const emailResolvers = {
+  Email: new EmailType(GraphQLString)
 }

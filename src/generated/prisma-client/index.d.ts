@@ -395,17 +395,23 @@ export type ProductOrderByInput =
   | "PID_ASC"
   | "PID_DESC"
   | "description_ASC"
-  | "description_DESC";
+  | "description_DESC"
+  | "releaseDate_ASC"
+  | "releaseDate_DESC";
 
 export type ProductEntityOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "price_ASC"
-  | "price_DESC"
+  | "SKU_ASC"
+  | "SKU_DESC"
   | "quantity_ASC"
   | "quantity_DESC"
-  | "releaseDate_ASC"
-  | "releaseDate_DESC";
+  | "price_ASC"
+  | "price_DESC"
+  | "sale_ASC"
+  | "sale_DESC"
+  | "isShow_ASC"
+  | "isShow_DESC";
 
 export type FeedOrderByInput =
   | "id_ASC"
@@ -437,38 +443,19 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface CategoryUpdateManyWithoutDepartmentInput {
-  create?:
-    | CategoryCreateWithoutDepartmentInput[]
-    | CategoryCreateWithoutDepartmentInput;
-  delete?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  set?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  disconnect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  update?:
-    | CategoryUpdateWithWhereUniqueWithoutDepartmentInput[]
-    | CategoryUpdateWithWhereUniqueWithoutDepartmentInput;
-  upsert?:
-    | CategoryUpsertWithWhereUniqueWithoutDepartmentInput[]
-    | CategoryUpsertWithWhereUniqueWithoutDepartmentInput;
-  deleteMany?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
-  updateMany?:
-    | CategoryUpdateManyWithWhereNestedInput[]
-    | CategoryUpdateManyWithWhereNestedInput;
-}
+export type ColorWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export type BrandWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface ProductUpdateWithoutCategoryDataInput {
-  isFeatured?: Boolean;
-  name?: String;
-  slug?: String;
-  PID?: String;
-  description?: String;
-  brand?: BrandUpdateOneRequiredWithoutProductInput;
-  entity?: ProductEntityUpdateManyWithoutProductInput;
+export interface CategoryUpdateOneRequiredWithoutProductInput {
+  create?: CategoryCreateWithoutProductInput;
+  update?: CategoryUpdateWithoutProductDataInput;
+  upsert?: CategoryUpsertWithoutProductInput;
+  connect?: CategoryWhereUniqueInput;
 }
 
 export interface DepartmentWhereInput {
@@ -546,21 +533,11 @@ export interface DepartmentWhereInput {
   slug_not_ends_with?: String;
   brand_some?: BrandWhereInput;
   category_some?: CategoryWhereInput;
+  product_some?: ProductWhereInput;
   images_some?: ImageWhereInput;
   images_every?: ImageRestrictedWhereInput;
   images_none?: ImageRestrictedWhereInput;
   AND?: DepartmentWhereInput[] | DepartmentWhereInput;
-}
-
-export interface CategoryUpdateWithWhereUniqueWithoutBrandInput {
-  where: CategoryWhereUniqueInput;
-  data: CategoryUpdateWithoutBrandDataInput;
-}
-
-export interface FeedUpsertWithWhereUniqueWithoutLikedInput {
-  where: FeedWhereUniqueInput;
-  update: FeedUpdateWithoutLikedDataInput;
-  create: FeedCreateWithoutLikedInput;
 }
 
 export interface CategoryUpdateWithoutBrandDataInput {
@@ -572,11 +549,10 @@ export interface CategoryUpdateWithoutBrandDataInput {
   product?: ProductUpdateManyWithoutCategoryInput;
 }
 
-export interface BrandUpdateOneRequiredWithoutProductInput {
-  create?: BrandCreateWithoutProductInput;
-  update?: BrandUpdateWithoutProductDataInput;
-  upsert?: BrandUpsertWithoutProductInput;
-  connect?: BrandWhereUniqueInput;
+export interface FeedUpsertWithWhereUniqueWithoutLikedInput {
+  where: FeedWhereUniqueInput;
+  update: FeedUpdateWithoutLikedDataInput;
+  create: FeedCreateWithoutLikedInput;
 }
 
 export interface DepartmentUpdateManyWithoutCategoryInput {
@@ -597,6 +573,20 @@ export interface DepartmentUpdateManyWithoutCategoryInput {
   updateMany?:
     | DepartmentUpdateManyWithWhereNestedInput[]
     | DepartmentUpdateManyWithWhereNestedInput;
+}
+
+export interface CategoryUpdateWithoutProductDataInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+  images?: ImageUpdateManyInput;
+  brand?: BrandUpdateManyWithoutCategoryInput;
+  department?: DepartmentUpdateManyWithoutCategoryInput;
+}
+
+export interface DepartmentUpdateWithWhereUniqueWithoutCategoryInput {
+  where: DepartmentWhereUniqueInput;
+  data: DepartmentUpdateWithoutCategoryDataInput;
 }
 
 export interface SizeWhereInput {
@@ -661,9 +651,13 @@ export interface SizeWhereInput {
   AND?: SizeWhereInput[] | SizeWhereInput;
 }
 
-export interface DepartmentUpdateWithWhereUniqueWithoutCategoryInput {
-  where: DepartmentWhereUniqueInput;
-  data: DepartmentUpdateWithoutCategoryDataInput;
+export interface DepartmentUpdateWithoutCategoryDataInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+  brand?: BrandUpdateManyWithoutDepartmentInput;
+  product?: ProductUpdateManyWithoutDeparmentInput;
+  images?: ImageUpdateManyInput;
 }
 
 export interface BrandWhereInput {
@@ -748,12 +742,24 @@ export interface BrandWhereInput {
   AND?: BrandWhereInput[] | BrandWhereInput;
 }
 
-export interface DepartmentUpdateWithoutCategoryDataInput {
-  description?: String;
-  name?: String;
-  slug?: String;
-  brand?: BrandUpdateManyWithoutDepartmentInput;
-  images?: ImageUpdateManyInput;
+export interface BrandUpdateManyWithoutDepartmentInput {
+  create?:
+    | BrandCreateWithoutDepartmentInput[]
+    | BrandCreateWithoutDepartmentInput;
+  delete?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  set?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  disconnect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  update?:
+    | BrandUpdateWithWhereUniqueWithoutDepartmentInput[]
+    | BrandUpdateWithWhereUniqueWithoutDepartmentInput;
+  upsert?:
+    | BrandUpsertWithWhereUniqueWithoutDepartmentInput[]
+    | BrandUpsertWithWhereUniqueWithoutDepartmentInput;
+  deleteMany?: BrandScalarWhereInput[] | BrandScalarWhereInput;
+  updateMany?:
+    | BrandUpdateManyWithWhereNestedInput[]
+    | BrandUpdateManyWithWhereNestedInput;
 }
 
 export interface ImageRestrictedWhereInput {
@@ -796,24 +802,9 @@ export interface ImageRestrictedWhereInput {
   AND?: ImageRestrictedWhereInput[] | ImageRestrictedWhereInput;
 }
 
-export interface BrandUpdateManyWithoutDepartmentInput {
-  create?:
-    | BrandCreateWithoutDepartmentInput[]
-    | BrandCreateWithoutDepartmentInput;
-  delete?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  set?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  disconnect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  update?:
-    | BrandUpdateWithWhereUniqueWithoutDepartmentInput[]
-    | BrandUpdateWithWhereUniqueWithoutDepartmentInput;
-  upsert?:
-    | BrandUpsertWithWhereUniqueWithoutDepartmentInput[]
-    | BrandUpsertWithWhereUniqueWithoutDepartmentInput;
-  deleteMany?: BrandScalarWhereInput[] | BrandScalarWhereInput;
-  updateMany?:
-    | BrandUpdateManyWithWhereNestedInput[]
-    | BrandUpdateManyWithWhereNestedInput;
+export interface BrandUpdateWithWhereUniqueWithoutDepartmentInput {
+  where: BrandWhereUniqueInput;
+  data: BrandUpdateWithoutDepartmentDataInput;
 }
 
 export interface ProductSubscriptionWhereInput {
@@ -825,20 +816,6 @@ export interface ProductSubscriptionWhereInput {
   AND?: ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput;
 }
 
-export interface BrandUpdateWithWhereUniqueWithoutDepartmentInput {
-  where: BrandWhereUniqueInput;
-  data: BrandUpdateWithoutDepartmentDataInput;
-}
-
-export interface FeedSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: FeedWhereInput;
-  AND?: FeedSubscriptionWhereInput[] | FeedSubscriptionWhereInput;
-}
-
 export interface BrandUpdateWithoutDepartmentDataInput {
   name?: String;
   slug?: String;
@@ -848,13 +825,13 @@ export interface BrandUpdateWithoutDepartmentDataInput {
   product?: ProductUpdateManyWithoutBrandInput;
 }
 
-export interface CategorySubscriptionWhereInput {
+export interface FeedSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: CategoryWhereInput;
-  AND?: CategorySubscriptionWhereInput[] | CategorySubscriptionWhereInput;
+  node?: FeedWhereInput;
+  AND?: FeedSubscriptionWhereInput[] | FeedSubscriptionWhereInput;
 }
 
 export interface ProductUpdateManyWithoutBrandInput {
@@ -875,6 +852,20 @@ export interface ProductUpdateManyWithoutBrandInput {
     | ProductUpdateManyWithWhereNestedInput;
 }
 
+export interface CategorySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CategoryWhereInput;
+  AND?: CategorySubscriptionWhereInput[] | CategorySubscriptionWhereInput;
+}
+
+export interface ProductUpdateWithWhereUniqueWithoutBrandInput {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutBrandDataInput;
+}
+
 export interface UserUpdateManyMutationInput {
   username?: String;
   password?: String;
@@ -882,9 +873,16 @@ export interface UserUpdateManyMutationInput {
   email?: String;
 }
 
-export interface ProductUpdateWithWhereUniqueWithoutBrandInput {
-  where: ProductWhereUniqueInput;
-  data: ProductUpdateWithoutBrandDataInput;
+export interface ProductUpdateWithoutBrandDataInput {
+  isFeatured?: Boolean;
+  name?: String;
+  slug?: String;
+  PID?: String;
+  description?: String;
+  releaseDate?: DateTimeInput;
+  entity?: ProductEntityUpdateManyWithoutProductInput;
+  category?: CategoryUpdateOneRequiredWithoutProductInput;
+  deparment?: DepartmentUpdateOneRequiredWithoutProductInput;
 }
 
 export interface UserCreateInput {
@@ -897,14 +895,24 @@ export interface UserCreateInput {
   liked?: FeedCreateManyWithoutLikedInput;
 }
 
-export interface ProductUpdateWithoutBrandDataInput {
-  isFeatured?: Boolean;
-  name?: String;
-  slug?: String;
-  PID?: String;
-  description?: String;
-  category?: CategoryUpdateOneRequiredWithoutProductInput;
-  entity?: ProductEntityUpdateManyWithoutProductInput;
+export interface ProductEntityUpdateManyWithoutProductInput {
+  create?:
+    | ProductEntityCreateWithoutProductInput[]
+    | ProductEntityCreateWithoutProductInput;
+  delete?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
+  connect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
+  set?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
+  disconnect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
+  update?:
+    | ProductEntityUpdateWithWhereUniqueWithoutProductInput[]
+    | ProductEntityUpdateWithWhereUniqueWithoutProductInput;
+  upsert?:
+    | ProductEntityUpsertWithWhereUniqueWithoutProductInput[]
+    | ProductEntityUpsertWithWhereUniqueWithoutProductInput;
+  deleteMany?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
+  updateMany?:
+    | ProductEntityUpdateManyWithWhereNestedInput[]
+    | ProductEntityUpdateManyWithWhereNestedInput;
 }
 
 export interface ProductUpsertWithoutEntityInput {
@@ -912,11 +920,9 @@ export interface ProductUpsertWithoutEntityInput {
   create: ProductCreateWithoutEntityInput;
 }
 
-export interface CategoryUpdateOneRequiredWithoutProductInput {
-  create?: CategoryCreateWithoutProductInput;
-  update?: CategoryUpdateWithoutProductDataInput;
-  upsert?: CategoryUpsertWithoutProductInput;
-  connect?: CategoryWhereUniqueInput;
+export interface ProductEntityUpdateWithWhereUniqueWithoutProductInput {
+  where: ProductEntityWhereUniqueInput;
+  data: ProductEntityUpdateWithoutProductDataInput;
 }
 
 export interface ProductUpdateWithoutEntityDataInput {
@@ -925,81 +931,76 @@ export interface ProductUpdateWithoutEntityDataInput {
   slug?: String;
   PID?: String;
   description?: String;
+  releaseDate?: DateTimeInput;
   brand?: BrandUpdateOneRequiredWithoutProductInput;
   category?: CategoryUpdateOneRequiredWithoutProductInput;
+  deparment?: DepartmentUpdateOneRequiredWithoutProductInput;
 }
 
-export interface CategoryUpdateWithoutProductDataInput {
-  description?: String;
-  name?: String;
-  slug?: String;
+export interface ProductEntityUpdateWithoutProductDataInput {
+  SKU?: String;
+  quantity?: Int;
+  size?: SizeUpdateOneRequiredInput;
+  price?: Int;
+  sale?: Int;
+  isShow?: Boolean;
+  color?: ColorUpdateOneRequiredInput;
   images?: ImageUpdateManyInput;
-  brand?: BrandUpdateManyWithoutCategoryInput;
-  department?: DepartmentUpdateManyWithoutCategoryInput;
 }
 
 export interface ProductEntityUpdateInput {
-  color?: ColorUpdateOneRequiredInput;
-  size?: SizeUpdateOneRequiredInput;
-  images?: ImageUpdateManyInput;
-  product?: ProductUpdateOneRequiredWithoutEntityInput;
-  price?: Int;
+  SKU?: String;
   quantity?: Int;
-  releaseDate?: DateTimeInput;
+  size?: SizeUpdateOneRequiredInput;
+  price?: Int;
+  sale?: Int;
+  isShow?: Boolean;
+  color?: ColorUpdateOneRequiredInput;
+  product?: ProductUpdateOneRequiredWithoutEntityInput;
+  images?: ImageUpdateManyInput;
 }
 
-export interface BrandUpdateManyWithoutCategoryInput {
-  create?: BrandCreateWithoutCategoryInput[] | BrandCreateWithoutCategoryInput;
-  delete?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  set?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  disconnect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-  update?:
-    | BrandUpdateWithWhereUniqueWithoutCategoryInput[]
-    | BrandUpdateWithWhereUniqueWithoutCategoryInput;
-  upsert?:
-    | BrandUpsertWithWhereUniqueWithoutCategoryInput[]
-    | BrandUpsertWithWhereUniqueWithoutCategoryInput;
-  deleteMany?: BrandScalarWhereInput[] | BrandScalarWhereInput;
-  updateMany?:
-    | BrandUpdateManyWithWhereNestedInput[]
-    | BrandUpdateManyWithWhereNestedInput;
+export interface SizeUpdateOneRequiredInput {
+  create?: SizeCreateInput;
+  update?: SizeUpdateDataInput;
+  upsert?: SizeUpsertNestedInput;
+  connect?: SizeWhereUniqueInput;
 }
 
 export interface ProductCreateWithoutEntityInput {
   id?: ID_Input;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
+  releaseDate?: DateTimeInput;
   brand: BrandCreateOneWithoutProductInput;
   category: CategoryCreateOneWithoutProductInput;
+  deparment: DepartmentCreateOneWithoutProductInput;
 }
 
-export interface BrandUpdateWithWhereUniqueWithoutCategoryInput {
-  where: BrandWhereUniqueInput;
-  data: BrandUpdateWithoutCategoryDataInput;
+export interface SizeUpdateDataInput {
+  slug?: String;
+  value?: String;
 }
 
 export interface ProductEntityCreateInput {
   id?: ID_Input;
-  color: ColorCreateOneInput;
-  size: SizeCreateOneInput;
-  images?: ImageCreateManyInput;
-  product: ProductCreateOneWithoutEntityInput;
-  price: Int;
+  SKU: String;
   quantity: Int;
-  releaseDate?: DateTimeInput;
+  size: SizeCreateOneInput;
+  price: Int;
+  sale: Int;
+  isShow: Boolean;
+  color: ColorCreateOneInput;
+  product: ProductCreateOneWithoutEntityInput;
+  images?: ImageCreateManyInput;
 }
 
-export interface BrandUpdateWithoutCategoryDataInput {
-  name?: String;
-  slug?: String;
-  description?: String;
-  images?: ImageUpdateManyInput;
-  department?: DepartmentUpdateManyWithoutBrandInput;
-  product?: ProductUpdateManyWithoutBrandInput;
+export interface SizeUpsertNestedInput {
+  update: SizeUpdateDataInput;
+  create: SizeCreateInput;
 }
 
 export interface ProductUpdateManyMutationInput {
@@ -1008,27 +1009,12 @@ export interface ProductUpdateManyMutationInput {
   slug?: String;
   PID?: String;
   description?: String;
+  releaseDate?: DateTimeInput;
 }
 
-export interface DepartmentUpdateManyWithoutBrandInput {
-  create?:
-    | DepartmentCreateWithoutBrandInput[]
-    | DepartmentCreateWithoutBrandInput;
-  delete?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
-  connect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
-  set?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
-  disconnect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
-  update?:
-    | DepartmentUpdateWithWhereUniqueWithoutBrandInput[]
-    | DepartmentUpdateWithWhereUniqueWithoutBrandInput;
-  upsert?:
-    | DepartmentUpsertWithWhereUniqueWithoutBrandInput[]
-    | DepartmentUpsertWithWhereUniqueWithoutBrandInput;
-  deleteMany?: DepartmentScalarWhereInput[] | DepartmentScalarWhereInput;
-  updateMany?:
-    | DepartmentUpdateManyWithWhereNestedInput[]
-    | DepartmentUpdateManyWithWhereNestedInput;
-}
+export type SizeWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface FeedWhereInput {
   id?: ID_Input;
@@ -1094,29 +1080,30 @@ export interface FeedWhereInput {
   AND?: FeedWhereInput[] | FeedWhereInput;
 }
 
-export interface DepartmentUpdateWithWhereUniqueWithoutBrandInput {
-  where: DepartmentWhereUniqueInput;
-  data: DepartmentUpdateWithoutBrandDataInput;
+export interface ColorUpdateOneRequiredInput {
+  create?: ColorCreateInput;
+  update?: ColorUpdateDataInput;
+  upsert?: ColorUpsertNestedInput;
+  connect?: ColorWhereUniqueInput;
 }
 
 export interface ProductCreateInput {
   id?: ID_Input;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
+  releaseDate?: DateTimeInput;
+  entity?: ProductEntityCreateManyWithoutProductInput;
   brand: BrandCreateOneWithoutProductInput;
   category: CategoryCreateOneWithoutProductInput;
-  entity?: ProductEntityCreateManyWithoutProductInput;
+  deparment: DepartmentCreateOneWithoutProductInput;
 }
 
-export interface DepartmentUpdateWithoutBrandDataInput {
-  description?: String;
-  name?: String;
+export interface ColorUpdateDataInput {
   slug?: String;
-  category?: CategoryUpdateManyWithoutDepartmentInput;
-  images?: ImageUpdateManyInput;
+  value?: String;
 }
 
 export interface UserUpdateManyDataInput {
@@ -1126,9 +1113,9 @@ export interface UserUpdateManyDataInput {
   email?: String;
 }
 
-export interface FeedUpdateManyDataInput {
-  description?: String;
-  url?: String;
+export interface ColorUpsertNestedInput {
+  update: ColorUpdateDataInput;
+  create: ColorCreateInput;
 }
 
 export interface UserScalarWhereInput {
@@ -1217,9 +1204,9 @@ export interface UserScalarWhereInput {
   NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
 }
 
-export interface CategoryUpdateWithWhereUniqueWithoutDepartmentInput {
-  where: CategoryWhereUniqueInput;
-  data: CategoryUpdateWithoutDepartmentDataInput;
+export interface FeedUpdateManyDataInput {
+  description?: String;
+  url?: String;
 }
 
 export interface UserUpsertWithWhereUniqueWithoutLikedInput {
@@ -1228,13 +1215,10 @@ export interface UserUpsertWithWhereUniqueWithoutLikedInput {
   create: UserCreateWithoutLikedInput;
 }
 
-export interface CategoryUpdateWithoutDepartmentDataInput {
-  description?: String;
-  name?: String;
-  slug?: String;
-  images?: ImageUpdateManyInput;
-  brand?: BrandUpdateManyWithoutCategoryInput;
-  product?: ProductUpdateManyWithoutCategoryInput;
+export interface ProductEntityUpsertWithWhereUniqueWithoutProductInput {
+  where: ProductEntityWhereUniqueInput;
+  update: ProductEntityUpdateWithoutProductDataInput;
+  create: ProductEntityCreateWithoutProductInput;
 }
 
 export interface FeedUpdateWithoutAuthorDataInput {
@@ -1243,24 +1227,64 @@ export interface FeedUpdateWithoutAuthorDataInput {
   liked?: UserUpdateManyWithoutLikedInput;
 }
 
-export interface ProductUpdateManyWithoutCategoryInput {
-  create?:
-    | ProductCreateWithoutCategoryInput[]
-    | ProductCreateWithoutCategoryInput;
-  delete?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  set?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  disconnect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  update?:
-    | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
-    | ProductUpdateWithWhereUniqueWithoutCategoryInput;
-  upsert?:
-    | ProductUpsertWithWhereUniqueWithoutCategoryInput[]
-    | ProductUpsertWithWhereUniqueWithoutCategoryInput;
-  deleteMany?: ProductScalarWhereInput[] | ProductScalarWhereInput;
-  updateMany?:
-    | ProductUpdateManyWithWhereNestedInput[]
-    | ProductUpdateManyWithWhereNestedInput;
+export interface ProductEntityScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  SKU?: String;
+  SKU_not?: String;
+  SKU_in?: String[] | String;
+  SKU_not_in?: String[] | String;
+  SKU_lt?: String;
+  SKU_lte?: String;
+  SKU_gt?: String;
+  SKU_gte?: String;
+  SKU_contains?: String;
+  SKU_not_contains?: String;
+  SKU_starts_with?: String;
+  SKU_not_starts_with?: String;
+  SKU_ends_with?: String;
+  SKU_not_ends_with?: String;
+  quantity?: Int;
+  quantity_not?: Int;
+  quantity_in?: Int[] | Int;
+  quantity_not_in?: Int[] | Int;
+  quantity_lt?: Int;
+  quantity_lte?: Int;
+  quantity_gt?: Int;
+  quantity_gte?: Int;
+  price?: Int;
+  price_not?: Int;
+  price_in?: Int[] | Int;
+  price_not_in?: Int[] | Int;
+  price_lt?: Int;
+  price_lte?: Int;
+  price_gt?: Int;
+  price_gte?: Int;
+  sale?: Int;
+  sale_not?: Int;
+  sale_in?: Int[] | Int;
+  sale_not_in?: Int[] | Int;
+  sale_lt?: Int;
+  sale_lte?: Int;
+  sale_gt?: Int;
+  sale_gte?: Int;
+  isShow?: Boolean;
+  isShow_not?: Boolean;
+  AND?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
+  OR?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
+  NOT?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
 }
 
 export interface FeedUpdateWithWhereUniqueWithoutAuthorInput {
@@ -1268,9 +1292,9 @@ export interface FeedUpdateWithWhereUniqueWithoutAuthorInput {
   data: FeedUpdateWithoutAuthorDataInput;
 }
 
-export interface ProductUpdateWithWhereUniqueWithoutCategoryInput {
-  where: ProductWhereUniqueInput;
-  data: ProductUpdateWithoutCategoryDataInput;
+export interface ProductEntityUpdateManyWithWhereNestedInput {
+  where: ProductEntityScalarWhereInput;
+  data: ProductEntityUpdateManyDataInput;
 }
 
 export interface UserUpdateWithoutLikedDataInput {
@@ -1279,6 +1303,19 @@ export interface UserUpdateWithoutLikedDataInput {
   birthdate?: DateTimeInput;
   email?: String;
   posts?: FeedUpdateManyWithoutAuthorInput;
+}
+
+export interface ProductEntityUpdateManyDataInput {
+  SKU?: String;
+  quantity?: Int;
+  price?: Int;
+  sale?: Int;
+  isShow?: Boolean;
+}
+
+export interface UserUpdateWithWhereUniqueWithoutLikedInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateWithoutLikedDataInput;
 }
 
 export interface ProductWhereInput {
@@ -1370,15 +1407,24 @@ export interface ProductWhereInput {
   description_not_starts_with?: String;
   description_ends_with?: String;
   description_not_ends_with?: String;
+  releaseDate?: DateTimeInput;
+  releaseDate_not?: DateTimeInput;
+  releaseDate_in?: DateTimeInput[] | DateTimeInput;
+  releaseDate_not_in?: DateTimeInput[] | DateTimeInput;
+  releaseDate_lt?: DateTimeInput;
+  releaseDate_lte?: DateTimeInput;
+  releaseDate_gt?: DateTimeInput;
+  releaseDate_gte?: DateTimeInput;
+  entity_some?: ProductEntityWhereInput;
   brand?: BrandWhereInput;
   category?: CategoryWhereInput;
-  entity_some?: ProductEntityWhereInput;
+  deparment?: DepartmentWhereInput;
   AND?: ProductWhereInput[] | ProductWhereInput;
 }
 
-export interface UserUpdateWithWhereUniqueWithoutLikedInput {
-  where: UserWhereUniqueInput;
-  data: UserUpdateWithoutLikedDataInput;
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput;
+  create: UserCreateWithoutPostsInput;
 }
 
 export interface ProductEntityWhereInput {
@@ -1396,20 +1442,20 @@ export interface ProductEntityWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  color?: ColorWhereInput;
-  size?: SizeWhereInput;
-  images_some?: ImageWhereInput;
-  images_every?: ImageRestrictedWhereInput;
-  images_none?: ImageRestrictedWhereInput;
-  product?: ProductWhereInput;
-  price?: Int;
-  price_not?: Int;
-  price_in?: Int[] | Int;
-  price_not_in?: Int[] | Int;
-  price_lt?: Int;
-  price_lte?: Int;
-  price_gt?: Int;
-  price_gte?: Int;
+  SKU?: String;
+  SKU_not?: String;
+  SKU_in?: String[] | String;
+  SKU_not_in?: String[] | String;
+  SKU_lt?: String;
+  SKU_lte?: String;
+  SKU_gt?: String;
+  SKU_gte?: String;
+  SKU_contains?: String;
+  SKU_not_contains?: String;
+  SKU_starts_with?: String;
+  SKU_not_starts_with?: String;
+  SKU_ends_with?: String;
+  SKU_not_ends_with?: String;
   quantity?: Int;
   quantity_not?: Int;
   quantity_in?: Int[] | Int;
@@ -1418,29 +1464,31 @@ export interface ProductEntityWhereInput {
   quantity_lte?: Int;
   quantity_gt?: Int;
   quantity_gte?: Int;
-  releaseDate?: DateTimeInput;
-  releaseDate_not?: DateTimeInput;
-  releaseDate_in?: DateTimeInput[] | DateTimeInput;
-  releaseDate_not_in?: DateTimeInput[] | DateTimeInput;
-  releaseDate_lt?: DateTimeInput;
-  releaseDate_lte?: DateTimeInput;
-  releaseDate_gt?: DateTimeInput;
-  releaseDate_gte?: DateTimeInput;
+  size?: SizeWhereInput;
+  price?: Int;
+  price_not?: Int;
+  price_in?: Int[] | Int;
+  price_not_in?: Int[] | Int;
+  price_lt?: Int;
+  price_lte?: Int;
+  price_gt?: Int;
+  price_gte?: Int;
+  sale?: Int;
+  sale_not?: Int;
+  sale_in?: Int[] | Int;
+  sale_not_in?: Int[] | Int;
+  sale_lt?: Int;
+  sale_lte?: Int;
+  sale_gt?: Int;
+  sale_gte?: Int;
+  isShow?: Boolean;
+  isShow_not?: Boolean;
+  color?: ColorWhereInput;
+  product?: ProductWhereInput;
+  images_some?: ImageWhereInput;
+  images_every?: ImageRestrictedWhereInput;
+  images_none?: ImageRestrictedWhereInput;
   AND?: ProductEntityWhereInput[] | ProductEntityWhereInput;
-}
-
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
-}
-
-export interface BrandUpdateWithoutProductDataInput {
-  name?: String;
-  slug?: String;
-  description?: String;
-  images?: ImageUpdateManyInput;
-  category?: CategoryUpdateManyWithoutBrandInput;
-  department?: DepartmentUpdateManyWithoutBrandInput;
 }
 
 export interface BrandCreateInput {
@@ -1454,9 +1502,22 @@ export interface BrandCreateInput {
   product?: ProductCreateManyWithoutBrandInput;
 }
 
-export interface BrandUpsertWithoutProductInput {
-  update: BrandUpdateWithoutProductDataInput;
-  create: BrandCreateWithoutProductInput;
+export interface BrandUpdateManyWithoutCategoryInput {
+  create?: BrandCreateWithoutCategoryInput[] | BrandCreateWithoutCategoryInput;
+  delete?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  set?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  disconnect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+  update?:
+    | BrandUpdateWithWhereUniqueWithoutCategoryInput[]
+    | BrandUpdateWithWhereUniqueWithoutCategoryInput;
+  upsert?:
+    | BrandUpsertWithWhereUniqueWithoutCategoryInput[]
+    | BrandUpsertWithWhereUniqueWithoutCategoryInput;
+  deleteMany?: BrandScalarWhereInput[] | BrandScalarWhereInput;
+  updateMany?:
+    | BrandUpdateManyWithWhereNestedInput[]
+    | BrandUpdateManyWithWhereNestedInput;
 }
 
 export interface ImageCreateInput {
@@ -1464,24 +1525,9 @@ export interface ImageCreateInput {
   url: String;
 }
 
-export interface ProductEntityUpdateManyWithoutProductInput {
-  create?:
-    | ProductEntityCreateWithoutProductInput[]
-    | ProductEntityCreateWithoutProductInput;
-  delete?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
-  connect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
-  set?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
-  disconnect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
-  update?:
-    | ProductEntityUpdateWithWhereUniqueWithoutProductInput[]
-    | ProductEntityUpdateWithWhereUniqueWithoutProductInput;
-  upsert?:
-    | ProductEntityUpsertWithWhereUniqueWithoutProductInput[]
-    | ProductEntityUpsertWithWhereUniqueWithoutProductInput;
-  deleteMany?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
-  updateMany?:
-    | ProductEntityUpdateManyWithWhereNestedInput[]
-    | ProductEntityUpdateManyWithWhereNestedInput;
+export interface BrandUpdateWithWhereUniqueWithoutCategoryInput {
+  where: BrandWhereUniqueInput;
+  data: BrandUpdateWithoutCategoryDataInput;
 }
 
 export interface CategoryCreateWithoutBrandInput {
@@ -1494,9 +1540,13 @@ export interface CategoryCreateWithoutBrandInput {
   product?: ProductCreateManyWithoutCategoryInput;
 }
 
-export interface ProductEntityUpdateWithWhereUniqueWithoutProductInput {
-  where: ProductEntityWhereUniqueInput;
-  data: ProductEntityUpdateWithoutProductDataInput;
+export interface BrandUpdateWithoutCategoryDataInput {
+  name?: String;
+  slug?: String;
+  description?: String;
+  images?: ImageUpdateManyInput;
+  department?: DepartmentUpdateManyWithoutBrandInput;
+  product?: ProductUpdateManyWithoutBrandInput;
 }
 
 export interface DepartmentCreateWithoutCategoryInput {
@@ -1505,16 +1555,28 @@ export interface DepartmentCreateWithoutCategoryInput {
   name: String;
   slug: String;
   brand?: BrandCreateManyWithoutDepartmentInput;
+  product?: ProductCreateManyWithoutDeparmentInput;
   images?: ImageCreateManyInput;
 }
 
-export interface ProductEntityUpdateWithoutProductDataInput {
-  color?: ColorUpdateOneRequiredInput;
-  size?: SizeUpdateOneRequiredInput;
-  images?: ImageUpdateManyInput;
-  price?: Int;
-  quantity?: Int;
-  releaseDate?: DateTimeInput;
+export interface DepartmentUpdateManyWithoutBrandInput {
+  create?:
+    | DepartmentCreateWithoutBrandInput[]
+    | DepartmentCreateWithoutBrandInput;
+  delete?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
+  connect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
+  set?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
+  disconnect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
+  update?:
+    | DepartmentUpdateWithWhereUniqueWithoutBrandInput[]
+    | DepartmentUpdateWithWhereUniqueWithoutBrandInput;
+  upsert?:
+    | DepartmentUpsertWithWhereUniqueWithoutBrandInput[]
+    | DepartmentUpsertWithWhereUniqueWithoutBrandInput;
+  deleteMany?: DepartmentScalarWhereInput[] | DepartmentScalarWhereInput;
+  updateMany?:
+    | DepartmentUpdateManyWithWhereNestedInput[]
+    | DepartmentUpdateManyWithWhereNestedInput;
 }
 
 export interface BrandCreateWithoutDepartmentInput {
@@ -1527,27 +1589,89 @@ export interface BrandCreateWithoutDepartmentInput {
   product?: ProductCreateManyWithoutBrandInput;
 }
 
-export interface ColorUpdateOneRequiredInput {
-  create?: ColorCreateInput;
-  update?: ColorUpdateDataInput;
-  upsert?: ColorUpsertNestedInput;
-  connect?: ColorWhereUniqueInput;
+export interface DepartmentUpdateWithWhereUniqueWithoutBrandInput {
+  where: DepartmentWhereUniqueInput;
+  data: DepartmentUpdateWithoutBrandDataInput;
 }
 
 export interface ProductCreateWithoutBrandInput {
   id?: ID_Input;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
-  category: CategoryCreateOneWithoutProductInput;
+  releaseDate?: DateTimeInput;
   entity?: ProductEntityCreateManyWithoutProductInput;
+  category: CategoryCreateOneWithoutProductInput;
+  deparment: DepartmentCreateOneWithoutProductInput;
 }
 
-export interface ColorUpdateDataInput {
+export interface DepartmentUpdateWithoutBrandDataInput {
+  description?: String;
+  name?: String;
   slug?: String;
-  value?: String;
+  category?: CategoryUpdateManyWithoutDepartmentInput;
+  product?: ProductUpdateManyWithoutDeparmentInput;
+  images?: ImageUpdateManyInput;
+}
+
+export interface ProductEntityCreateWithoutProductInput {
+  id?: ID_Input;
+  SKU: String;
+  quantity: Int;
+  size: SizeCreateOneInput;
+  price: Int;
+  sale: Int;
+  isShow: Boolean;
+  color: ColorCreateOneInput;
+  images?: ImageCreateManyInput;
+}
+
+export interface CategoryUpdateManyWithoutDepartmentInput {
+  create?:
+    | CategoryCreateWithoutDepartmentInput[]
+    | CategoryCreateWithoutDepartmentInput;
+  delete?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  set?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  disconnect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  update?:
+    | CategoryUpdateWithWhereUniqueWithoutDepartmentInput[]
+    | CategoryUpdateWithWhereUniqueWithoutDepartmentInput;
+  upsert?:
+    | CategoryUpsertWithWhereUniqueWithoutDepartmentInput[]
+    | CategoryUpsertWithWhereUniqueWithoutDepartmentInput;
+  deleteMany?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
+  updateMany?:
+    | CategoryUpdateManyWithWhereNestedInput[]
+    | CategoryUpdateManyWithWhereNestedInput;
+}
+
+export interface SizeCreateInput {
+  id?: ID_Input;
+  slug: String;
+  value: String;
+}
+
+export interface CategoryUpdateWithWhereUniqueWithoutDepartmentInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutDepartmentDataInput;
+}
+
+export interface ColorCreateInput {
+  id?: ID_Input;
+  slug: String;
+  value: String;
+}
+
+export interface CategoryUpdateWithoutDepartmentDataInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+  images?: ImageUpdateManyInput;
+  brand?: BrandUpdateManyWithoutCategoryInput;
+  product?: ProductUpdateManyWithoutCategoryInput;
 }
 
 export interface CategoryCreateWithoutProductInput {
@@ -1560,9 +1684,24 @@ export interface CategoryCreateWithoutProductInput {
   department?: DepartmentCreateManyWithoutCategoryInput;
 }
 
-export interface ColorUpsertNestedInput {
-  update: ColorUpdateDataInput;
-  create: ColorCreateInput;
+export interface ProductUpdateManyWithoutCategoryInput {
+  create?:
+    | ProductCreateWithoutCategoryInput[]
+    | ProductCreateWithoutCategoryInput;
+  delete?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  set?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  disconnect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  update?:
+    | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
+    | ProductUpdateWithWhereUniqueWithoutCategoryInput;
+  upsert?:
+    | ProductUpsertWithWhereUniqueWithoutCategoryInput[]
+    | ProductUpsertWithWhereUniqueWithoutCategoryInput;
+  deleteMany?: ProductScalarWhereInput[] | ProductScalarWhereInput;
+  updateMany?:
+    | ProductUpdateManyWithWhereNestedInput[]
+    | ProductUpdateManyWithWhereNestedInput;
 }
 
 export interface BrandCreateWithoutCategoryInput {
@@ -1575,9 +1714,10 @@ export interface BrandCreateWithoutCategoryInput {
   product?: ProductCreateManyWithoutBrandInput;
 }
 
-export type ColorWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface ProductUpdateWithWhereUniqueWithoutCategoryInput {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutCategoryDataInput;
+}
 
 export interface DepartmentCreateWithoutBrandInput {
   id?: ID_Input;
@@ -1585,14 +1725,20 @@ export interface DepartmentCreateWithoutBrandInput {
   name: String;
   slug: String;
   category?: CategoryCreateManyWithoutDepartmentInput;
+  product?: ProductCreateManyWithoutDeparmentInput;
   images?: ImageCreateManyInput;
 }
 
-export interface SizeUpdateOneRequiredInput {
-  create?: SizeCreateInput;
-  update?: SizeUpdateDataInput;
-  upsert?: SizeUpsertNestedInput;
-  connect?: SizeWhereUniqueInput;
+export interface ProductUpdateWithoutCategoryDataInput {
+  isFeatured?: Boolean;
+  name?: String;
+  slug?: String;
+  PID?: String;
+  description?: String;
+  releaseDate?: DateTimeInput;
+  entity?: ProductEntityUpdateManyWithoutProductInput;
+  brand?: BrandUpdateOneRequiredWithoutProductInput;
+  deparment?: DepartmentUpdateOneRequiredWithoutProductInput;
 }
 
 export interface CategoryCreateWithoutDepartmentInput {
@@ -1605,25 +1751,33 @@ export interface CategoryCreateWithoutDepartmentInput {
   product?: ProductCreateManyWithoutCategoryInput;
 }
 
-export interface SizeUpdateDataInput {
-  slug?: String;
-  value?: String;
+export interface BrandUpdateOneRequiredWithoutProductInput {
+  create?: BrandCreateWithoutProductInput;
+  update?: BrandUpdateWithoutProductDataInput;
+  upsert?: BrandUpsertWithoutProductInput;
+  connect?: BrandWhereUniqueInput;
 }
 
 export interface ProductCreateWithoutCategoryInput {
   id?: ID_Input;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
-  brand: BrandCreateOneWithoutProductInput;
+  releaseDate?: DateTimeInput;
   entity?: ProductEntityCreateManyWithoutProductInput;
+  brand: BrandCreateOneWithoutProductInput;
+  deparment: DepartmentCreateOneWithoutProductInput;
 }
 
-export interface SizeUpsertNestedInput {
-  update: SizeUpdateDataInput;
-  create: SizeCreateInput;
+export interface BrandUpdateWithoutProductDataInput {
+  name?: String;
+  slug?: String;
+  description?: String;
+  images?: ImageUpdateManyInput;
+  category?: CategoryUpdateManyWithoutBrandInput;
+  department?: DepartmentUpdateManyWithoutBrandInput;
 }
 
 export interface BrandCreateWithoutProductInput {
@@ -1636,85 +1790,48 @@ export interface BrandCreateWithoutProductInput {
   department?: DepartmentCreateManyWithoutBrandInput;
 }
 
-export type SizeWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface BrandUpsertWithoutProductInput {
+  update: BrandUpdateWithoutProductDataInput;
+  create: BrandCreateWithoutProductInput;
+}
 
-export interface ProductEntityCreateWithoutProductInput {
+export interface DepartmentCreateWithoutProductInput {
   id?: ID_Input;
-  color: ColorCreateOneInput;
-  size: SizeCreateOneInput;
+  description: String;
+  name: String;
+  slug: String;
+  brand?: BrandCreateManyWithoutDepartmentInput;
+  category?: CategoryCreateManyWithoutDepartmentInput;
   images?: ImageCreateManyInput;
-  price: Int;
-  quantity: Int;
-  releaseDate?: DateTimeInput;
 }
 
-export interface ProductEntityUpsertWithWhereUniqueWithoutProductInput {
-  where: ProductEntityWhereUniqueInput;
-  update: ProductEntityUpdateWithoutProductDataInput;
-  create: ProductEntityCreateWithoutProductInput;
+export interface DepartmentUpdateOneRequiredWithoutProductInput {
+  create?: DepartmentCreateWithoutProductInput;
+  update?: DepartmentUpdateWithoutProductDataInput;
+  upsert?: DepartmentUpsertWithoutProductInput;
+  connect?: DepartmentWhereUniqueInput;
 }
 
-export interface ColorCreateInput {
+export interface ProductCreateWithoutDeparmentInput {
   id?: ID_Input;
+  isFeatured: Boolean;
+  name: String;
   slug: String;
-  value: String;
-}
-
-export interface ProductEntityScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  price?: Int;
-  price_not?: Int;
-  price_in?: Int[] | Int;
-  price_not_in?: Int[] | Int;
-  price_lt?: Int;
-  price_lte?: Int;
-  price_gt?: Int;
-  price_gte?: Int;
-  quantity?: Int;
-  quantity_not?: Int;
-  quantity_in?: Int[] | Int;
-  quantity_not_in?: Int[] | Int;
-  quantity_lt?: Int;
-  quantity_lte?: Int;
-  quantity_gt?: Int;
-  quantity_gte?: Int;
+  PID: String;
+  description?: String;
   releaseDate?: DateTimeInput;
-  releaseDate_not?: DateTimeInput;
-  releaseDate_in?: DateTimeInput[] | DateTimeInput;
-  releaseDate_not_in?: DateTimeInput[] | DateTimeInput;
-  releaseDate_lt?: DateTimeInput;
-  releaseDate_lte?: DateTimeInput;
-  releaseDate_gt?: DateTimeInput;
-  releaseDate_gte?: DateTimeInput;
-  AND?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
-  OR?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
-  NOT?: ProductEntityScalarWhereInput[] | ProductEntityScalarWhereInput;
+  entity?: ProductEntityCreateManyWithoutProductInput;
+  brand: BrandCreateOneWithoutProductInput;
+  category: CategoryCreateOneWithoutProductInput;
 }
 
-export interface SizeCreateInput {
-  id?: ID_Input;
-  slug: String;
-  value: String;
-}
-
-export interface ProductEntityUpdateManyWithWhereNestedInput {
-  where: ProductEntityScalarWhereInput;
-  data: ProductEntityUpdateManyDataInput;
+export interface DepartmentUpdateWithoutProductDataInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+  brand?: BrandUpdateManyWithoutDepartmentInput;
+  category?: CategoryUpdateManyWithoutDepartmentInput;
+  images?: ImageUpdateManyInput;
 }
 
 export interface ImageUpdateManyInput {
@@ -1732,10 +1849,9 @@ export interface ImageUpdateManyInput {
     | ImageUpdateManyWithWhereNestedInput;
 }
 
-export interface ProductEntityUpdateManyDataInput {
-  price?: Int;
-  quantity?: Int;
-  releaseDate?: DateTimeInput;
+export interface DepartmentUpsertWithoutProductInput {
+  update: DepartmentUpdateWithoutProductDataInput;
+  create: DepartmentCreateWithoutProductInput;
 }
 
 export type ImageWhereUniqueInput = AtLeastOne<{
@@ -1843,6 +1959,14 @@ export interface ProductScalarWhereInput {
   description_not_starts_with?: String;
   description_ends_with?: String;
   description_not_ends_with?: String;
+  releaseDate?: DateTimeInput;
+  releaseDate_not?: DateTimeInput;
+  releaseDate_in?: DateTimeInput[] | DateTimeInput;
+  releaseDate_not_in?: DateTimeInput[] | DateTimeInput;
+  releaseDate_lt?: DateTimeInput;
+  releaseDate_lte?: DateTimeInput;
+  releaseDate_gt?: DateTimeInput;
+  releaseDate_gte?: DateTimeInput;
   AND?: ProductScalarWhereInput[] | ProductScalarWhereInput;
   OR?: ProductScalarWhereInput[] | ProductScalarWhereInput;
   NOT?: ProductScalarWhereInput[] | ProductScalarWhereInput;
@@ -1882,6 +2006,7 @@ export interface ProductUpdateManyDataInput {
   slug?: String;
   PID?: String;
   description?: String;
+  releaseDate?: DateTimeInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -1899,44 +2024,15 @@ export interface CategoryUpsertWithWhereUniqueWithoutDepartmentInput {
   create: CategoryCreateWithoutDepartmentInput;
 }
 
-export interface ImageWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  AND?: ImageWhereInput[] | ImageWhereInput;
+export interface ProductEntitySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ProductEntityWhereInput;
+  AND?:
+    | ProductEntitySubscriptionWhereInput[]
+    | ProductEntitySubscriptionWhereInput;
 }
 
 export interface CategoryScalarWhereInput {
@@ -2017,13 +2113,86 @@ export interface CategoryScalarWhereInput {
   NOT?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
 }
 
-export interface DepartmentSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: DepartmentWhereInput;
-  AND?: DepartmentSubscriptionWhereInput[] | DepartmentSubscriptionWhereInput;
+export interface CategoryWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  slug?: String;
+  slug_not?: String;
+  slug_in?: String[] | String;
+  slug_not_in?: String[] | String;
+  slug_lt?: String;
+  slug_lte?: String;
+  slug_gt?: String;
+  slug_gte?: String;
+  slug_contains?: String;
+  slug_not_contains?: String;
+  slug_starts_with?: String;
+  slug_not_starts_with?: String;
+  slug_ends_with?: String;
+  slug_not_ends_with?: String;
+  images_some?: ImageWhereInput;
+  images_every?: ImageRestrictedWhereInput;
+  images_none?: ImageRestrictedWhereInput;
+  brand_some?: BrandWhereInput;
+  department_some?: DepartmentWhereInput;
+  product_some?: ProductWhereInput;
+  AND?: CategoryWhereInput[] | CategoryWhereInput;
 }
 
 export interface CategoryUpdateManyWithWhereNestedInput {
@@ -2031,13 +2200,13 @@ export interface CategoryUpdateManyWithWhereNestedInput {
   data: CategoryUpdateManyDataInput;
 }
 
-export interface UserUpdateInput {
-  username?: String;
-  password?: String;
-  birthdate?: DateTimeInput;
-  email?: String;
-  posts?: FeedUpdateManyWithoutAuthorInput;
-  liked?: FeedUpdateManyWithoutLikedInput;
+export interface BrandSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: BrandWhereInput;
+  AND?: BrandSubscriptionWhereInput[] | BrandSubscriptionWhereInput;
 }
 
 export interface CategoryUpdateManyDataInput {
@@ -2046,9 +2215,86 @@ export interface CategoryUpdateManyDataInput {
   slug?: String;
 }
 
-export type CategoryWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface ProductEntityUpdateManyMutationInput {
+  SKU?: String;
+  quantity?: Int;
+  price?: Int;
+  sale?: Int;
+  isShow?: Boolean;
+}
+
+export interface ProductUpdateManyWithoutDeparmentInput {
+  create?:
+    | ProductCreateWithoutDeparmentInput[]
+    | ProductCreateWithoutDeparmentInput;
+  delete?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  set?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  disconnect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+  update?:
+    | ProductUpdateWithWhereUniqueWithoutDeparmentInput[]
+    | ProductUpdateWithWhereUniqueWithoutDeparmentInput;
+  upsert?:
+    | ProductUpsertWithWhereUniqueWithoutDeparmentInput[]
+    | ProductUpsertWithWhereUniqueWithoutDeparmentInput;
+  deleteMany?: ProductScalarWhereInput[] | ProductScalarWhereInput;
+  updateMany?:
+    | ProductUpdateManyWithWhereNestedInput[]
+    | ProductUpdateManyWithWhereNestedInput;
+}
+
+export interface ProductUpdateOneRequiredWithoutEntityInput {
+  create?: ProductCreateWithoutEntityInput;
+  update?: ProductUpdateWithoutEntityDataInput;
+  upsert?: ProductUpsertWithoutEntityInput;
+  connect?: ProductWhereUniqueInput;
+}
+
+export interface ProductUpdateWithWhereUniqueWithoutDeparmentInput {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutDeparmentDataInput;
+}
+
+export interface ProductCreateOneWithoutEntityInput {
+  create?: ProductCreateWithoutEntityInput;
+  connect?: ProductWhereUniqueInput;
+}
+
+export interface ProductUpdateWithoutDeparmentDataInput {
+  isFeatured?: Boolean;
+  name?: String;
+  slug?: String;
+  PID?: String;
+  description?: String;
+  releaseDate?: DateTimeInput;
+  entity?: ProductEntityUpdateManyWithoutProductInput;
+  brand?: BrandUpdateOneRequiredWithoutProductInput;
+  category?: CategoryUpdateOneRequiredWithoutProductInput;
+}
+
+export interface ProductUpdateInput {
+  isFeatured?: Boolean;
+  name?: String;
+  slug?: String;
+  PID?: String;
+  description?: String;
+  releaseDate?: DateTimeInput;
+  entity?: ProductEntityUpdateManyWithoutProductInput;
+  brand?: BrandUpdateOneRequiredWithoutProductInput;
+  category?: CategoryUpdateOneRequiredWithoutProductInput;
+  deparment?: DepartmentUpdateOneRequiredWithoutProductInput;
+}
+
+export interface ProductUpsertWithWhereUniqueWithoutDeparmentInput {
+  where: ProductWhereUniqueInput;
+  update: ProductUpdateWithoutDeparmentDataInput;
+  create: ProductCreateWithoutDeparmentInput;
+}
+
+export interface FeedUpdateManyMutationInput {
+  description?: String;
+  url?: String;
+}
 
 export interface DepartmentUpsertWithWhereUniqueWithoutBrandInput {
   where: DepartmentWhereUniqueInput;
@@ -2056,7 +2302,7 @@ export interface DepartmentUpsertWithWhereUniqueWithoutBrandInput {
   create: DepartmentCreateWithoutBrandInput;
 }
 
-export type DepartmentWhereUniqueInput = AtLeastOne<{
+export type ProductWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
@@ -2138,13 +2384,397 @@ export interface DepartmentScalarWhereInput {
   NOT?: DepartmentScalarWhereInput[] | DepartmentScalarWhereInput;
 }
 
-export type FeedWhereUniqueInput = AtLeastOne<{
+export type ProductEntityWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
 export interface DepartmentUpdateManyWithWhereNestedInput {
   where: DepartmentScalarWhereInput;
   data: DepartmentUpdateManyDataInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  username?: String;
+  email?: String;
+}>;
+
+export interface DepartmentUpdateManyDataInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+}
+
+export interface CategoryCreateManyWithoutBrandInput {
+  create?: CategoryCreateWithoutBrandInput[] | CategoryCreateWithoutBrandInput;
+  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+}
+
+export interface BrandUpsertWithWhereUniqueWithoutCategoryInput {
+  where: BrandWhereUniqueInput;
+  update: BrandUpdateWithoutCategoryDataInput;
+  create: BrandCreateWithoutCategoryInput;
+}
+
+export interface BrandCreateManyWithoutDepartmentInput {
+  create?:
+    | BrandCreateWithoutDepartmentInput[]
+    | BrandCreateWithoutDepartmentInput;
+  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+}
+
+export interface BrandScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  slug?: String;
+  slug_not?: String;
+  slug_in?: String[] | String;
+  slug_not_in?: String[] | String;
+  slug_lt?: String;
+  slug_lte?: String;
+  slug_gt?: String;
+  slug_gte?: String;
+  slug_contains?: String;
+  slug_not_contains?: String;
+  slug_starts_with?: String;
+  slug_not_starts_with?: String;
+  slug_ends_with?: String;
+  slug_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  AND?: BrandScalarWhereInput[] | BrandScalarWhereInput;
+  OR?: BrandScalarWhereInput[] | BrandScalarWhereInput;
+  NOT?: BrandScalarWhereInput[] | BrandScalarWhereInput;
+}
+
+export interface ProductEntityCreateManyWithoutProductInput {
+  create?:
+    | ProductEntityCreateWithoutProductInput[]
+    | ProductEntityCreateWithoutProductInput;
+  connect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
+}
+
+export interface BrandUpdateManyWithWhereNestedInput {
+  where: BrandScalarWhereInput;
+  data: BrandUpdateManyDataInput;
+}
+
+export interface ColorCreateOneInput {
+  create?: ColorCreateInput;
+}
+
+export interface BrandUpdateManyDataInput {
+  name?: String;
+  slug?: String;
+  description?: String;
+}
+
+export interface BrandCreateManyWithoutCategoryInput {
+  create?: BrandCreateWithoutCategoryInput[] | BrandCreateWithoutCategoryInput;
+  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
+}
+
+export interface CategoryUpsertWithoutProductInput {
+  update: CategoryUpdateWithoutProductDataInput;
+  create: CategoryCreateWithoutProductInput;
+}
+
+export interface CategoryCreateManyWithoutDepartmentInput {
+  create?:
+    | CategoryCreateWithoutDepartmentInput[]
+    | CategoryCreateWithoutDepartmentInput;
+  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+}
+
+export interface ProductUpsertWithWhereUniqueWithoutBrandInput {
+  where: ProductWhereUniqueInput;
+  update: ProductUpdateWithoutBrandDataInput;
+  create: ProductCreateWithoutBrandInput;
+}
+
+export interface BrandCreateOneWithoutProductInput {
+  create?: BrandCreateWithoutProductInput;
+  connect?: BrandWhereUniqueInput;
+}
+
+export interface BrandUpsertWithWhereUniqueWithoutDepartmentInput {
+  where: BrandWhereUniqueInput;
+  update: BrandUpdateWithoutDepartmentDataInput;
+  create: BrandCreateWithoutDepartmentInput;
+}
+
+export interface ProductCreateManyWithoutDeparmentInput {
+  create?:
+    | ProductCreateWithoutDeparmentInput[]
+    | ProductCreateWithoutDeparmentInput;
+  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+}
+
+export interface DepartmentUpsertWithWhereUniqueWithoutCategoryInput {
+  where: DepartmentWhereUniqueInput;
+  update: DepartmentUpdateWithoutCategoryDataInput;
+  create: DepartmentCreateWithoutCategoryInput;
+}
+
+export interface ImageUpdateWithWhereUniqueNestedInput {
+  where: ImageWhereUniqueInput;
+  data: ImageUpdateDataInput;
+}
+
+export interface CategoryUpsertWithWhereUniqueWithoutBrandInput {
+  where: CategoryWhereUniqueInput;
+  update: CategoryUpdateWithoutBrandDataInput;
+  create: CategoryCreateWithoutBrandInput;
+}
+
+export interface ImageScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
+  AND?: ImageScalarWhereInput[] | ImageScalarWhereInput;
+  OR?: ImageScalarWhereInput[] | ImageScalarWhereInput;
+  NOT?: ImageScalarWhereInput[] | ImageScalarWhereInput;
+}
+
+export interface BrandUpdateManyMutationInput {
+  name?: String;
+  slug?: String;
+  description?: String;
+}
+
+export interface CategoryUpdateWithWhereUniqueWithoutBrandInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutBrandDataInput;
+}
+
+export interface FeedUpdateManyWithWhereNestedInput {
+  where: FeedScalarWhereInput;
+  data: FeedUpdateManyDataInput;
+}
+
+export interface ImageWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
+  AND?: ImageWhereInput[] | ImageWhereInput;
+}
+
+export interface FeedScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
+  AND?: FeedScalarWhereInput[] | FeedScalarWhereInput;
+  OR?: FeedScalarWhereInput[] | FeedScalarWhereInput;
+  NOT?: FeedScalarWhereInput[] | FeedScalarWhereInput;
+}
+
+export interface UserUpdateInput {
+  username?: String;
+  password?: String;
+  birthdate?: DateTimeInput;
+  email?: String;
+  posts?: FeedUpdateManyWithoutAuthorInput;
+  liked?: FeedUpdateManyWithoutLikedInput;
+}
+
+export interface CategoryCreateInput {
+  id?: ID_Input;
+  description: String;
+  name: String;
+  slug: String;
+  images?: ImageCreateManyInput;
+  brand?: BrandCreateManyWithoutCategoryInput;
+  department?: DepartmentCreateManyWithoutCategoryInput;
+  product?: ProductCreateManyWithoutCategoryInput;
+}
+
+export type DepartmentWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface CategoryUpdateInput {
+  description?: String;
+  name?: String;
+  slug?: String;
+  images?: ImageUpdateManyInput;
+  brand?: BrandUpdateManyWithoutCategoryInput;
+  department?: DepartmentUpdateManyWithoutCategoryInput;
+  product?: ProductUpdateManyWithoutCategoryInput;
 }
 
 export interface UserWhereInput {
@@ -2233,21 +2863,10 @@ export interface UserWhereInput {
   AND?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface DepartmentUpdateManyDataInput {
+export interface CategoryUpdateManyMutationInput {
   description?: String;
   name?: String;
   slug?: String;
-}
-
-export interface UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput;
-  data: UserUpdateManyDataInput;
-}
-
-export interface BrandUpsertWithWhereUniqueWithoutCategoryInput {
-  where: BrandWhereUniqueInput;
-  update: BrandUpdateWithoutCategoryDataInput;
-  create: BrandCreateWithoutCategoryInput;
 }
 
 export interface FeedUpsertWithWhereUniqueWithoutAuthorInput {
@@ -2256,105 +2875,15 @@ export interface FeedUpsertWithWhereUniqueWithoutAuthorInput {
   create: FeedCreateWithoutAuthorInput;
 }
 
-export interface BrandScalarWhereInput {
+export interface DepartmentCreateInput {
   id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  slug?: String;
-  slug_not?: String;
-  slug_in?: String[] | String;
-  slug_not_in?: String[] | String;
-  slug_lt?: String;
-  slug_lte?: String;
-  slug_gt?: String;
-  slug_gte?: String;
-  slug_contains?: String;
-  slug_not_contains?: String;
-  slug_starts_with?: String;
-  slug_not_starts_with?: String;
-  slug_ends_with?: String;
-  slug_not_ends_with?: String;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  AND?: BrandScalarWhereInput[] | BrandScalarWhereInput;
-  OR?: BrandScalarWhereInput[] | BrandScalarWhereInput;
-  NOT?: BrandScalarWhereInput[] | BrandScalarWhereInput;
-}
-
-export interface FeedUpdateManyWithoutAuthorInput {
-  create?: FeedCreateWithoutAuthorInput[] | FeedCreateWithoutAuthorInput;
-  delete?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-  connect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-  set?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-  disconnect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-  update?:
-    | FeedUpdateWithWhereUniqueWithoutAuthorInput[]
-    | FeedUpdateWithWhereUniqueWithoutAuthorInput;
-  upsert?:
-    | FeedUpsertWithWhereUniqueWithoutAuthorInput[]
-    | FeedUpsertWithWhereUniqueWithoutAuthorInput;
-  deleteMany?: FeedScalarWhereInput[] | FeedScalarWhereInput;
-  updateMany?:
-    | FeedUpdateManyWithWhereNestedInput[]
-    | FeedUpdateManyWithWhereNestedInput;
-}
-
-export interface BrandUpdateManyWithWhereNestedInput {
-  where: BrandScalarWhereInput;
-  data: BrandUpdateManyDataInput;
+  description: String;
+  name: String;
+  slug: String;
+  brand?: BrandCreateManyWithoutDepartmentInput;
+  category?: CategoryCreateManyWithoutDepartmentInput;
+  product?: ProductCreateManyWithoutDeparmentInput;
+  images?: ImageCreateManyInput;
 }
 
 export interface UserUpdateManyWithoutLikedInput {
@@ -2375,19 +2904,14 @@ export interface UserUpdateManyWithoutLikedInput {
     | UserUpdateManyWithWhereNestedInput;
 }
 
-export interface BrandUpdateManyDataInput {
+export interface DepartmentUpdateInput {
+  description?: String;
   name?: String;
   slug?: String;
-  description?: String;
-}
-
-export interface ImageCreateManyInput {
-  create?: ImageCreateInput[] | ImageCreateInput;
-}
-
-export interface CategoryUpsertWithoutProductInput {
-  update: CategoryUpdateWithoutProductDataInput;
-  create: CategoryCreateWithoutProductInput;
+  brand?: BrandUpdateManyWithoutDepartmentInput;
+  category?: CategoryUpdateManyWithoutDepartmentInput;
+  product?: ProductUpdateManyWithoutDeparmentInput;
+  images?: ImageUpdateManyInput;
 }
 
 export interface DepartmentCreateManyWithoutCategoryInput {
@@ -2397,242 +2921,15 @@ export interface DepartmentCreateManyWithoutCategoryInput {
   connect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
 }
 
-export interface ProductUpsertWithWhereUniqueWithoutBrandInput {
-  where: ProductWhereUniqueInput;
-  update: ProductUpdateWithoutBrandDataInput;
-  create: ProductCreateWithoutBrandInput;
-}
-
-export interface ProductCreateManyWithoutBrandInput {
-  create?: ProductCreateWithoutBrandInput[] | ProductCreateWithoutBrandInput;
-  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-}
-
-export interface BrandUpsertWithWhereUniqueWithoutDepartmentInput {
-  where: BrandWhereUniqueInput;
-  update: BrandUpdateWithoutDepartmentDataInput;
-  create: BrandCreateWithoutDepartmentInput;
-}
-
-export interface BrandCreateManyWithoutCategoryInput {
-  create?: BrandCreateWithoutCategoryInput[] | BrandCreateWithoutCategoryInput;
-  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-}
-
-export interface DepartmentUpsertWithWhereUniqueWithoutCategoryInput {
-  where: DepartmentWhereUniqueInput;
-  update: DepartmentUpdateWithoutCategoryDataInput;
-  create: DepartmentCreateWithoutCategoryInput;
-}
-
-export interface CategoryCreateManyWithoutDepartmentInput {
-  create?:
-    | CategoryCreateWithoutDepartmentInput[]
-    | CategoryCreateWithoutDepartmentInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-}
-
-export interface CategoryUpsertWithWhereUniqueWithoutBrandInput {
-  where: CategoryWhereUniqueInput;
-  update: CategoryUpdateWithoutBrandDataInput;
-  create: CategoryCreateWithoutBrandInput;
-}
-
-export interface BrandCreateOneWithoutProductInput {
-  create?: BrandCreateWithoutProductInput;
-  connect?: BrandWhereUniqueInput;
-}
-
-export interface BrandUpdateManyMutationInput {
-  name?: String;
-  slug?: String;
-  description?: String;
-}
-
-export interface ColorCreateOneInput {
-  create?: ColorCreateInput;
-}
-
-export interface FeedUpdateManyWithWhereNestedInput {
-  where: FeedScalarWhereInput;
-  data: FeedUpdateManyDataInput;
-}
-
-export interface BrandUpdateInput {
-  name?: String;
-  slug?: String;
-  description?: String;
-  images?: ImageUpdateManyInput;
-  category?: CategoryUpdateManyWithoutBrandInput;
-  department?: DepartmentUpdateManyWithoutBrandInput;
-  product?: ProductUpdateManyWithoutBrandInput;
-}
-
-export interface FeedScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  AND?: FeedScalarWhereInput[] | FeedScalarWhereInput;
-  OR?: FeedScalarWhereInput[] | FeedScalarWhereInput;
-  NOT?: FeedScalarWhereInput[] | FeedScalarWhereInput;
-}
-
-export interface ImageUpdateDataInput {
-  url?: String;
-}
-
-export interface CategoryCreateInput {
-  id?: ID_Input;
-  description: String;
-  name: String;
-  slug: String;
-  images?: ImageCreateManyInput;
-  brand?: BrandCreateManyWithoutCategoryInput;
-  department?: DepartmentCreateManyWithoutCategoryInput;
-  product?: ProductCreateManyWithoutCategoryInput;
-}
-
-export interface ImageUpdateManyDataInput {
-  url?: String;
-}
-
-export interface CategoryUpdateInput {
-  description?: String;
-  name?: String;
-  slug?: String;
-  images?: ImageUpdateManyInput;
-  brand?: BrandUpdateManyWithoutCategoryInput;
-  department?: DepartmentUpdateManyWithoutCategoryInput;
-  product?: ProductUpdateManyWithoutCategoryInput;
-}
-
-export interface ProductEntitySubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ProductEntityWhereInput;
-  AND?:
-    | ProductEntitySubscriptionWhereInput[]
-    | ProductEntitySubscriptionWhereInput;
-}
-
-export interface CategoryUpdateManyMutationInput {
-  description?: String;
-  name?: String;
-  slug?: String;
-}
-
-export interface BrandSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: BrandWhereInput;
-  AND?: BrandSubscriptionWhereInput[] | BrandSubscriptionWhereInput;
-}
-
-export interface DepartmentCreateInput {
-  id?: ID_Input;
-  description: String;
-  name: String;
-  slug: String;
-  brand?: BrandCreateManyWithoutDepartmentInput;
-  category?: CategoryCreateManyWithoutDepartmentInput;
-  images?: ImageCreateManyInput;
-}
-
-export interface ProductUpdateOneRequiredWithoutEntityInput {
-  create?: ProductCreateWithoutEntityInput;
-  update?: ProductUpdateWithoutEntityDataInput;
-  upsert?: ProductUpsertWithoutEntityInput;
-  connect?: ProductWhereUniqueInput;
-}
-
-export interface DepartmentUpdateInput {
-  description?: String;
-  name?: String;
-  slug?: String;
-  brand?: BrandUpdateManyWithoutDepartmentInput;
-  category?: CategoryUpdateManyWithoutDepartmentInput;
-  images?: ImageUpdateManyInput;
-}
-
-export interface ProductUpdateInput {
-  isFeatured?: Boolean;
-  name?: String;
-  slug?: String;
-  PID?: String;
-  description?: String;
-  brand?: BrandUpdateOneRequiredWithoutProductInput;
-  category?: CategoryUpdateOneRequiredWithoutProductInput;
-  entity?: ProductEntityUpdateManyWithoutProductInput;
-}
-
 export interface DepartmentUpdateManyMutationInput {
   description?: String;
   name?: String;
   slug?: String;
 }
 
-export type ProductWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface SizeCreateOneInput {
+  create?: SizeCreateInput;
+}
 
 export interface FeedCreateInput {
   id?: ID_Input;
@@ -2642,20 +2939,21 @@ export interface FeedCreateInput {
   liked?: UserCreateManyWithoutLikedInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  username?: String;
-  email?: String;
-}>;
+export interface DepartmentCreateManyWithoutBrandInput {
+  create?:
+    | DepartmentCreateWithoutBrandInput[]
+    | DepartmentCreateWithoutBrandInput;
+  connect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
+}
 
 export interface UserCreateOneWithoutPostsInput {
   create?: UserCreateWithoutPostsInput;
   connect?: UserWhereUniqueInput;
 }
 
-export interface CategoryCreateManyWithoutBrandInput {
-  create?: CategoryCreateWithoutBrandInput[] | CategoryCreateWithoutBrandInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+export interface DepartmentCreateOneWithoutProductInput {
+  create?: DepartmentCreateWithoutProductInput;
+  connect?: DepartmentWhereUniqueInput;
 }
 
 export interface UserCreateWithoutPostsInput {
@@ -2667,219 +2965,13 @@ export interface UserCreateWithoutPostsInput {
   liked?: FeedCreateManyWithoutLikedInput;
 }
 
-export interface CategoryCreateOneWithoutProductInput {
-  create?: CategoryCreateWithoutProductInput;
-  connect?: CategoryWhereUniqueInput;
+export interface ImageUpdateDataInput {
+  url?: String;
 }
 
 export interface FeedCreateManyWithoutLikedInput {
   create?: FeedCreateWithoutLikedInput[] | FeedCreateWithoutLikedInput;
   connect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-}
-
-export interface ProductCreateManyWithoutCategoryInput {
-  create?:
-    | ProductCreateWithoutCategoryInput[]
-    | ProductCreateWithoutCategoryInput;
-  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-}
-
-export interface FeedCreateWithoutLikedInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
-  author: UserCreateOneWithoutPostsInput;
-}
-
-export interface SizeCreateOneInput {
-  create?: SizeCreateInput;
-}
-
-export interface UserCreateManyWithoutLikedInput {
-  create?: UserCreateWithoutLikedInput[] | UserCreateWithoutLikedInput;
-  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
-}
-
-export interface ImageScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  AND?: ImageScalarWhereInput[] | ImageScalarWhereInput;
-  OR?: ImageScalarWhereInput[] | ImageScalarWhereInput;
-  NOT?: ImageScalarWhereInput[] | ImageScalarWhereInput;
-}
-
-export interface UserCreateWithoutLikedInput {
-  id?: ID_Input;
-  username: String;
-  password: String;
-  birthdate?: DateTimeInput;
-  email: String;
-  posts?: FeedCreateManyWithoutAuthorInput;
-}
-
-export interface CategoryWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  slug?: String;
-  slug_not?: String;
-  slug_in?: String[] | String;
-  slug_not_in?: String[] | String;
-  slug_lt?: String;
-  slug_lte?: String;
-  slug_gt?: String;
-  slug_gte?: String;
-  slug_contains?: String;
-  slug_not_contains?: String;
-  slug_starts_with?: String;
-  slug_not_starts_with?: String;
-  slug_ends_with?: String;
-  slug_not_ends_with?: String;
-  images_some?: ImageWhereInput;
-  images_every?: ImageRestrictedWhereInput;
-  images_none?: ImageRestrictedWhereInput;
-  brand_some?: BrandWhereInput;
-  department_some?: DepartmentWhereInput;
-  product_some?: ProductWhereInput;
-  AND?: CategoryWhereInput[] | CategoryWhereInput;
-}
-
-export interface FeedCreateManyWithoutAuthorInput {
-  create?: FeedCreateWithoutAuthorInput[] | FeedCreateWithoutAuthorInput;
-  connect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
-}
-
-export interface ProductCreateOneWithoutEntityInput {
-  create?: ProductCreateWithoutEntityInput;
-  connect?: ProductWhereUniqueInput;
-}
-
-export interface FeedCreateWithoutAuthorInput {
-  id?: ID_Input;
-  description: String;
-  url: String;
-  liked?: UserCreateManyWithoutLikedInput;
-}
-
-export type ProductEntityWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface FeedUpdateInput {
-  description?: String;
-  url?: String;
-  author?: UserUpdateOneRequiredWithoutPostsInput;
-  liked?: UserUpdateManyWithoutLikedInput;
-}
-
-export interface BrandCreateManyWithoutDepartmentInput {
-  create?:
-    | BrandCreateWithoutDepartmentInput[]
-    | BrandCreateWithoutDepartmentInput;
-  connect?: BrandWhereUniqueInput[] | BrandWhereUniqueInput;
-}
-
-export interface UserUpdateOneRequiredWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput;
-  update?: UserUpdateWithoutPostsDataInput;
-  upsert?: UserUpsertWithoutPostsInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface ProductEntityCreateManyWithoutProductInput {
-  create?:
-    | ProductEntityCreateWithoutProductInput[]
-    | ProductEntityCreateWithoutProductInput;
-  connect?: ProductEntityWhereUniqueInput[] | ProductEntityWhereUniqueInput;
 }
 
 export interface ColorWhereInput {
@@ -2944,6 +3036,108 @@ export interface ColorWhereInput {
   AND?: ColorWhereInput[] | ColorWhereInput;
 }
 
+export interface FeedCreateWithoutLikedInput {
+  id?: ID_Input;
+  description: String;
+  url: String;
+  author: UserCreateOneWithoutPostsInput;
+}
+
+export type CategoryWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface UserCreateManyWithoutLikedInput {
+  create?: UserCreateWithoutLikedInput[] | UserCreateWithoutLikedInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+}
+
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
+}
+
+export interface UserCreateWithoutLikedInput {
+  id?: ID_Input;
+  username: String;
+  password: String;
+  birthdate?: DateTimeInput;
+  email: String;
+  posts?: FeedCreateManyWithoutAuthorInput;
+}
+
+export interface ImageCreateManyInput {
+  create?: ImageCreateInput[] | ImageCreateInput;
+}
+
+export interface FeedCreateManyWithoutAuthorInput {
+  create?: FeedCreateWithoutAuthorInput[] | FeedCreateWithoutAuthorInput;
+  connect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
+}
+
+export interface CategoryCreateOneWithoutProductInput {
+  create?: CategoryCreateWithoutProductInput;
+  connect?: CategoryWhereUniqueInput;
+}
+
+export interface FeedCreateWithoutAuthorInput {
+  id?: ID_Input;
+  description: String;
+  url: String;
+  liked?: UserCreateManyWithoutLikedInput;
+}
+
+export interface BrandUpdateInput {
+  name?: String;
+  slug?: String;
+  description?: String;
+  images?: ImageUpdateManyInput;
+  category?: CategoryUpdateManyWithoutBrandInput;
+  department?: DepartmentUpdateManyWithoutBrandInput;
+  product?: ProductUpdateManyWithoutBrandInput;
+}
+
+export interface FeedUpdateInput {
+  description?: String;
+  url?: String;
+  author?: UserUpdateOneRequiredWithoutPostsInput;
+  liked?: UserUpdateManyWithoutLikedInput;
+}
+
+export interface DepartmentSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: DepartmentWhereInput;
+  AND?: DepartmentSubscriptionWhereInput[] | DepartmentSubscriptionWhereInput;
+}
+
+export interface UserUpdateOneRequiredWithoutPostsInput {
+  create?: UserCreateWithoutPostsInput;
+  update?: UserUpdateWithoutPostsDataInput;
+  upsert?: UserUpsertWithoutPostsInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface FeedUpdateManyWithoutAuthorInput {
+  create?: FeedCreateWithoutAuthorInput[] | FeedCreateWithoutAuthorInput;
+  delete?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
+  connect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
+  set?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
+  disconnect?: FeedWhereUniqueInput[] | FeedWhereUniqueInput;
+  update?:
+    | FeedUpdateWithWhereUniqueWithoutAuthorInput[]
+    | FeedUpdateWithWhereUniqueWithoutAuthorInput;
+  upsert?:
+    | FeedUpsertWithWhereUniqueWithoutAuthorInput[]
+    | FeedUpsertWithWhereUniqueWithoutAuthorInput;
+  deleteMany?: FeedScalarWhereInput[] | FeedScalarWhereInput;
+  updateMany?:
+    | FeedUpdateManyWithWhereNestedInput[]
+    | FeedUpdateManyWithWhereNestedInput;
+}
+
 export interface FeedUpdateWithoutLikedDataInput {
   description?: String;
   url?: String;
@@ -2981,27 +3175,24 @@ export interface UserUpdateWithoutPostsDataInput {
   liked?: FeedUpdateManyWithoutLikedInput;
 }
 
-export interface ProductEntityUpdateManyMutationInput {
-  price?: Int;
-  quantity?: Int;
-  releaseDate?: DateTimeInput;
+export interface ProductCreateManyWithoutBrandInput {
+  create?: ProductCreateWithoutBrandInput[] | ProductCreateWithoutBrandInput;
+  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
 }
 
-export interface ImageUpdateWithWhereUniqueNestedInput {
-  where: ImageWhereUniqueInput;
-  data: ImageUpdateDataInput;
-}
+export type FeedWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
-export interface DepartmentCreateManyWithoutBrandInput {
-  create?:
-    | DepartmentCreateWithoutBrandInput[]
-    | DepartmentCreateWithoutBrandInput;
-  connect?: DepartmentWhereUniqueInput[] | DepartmentWhereUniqueInput;
-}
-
-export interface FeedUpdateManyMutationInput {
-  description?: String;
+export interface ImageUpdateManyDataInput {
   url?: String;
+}
+
+export interface ProductCreateManyWithoutCategoryInput {
+  create?:
+    | ProductCreateWithoutCategoryInput[]
+    | ProductCreateWithoutCategoryInput;
+  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
 }
 
 export interface NodeNode {
@@ -3298,7 +3489,7 @@ export interface ProductEntityEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface Size {
+export interface Color {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -3306,7 +3497,7 @@ export interface Size {
   value: String;
 }
 
-export interface SizePromise extends Promise<Size>, Fragmentable {
+export interface ColorPromise extends Promise<Color>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -3314,8 +3505,8 @@ export interface SizePromise extends Promise<Size>, Fragmentable {
   value: () => Promise<String>;
 }
 
-export interface SizeSubscription
-  extends Promise<AsyncIterator<Size>>,
+export interface ColorSubscription
+  extends Promise<AsyncIterator<Color>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3340,7 +3531,7 @@ export interface AggregateProductSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface Color {
+export interface Size {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -3348,7 +3539,7 @@ export interface Color {
   value: String;
 }
 
-export interface ColorPromise extends Promise<Color>, Fragmentable {
+export interface SizePromise extends Promise<Size>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -3356,8 +3547,8 @@ export interface ColorPromise extends Promise<Color>, Fragmentable {
   value: () => Promise<String>;
 }
 
-export interface ColorSubscription
-  extends Promise<AsyncIterator<Color>>,
+export interface SizeSubscription
+  extends Promise<AsyncIterator<Size>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3517,27 +3708,33 @@ export interface BrandSubscriptionPayloadSubscription
 
 export interface ProductEntityPreviousValues {
   id: ID_Output;
-  price: Int;
+  SKU: String;
   quantity: Int;
-  releaseDate?: DateTimeOutput;
+  price: Int;
+  sale: Int;
+  isShow: Boolean;
 }
 
 export interface ProductEntityPreviousValuesPromise
   extends Promise<ProductEntityPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  price: () => Promise<Int>;
+  SKU: () => Promise<String>;
   quantity: () => Promise<Int>;
-  releaseDate: () => Promise<DateTimeOutput>;
+  price: () => Promise<Int>;
+  sale: () => Promise<Int>;
+  isShow: () => Promise<Boolean>;
 }
 
 export interface ProductEntityPreviousValuesSubscription
   extends Promise<AsyncIterator<ProductEntityPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  price: () => Promise<AsyncIterator<Int>>;
+  SKU: () => Promise<AsyncIterator<String>>;
   quantity: () => Promise<AsyncIterator<Int>>;
-  releaseDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  price: () => Promise<AsyncIterator<Int>>;
+  sale: () => Promise<AsyncIterator<Int>>;
+  isShow: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface BrandPreviousValues {
@@ -3641,38 +3838,44 @@ export interface UserSubscription
 
 export interface ProductEntity {
   id: ID_Output;
-  color: Color;
-  size: Size;
-  images?: <T = FragmentableArray<Image>>() => T;
-  price: Int;
+  SKU: String;
   quantity: Int;
-  releaseDate?: DateTimeOutput;
+  size: Size;
+  price: Int;
+  sale: Int;
+  isShow: Boolean;
+  color: Color;
+  images?: <T = FragmentableArray<Image>>() => T;
 }
 
 export interface ProductEntityPromise
   extends Promise<ProductEntity>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  color: <T = ColorPromise>() => T;
-  size: <T = SizePromise>() => T;
-  images: <T = FragmentableArray<Image>>() => T;
-  product: <T = ProductPromise>() => T;
-  price: () => Promise<Int>;
+  SKU: () => Promise<String>;
   quantity: () => Promise<Int>;
-  releaseDate: () => Promise<DateTimeOutput>;
+  size: <T = SizePromise>() => T;
+  price: () => Promise<Int>;
+  sale: () => Promise<Int>;
+  isShow: () => Promise<Boolean>;
+  color: <T = ColorPromise>() => T;
+  product: <T = ProductPromise>() => T;
+  images: <T = FragmentableArray<Image>>() => T;
 }
 
 export interface ProductEntitySubscription
   extends Promise<AsyncIterator<ProductEntity>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  color: <T = ColorSubscription>() => T;
-  size: <T = SizeSubscription>() => T;
-  images: <T = Promise<AsyncIterator<ImageSubscription>>>() => T;
-  product: <T = ProductSubscription>() => T;
-  price: () => Promise<AsyncIterator<Int>>;
+  SKU: () => Promise<AsyncIterator<String>>;
   quantity: () => Promise<AsyncIterator<Int>>;
-  releaseDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  size: <T = SizeSubscription>() => T;
+  price: () => Promise<AsyncIterator<Int>>;
+  sale: () => Promise<AsyncIterator<Int>>;
+  isShow: () => Promise<AsyncIterator<Boolean>>;
+  color: <T = ColorSubscription>() => T;
+  product: <T = ProductSubscription>() => T;
+  images: <T = Promise<AsyncIterator<ImageSubscription>>>() => T;
 }
 
 export interface AggregateDepartment {
@@ -3921,11 +4124,12 @@ export interface Product {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
+  releaseDate?: DateTimeOutput;
 }
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
@@ -3937,8 +4141,7 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   slug: () => Promise<String>;
   PID: () => Promise<String>;
   description: () => Promise<String>;
-  brand: <T = BrandPromise>() => T;
-  category: <T = CategoryPromise>() => T;
+  releaseDate: () => Promise<DateTimeOutput>;
   entity: <T = FragmentableArray<ProductEntity>>(args?: {
     where?: ProductEntityWhereInput;
     orderBy?: ProductEntityOrderByInput;
@@ -3948,6 +4151,9 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  brand: <T = BrandPromise>() => T;
+  category: <T = CategoryPromise>() => T;
+  deparment: <T = DepartmentPromise>() => T;
 }
 
 export interface ProductSubscription
@@ -3961,8 +4167,7 @@ export interface ProductSubscription
   slug: () => Promise<AsyncIterator<String>>;
   PID: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
-  brand: <T = BrandSubscription>() => T;
-  category: <T = CategorySubscription>() => T;
+  releaseDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   entity: <T = Promise<AsyncIterator<ProductEntitySubscription>>>(args?: {
     where?: ProductEntityWhereInput;
     orderBy?: ProductEntityOrderByInput;
@@ -3972,6 +4177,9 @@ export interface ProductSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  brand: <T = BrandSubscription>() => T;
+  category: <T = CategorySubscription>() => T;
+  deparment: <T = DepartmentSubscription>() => T;
 }
 
 export interface ProductEntitySubscriptionPayload {
@@ -4072,11 +4280,12 @@ export interface ProductPreviousValues {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  isFeatured?: Boolean;
+  isFeatured: Boolean;
   name: String;
   slug: String;
   PID: String;
   description?: String;
+  releaseDate?: DateTimeOutput;
 }
 
 export interface ProductPreviousValuesPromise
@@ -4090,6 +4299,7 @@ export interface ProductPreviousValuesPromise
   slug: () => Promise<String>;
   PID: () => Promise<String>;
   description: () => Promise<String>;
+  releaseDate: () => Promise<DateTimeOutput>;
 }
 
 export interface ProductPreviousValuesSubscription
@@ -4103,6 +4313,7 @@ export interface ProductPreviousValuesSubscription
   slug: () => Promise<AsyncIterator<String>>;
   PID: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  releaseDate: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ProductSubscriptionPayload {
@@ -4165,6 +4376,15 @@ export interface DepartmentPromise extends Promise<Department>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  product: <T = FragmentableArray<Product>>(args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   images: <T = FragmentableArray<Image>>() => T;
 }
 
@@ -4189,6 +4409,15 @@ export interface DepartmentSubscription
   category: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
     where?: CategoryWhereInput;
     orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  product: <T = Promise<AsyncIterator<ProductSubscription>>>(args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -4389,10 +4618,6 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "Color",
-    embedded: true
-  },
-  {
     name: "Department",
     embedded: false
   },
@@ -4411,6 +4636,10 @@ export const models: Model[] = [
   {
     name: "ProductEntity",
     embedded: false
+  },
+  {
+    name: "Color",
+    embedded: true
   },
   {
     name: "Size",

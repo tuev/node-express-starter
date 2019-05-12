@@ -9,5 +9,6 @@ type Department {
     @relation(name: "BrandDepartment", link: INLINE, onDelete: SET_NULL)
   category: [Category!]
     @relation(name: "CategoryDepartment", link: INLINE, onDelete: SET_NULL)
+  product: [Product!] @relation(name: "ProductDepartment", onDelete: SET_NULL)
   images: [Image!] @relation(name: "DepartmentImage", storage: Embedded)
 }

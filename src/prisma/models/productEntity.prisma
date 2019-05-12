@@ -1,10 +1,28 @@
 type ProductEntity {
   id: ID! @id
-  color: Color! @relation(name: "Color", storage: Embedded)
-  size: Size! @relation(name: "Size", storage: Embedded)
-  images: [Image!] @relation(name: "Images", storage: Embedded)
-  product: Product! @relation(name: "ProductEntity", link: INLINE)
-  price: Int!
+  SKU: String!
   quantity: Int!
-  releaseDate: DateTime
+  size: Size!
+  price: Int!
+  sale: Int!
+  isShow: Boolean!
+  color: Color! @relation(name: "Color", storage: Embedded)
+  product: Product! @relation(name: "ProductEntity", link: INLINE)
+  images: [Image!] @relation(name: "Images", storage: Embedded)
+}
+
+type Color @embedded {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  slug: String!
+  value: String!
+}
+
+type Size @embedded {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  slug: String!
+  value: String!
 }

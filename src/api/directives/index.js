@@ -1,15 +1,10 @@
-import { emailResolvers, emailDirectives } from './email'
-import { passwordResolvers, passwordDirectives } from './password'
+import { emailDirectives } from './email'
+import { passwordDirectives } from './password'
 import * as directives from './directives.graphql'
 
 export { directives }
 
-export {
-  emailResolvers,
-  emailDirectives,
-  passwordDirectives,
-  passwordResolvers
-}
+export { emailDirectives, passwordDirectives }
 
 export const schemaDirectives = {
   ...emailDirectives,

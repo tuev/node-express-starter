@@ -2,14 +2,17 @@ type Product {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  isFeatured: Boolean
+  isFeatured: Boolean!
   name: String!
   slug: String!
   PID: String!
   description: String
+  releaseDate: DateTime
+  entity: [ProductEntity!]! @relation(name: "ProductEntity")
   brand: Brand!
     @relation(name: "ProductBrand", link: INLINE, onDelete: SET_NULL)
   category: Category!
     @relation(name: "ProductCategory", link: INLINE, onDelete: SET_NULL)
-  entity: [ProductEntity!]! @relation(name: "ProductEntity", onDelete: SET_NULL)
+  deparment: Department!
+    @relation(name: "ProductDepartment", link: INLINE, onDelete: SET_NULL)
 }

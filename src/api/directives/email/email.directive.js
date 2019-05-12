@@ -5,7 +5,8 @@ import {
   GraphQLNonNull
 } from 'graphql'
 import { ApolloError } from 'apollo-server-express'
-import { EmailType, emailRegEx } from './email.resolver'
+import { emailRegEx } from '@utils'
+import { EmailType } from '@scalars'
 
 class EmailDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition (field) {

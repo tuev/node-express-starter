@@ -1,0 +1,64 @@
+type Product {
+  id: ID!
+  createdAt: String
+  isFeatured: Boolean!
+  name: String!
+  slug: String!
+  PID: String!
+  description: String!
+  releaseDate: String
+  category: Category!
+  department: Department!
+  brand: Brand!
+  entity: [ProductEntity!]!
+}
+
+type Image {
+  id: ID!
+  url: String!
+}
+
+enum PRODUCT_ORDER {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  description_ASC
+  description_DESC
+  name_ASC
+  name_DESC
+  slug_ASC
+  slug_DESC
+  PID_ASC
+  PID_DESC
+  releaseDate_ASC
+  releaseDate_DESC
+}
+
+input UpdateProductFields {
+  name: String!
+  description: String
+  price: Int!
+  isFeatured: Boolean
+  PID: String!
+  quantity: Int!
+  releaseDate: String
+  # category: Category!
+  # brand: Brand!
+  # department: Department!
+}
+
+extend type Query {
+  product(id: ID!): Product!
+  products(filter: String, order: PRODUCT_ORDER = "createdAt_DESC"): [Product]!
+}
+
+extend type Mutation {
+  addProduct(Product: UpdateProductFields!): Product!
+  updateProduct(id: ID, data: UpdateProductFields!): Product!
+  deleteProduct(id: ID!): Product!
+}
+
+extend type Subscription {
+  productSubscription: Product
+}

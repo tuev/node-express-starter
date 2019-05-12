@@ -77,6 +77,10 @@ const deleteEvt = applyMiddleware([requireAuthorization, requireFeedAuthor])(
 )
 const likeEvt = applyMiddleware([requireAuthorization])(likeFeed)
 
+/* -------------------------------------------------------------------------- */
+/*                                   EXPORT                                   */
+/* -------------------------------------------------------------------------- */
+
 export const feedsResolvers = {
   Query: {
     feeds,

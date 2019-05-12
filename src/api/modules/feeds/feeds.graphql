@@ -8,11 +8,6 @@ type Feed {
   updatedAt: String
 }
 
-input UpdateFeedFields {
-  description: String
-  url: String
-}
-
 enum FEED_ORDER {
   id_ASC
   id_DESC
@@ -26,8 +21,13 @@ enum FEED_ORDER {
   updatedAt_DESC
 }
 
+input UpdateFeedFields {
+  description: String
+  url: String
+}
+
 extend type Mutation {
-  post(url: String!, description: String!): Feed!
+  post(data: UpdateFeedFields!): Feed!
   like(id: ID!): String!
   updateFeed(id: ID, data: UpdateFeedFields!): Feed!
   deleteFeed(id: ID!): Feed!

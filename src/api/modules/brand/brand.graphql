@@ -1,0 +1,44 @@
+type Brand {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String!
+  images: [Image!]
+  category: [Category!]
+  department: [Department!]
+  product: [Product!]
+}
+
+enum BRAND_ORDER {
+  id_ASC
+  id_DESC
+  description_ASC
+  description_DESC
+  name_ASC
+  name_DESC
+  slug_ASC
+  slug_DESC
+}
+
+input UpdateBrandFields {
+  name: String!
+  description: String
+  # images: [Image]!
+  # category: [Category]!
+  # department: [Department]!
+}
+
+extend type Query {
+  brand(id: ID!): Brand!
+  brands(filter: String, order: BRAND_ORDER = "name_ASC"): [Brand]!
+}
+
+extend type Mutation {
+  addBrand(brand: UpdateBrandFields!): Brand!
+  updateBrand(id: ID, data: UpdateBrandFields!): Brand!
+  deleteBrand(id: ID!): Brand!
+}
+
+extend type Subscription {
+  brandSubscription: Brand
+}

@@ -5,7 +5,8 @@ import {
   GraphQLNonNull
 } from 'graphql'
 import { ApolloError } from 'apollo-server-express'
-import { PasswordType, passwordRegEx } from './password.resolver'
+import { passwordRegEx } from '@utils'
+import { PasswordType } from '@scalars'
 
 class PasswordDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition (field) {

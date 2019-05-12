@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "yarn start-docker && cd src/prisma && prisma deploy",
     "start": "webpack --colors --progress",
-    "start-docker": "docker-compose up -d",
+    "start-docker": "docker-compose up",
     "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
     "test": "npm run test:unit",
     "fix": "standard '**/*.js' '**/*.*.js' --fix",
