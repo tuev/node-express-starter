@@ -1,8 +1,8 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: './src/app',
+    app: './src/app'
   },
 
   module: {
@@ -10,14 +10,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
-    ],
+        loader: 'babel-loader'
+      }
+    ]
   },
 
   plugins: [
     new webpack.EnvironmentPlugin([
-      'NODE_ENV',
-    ]),
-  ],
-};
+      'NODE_ENV'
+    ])
+  ]
+}

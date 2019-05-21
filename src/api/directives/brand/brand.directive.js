@@ -3,11 +3,11 @@ import { defaultFieldResolver } from 'graphql'
 import { ApolloError } from 'apollo-server-express'
 
 class BrandDirective extends SchemaDirectiveVisitor {
-  visitInputFieldDefinition(field) {
+  visitInputFieldDefinition (field) {
     this.wrapType(field)
   }
 
-  visitArgumentDefinition(argument) {
+  visitArgumentDefinition (argument) {
     const { resolve = defaultFieldResolver } = argument
     field.argument = async (source, args, { prisma }, info) => {
       console.log(argument)

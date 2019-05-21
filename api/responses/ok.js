@@ -2,10 +2,8 @@
  * Module dependencies
  */
 
-var util = require('util');
-var _ = require('@sailshq/lodash');
-
-
+var util = require('util')
+var _ = require('@sailshq/lodash')
 
 /**
  * 200 (OK) Response
@@ -19,20 +17,19 @@ var _ = require('@sailshq/lodash');
  */
 
 module.exports = function sendOK (data) {
-
   // Get access to `req` and `res`
-  var req = this.req;
-  var res = this.res;
+  var req = this.req
+  var res = this.res
 
   // Get access to `sails`
-  var sails = req._sails;
+  var sails = req._sails
 
   // Set status code
-  res.status(200);
+  res.status(200)
 
   // If no data was provided, use res.sendStatus().
   if (_.isUndefined(data)) {
-    return res.sendStatus(200);
+    return res.sendStatus(200)
   }
 
   // Extreme edge case (very rare to pass an Error into res.ok() -- but still, just in case)
@@ -45,12 +42,11 @@ module.exports = function sendOK (data) {
   if (_.isError(data)) {
     if (!_.isFunction(data.toJSON)) {
       if (process.env.NODE_ENV === 'production') {
-        return res.sendStatus(200);
+        return res.sendStatus(200)
       }
       // No need to JSON stringify (it's already a string).
-      return res.send(util.inspect(data));
+      return res.send(util.inspect(data))
     }
   }
-  return res.json(data);
-
-};
+  return res.json(data)
+}

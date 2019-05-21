@@ -2,10 +2,8 @@
  * Module dependencies
  */
 
-var util = require('util');
-var _ = require('@sailshq/lodash');
-
-
+var util = require('util')
+var _ = require('@sailshq/lodash')
 
 /**
  * 400 (Bad Request) Handler
@@ -23,38 +21,38 @@ var _ = require('@sailshq/lodash');
  * ```
  */
 
-module.exports = function badRequest(data) {
+module.exports = function badRequest (data) {
   // Get access to `req` and `res`
-  var req = this.req;
-  var res = this.res;
+  var req = this.req
+  var res = this.res
   // Get access to `sails`
-  var sails = req._sails;
-  
-  res.status(400);
+  var sails = req._sails
 
-  var dontRevealErrorInResponse = process.env.NODE_ENV === 'production';
+  res.status(400)
+
+  var dontRevealErrorInResponse = process.env.NODE_ENV === 'production'
   if (dontRevealErrorInResponse || _.isUndefined(data)) {
-    data = {};
+    data = {}
   }
   // Log error to console
   if (!_.isUndefined(data)) {
-    sails.log.error('[400] response: \n', data);
+    sails.log.error('[400] response: \n', data)
   }
 
   var repsonseMessage = {
-    "error": {
-      "code": 400,
-      "message": data.message ? data.message : "Bad Request"
+    'error': {
+      'code': 400,
+      'message': data.message ? data.message : 'Bad Request'
     }
   }
 
   // If the data is an error instance and it doesn't have a custom .toJSON(),
   // use its stack instead (otherwise res.json() will turn it into an empty dictionary).
   if (_.isError(data)) {
-      if (!_.isFunction(data.toJSON)) {
-        repsonseMessage.error.stack = data.stack;
-        return res.send(repsonseMessage);
-      }
+    if (!_.isFunction(data.toJSON)) {
+      repsonseMessage.error.stack = data.stack
+      return res.send(repsonseMessage)
+    }
   }
-  return res.json(repsonseMessage);
-};
+  return res.json(repsonseMessage)
+}

@@ -4,7 +4,6 @@
   "description": "project research express +  graphQL",
   "main": "index.js",
   "scripts": {
-    "postinstall": "yarn start-docker && cd src/prisma && prisma deploy",
     "start": "NODE_ENV=development webpack --webpack-config webpack/dev.config.js --colors --progress",
     "start-docker": "bash start.sh",
     "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
