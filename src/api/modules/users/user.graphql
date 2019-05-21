@@ -3,12 +3,8 @@ type User {
   username: String!
   age: Int
   birthdate: String
-  email: String! @email
-  posts: [Feed!]!
-  liked: [Feed!]!
+  email: String!
 }
-
-directive @isAuth on FIELD_DEFINITION
 
 type AuthPayload {
   token: String
@@ -20,10 +16,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  signup(
-    email: String! @email
-    password: String! @password
-    username: String!
-  ): AuthPayload!
-  signin(password: String! @password, username: String!): AuthPayload!
+  signup(email: String!, password: String!, username: String!): AuthPayload!
+  signin(password: String!, username: String!): AuthPayload!
 }

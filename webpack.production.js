@@ -52,7 +52,11 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv({
-      path: './.env.development'
+      path: './.env.production', // load this now instead of the ones in '.env'
+      safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: true, // hide any errors
+      defaults: false // load '.env.defaults' as the default values if empty.
     }),
     new webpack.DefinePlugin({
       'process.env': { BUILD_TARGET: JSON.stringify('server') }
@@ -64,7 +68,7 @@ module.exports = {
     })
   ],
   output: { path: path.join(__dirname, 'dist'), filename: 'server.js' },
-  mode: 'development',
+  mode: 'production',
   resolve: {
     alias: {
       '@utils': path.resolve(__dirname, 'src/utils/'),

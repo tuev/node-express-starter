@@ -19,7 +19,8 @@ const product = (_, { id }, { prisma }) => prisma.product({ id })
 
 /* ----------------------------- MUTATION ---------------------------- */
 
-const createProduct = (_, args, { prisma }) => prisma.createProduct({ ...args })
+const createProduct = (_, { data }, { prisma }) =>
+  prisma.createProduct({ data: { isFeatured: true, ...data } })
 
 const updateProduct = (_, { id, ...args }, { prisma }) =>
   prisma.updateProduct({ where: { id }, data: args })

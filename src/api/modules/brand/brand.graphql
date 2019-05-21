@@ -34,7 +34,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  addBrand(brand: UpdateBrandFields!): Brand!
+  addBrand(data: UpdateBrandFields!): Brand!
   updateBrand(id: ID, data: UpdateBrandFields!): Brand!
   deleteBrand(id: ID!): Brand!
 }

@@ -9,7 +9,7 @@ import { emailRegEx } from '@utils'
 import { EmailType } from '@scalars'
 
 class EmailDirective extends SchemaDirectiveVisitor {
-  visitFieldDefinition (field) {
+  visitFieldDefinition(field) {
     this.wrapType(field)
     const { resolve = defaultFieldResolver } = field
     field.resolve = async (source, args, context, info) => {
@@ -21,15 +21,15 @@ class EmailDirective extends SchemaDirectiveVisitor {
     }
   }
 
-  visitInputFieldDefinition (field) {
+  visitInputFieldDefinition(field) {
     this.wrapType(field)
   }
 
-  visitArgumentDefinition (argument) {
+  visitArgumentDefinition(argument) {
     this.wrapType(argument)
   }
 
-  wrapType (field) {
+  wrapType(field) {
     if (
       field.type instanceof GraphQLNonNull &&
       field.type.ofType instanceof GraphQLScalarType
@@ -44,5 +44,5 @@ class EmailDirective extends SchemaDirectiveVisitor {
 }
 
 export const emailDirectives = {
-  email: EmailDirective
+  Email: EmailDirective
 }

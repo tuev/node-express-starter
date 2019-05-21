@@ -1,25 +1,27 @@
 import bscript from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { isEmpty } from 'lodash'
 import { requireAuthorization, requireScope } from '@middlewares'
 import applyMiddleware from '@utils/applyMiddleware'
-import { posts, liked } from './user.relation'
+import User from './user.model'
 
 const getUserList = async (_, __, { prisma, auth }) => {
   if (auth) {
-    const result = await prisma.users()
+    const result = await User.find()
     return result
   } else {
     throw new Error('Not authenticated')
   }
 }
 
-const signup = async (_, { username, password, email }, { prisma }) => {
-  const user = await prisma.user({ email })
-  if (user) {
+const signup = async (_, { username, password, email }) => {
+  const user = await User.findOne({ email })
+  console.log(user, 'user')
+  if (!isEmpty(user)) {
     throw new Error('User has already exist')
   }
   const hash = await bscript.hash(password, 10)
-  const newUser = await prisma.createUser({ username, password: hash, email })
+  const newUser = await User.create({ username, password: hash, email })
   const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN_MS
   })
@@ -30,7 +32,7 @@ const signup = async (_, { username, password, email }, { prisma }) => {
 }
 
 const signin = async (_, { username, password }, { prisma }) => {
-  const user = await prisma.user({ username })
+  const user = await User.findOne({ username })
   if (!user) {
     throw new Error("User doesn't exist")
   }
@@ -56,9 +58,9 @@ export const userResolvers = {
   Mutation: {
     signup,
     signin
-  },
-  User: {
-    posts,
-    liked
   }
+  // User: {
+  //   // posts,
+  //   liked
+  // }
 }

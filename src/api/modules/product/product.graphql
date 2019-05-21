@@ -39,12 +39,12 @@ input UpdateProductFields {
   name: String!
   description: String
   price: Int!
-  isFeatured: Boolean
+  isFeatured: Boolean!
   PID: String!
   quantity: Int!
   releaseDate: String
   # category: Category!
-  # brand: Brand!
+  # brand: String! @brand
   # department: Department!
 }
 
@@ -54,7 +54,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  addProduct(Product: UpdateProductFields!): Product!
+  addProduct(data: UpdateProductFields!): Product!
   updateProduct(id: ID, data: UpdateProductFields!): Product!
   deleteProduct(id: ID!): Product!
 }
