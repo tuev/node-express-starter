@@ -1,13 +1,13 @@
 import express from 'express'
-import { setupMiddleware } from '@middlewares'
-import { graphQLRouter } from './api'
+// import { setupMiddleware } from '@middlewares'
+// import { graphQLRouter } from './api'
 
 const app = express()
 
-setupMiddleware(app)
+// setupMiddleware(app)
 
 // graphql route
-graphQLRouter.applyMiddleware({ app })
+// graphQLRouter.applyMiddleware({ app })
 
 // catch all
 app.all('*', (req, res) => {
