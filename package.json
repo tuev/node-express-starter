@@ -4,13 +4,14 @@
   "description": "project research express +  graphQL",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "webpack --webpack-config webpack.production.js --colors --progress",
     "start": "NODE_ENV=development webpack --webpack-config webpack.config.js --colors --progress",
     "start-docker": "bash start.sh",
     "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
     "test": "npm run test:unit",
     "build": "NODE_ENV=production webpack --webpack-config webpack.production.js --colors --progress",
     "start:prod": "npm run fix && npm run start:production",
-    "start:production": "npm run build && node dist/server.js",
+    "start:production": "node dist/server.js",
     "fix": "standard '**/*.js' '**/*.*.js' --fix",
     "prisma-deploy": "cd src/prisma && prisma deploy"
   },
