@@ -45,7 +45,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv({
-      path: './.env.development'
+      path: './.env.production'
     }),
     new webpack.DefinePlugin({
       'process.env': { BUILD_TARGET: JSON.stringify('server') }
