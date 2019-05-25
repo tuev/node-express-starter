@@ -13,13 +13,13 @@ connect()
 server.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`)
 })
-if (process.env.NODE_ENV !== 'production') {
-  // HMR setup
-  if (module.hot) {
-    module.hot.accept(['./server', './api'], () => {
-      server.removeListener('request', currentApp)
-      server.on('request', app)
-      currentApp = app
-    })
-  }
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   // HMR setup
+//   if (module.hot) {
+//     module.hot.accept(['./server', './api'], () => {
+//       server.removeListener('request', currentApp)
+//       server.on('request', app)
+//       currentApp = app
+//     })
+//   }
+// }
