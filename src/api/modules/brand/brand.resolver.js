@@ -1,5 +1,5 @@
 import applyMiddleware from '@utils/applyMiddleware'
-import { requireAuthorization, requireFeedAuthor } from '@middlewares'
+import { requireAuthorization } from '@middlewares'
 import { images, department, category, product } from './brand.relation'
 
 /* ------------------------------- QUERY BRAND ------------------------------- */

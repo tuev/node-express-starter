@@ -1,20 +1,15 @@
 const webpack = require('webpack')
 const path = require('path')
-const nodeExternals = require('webpack-node-externals')
-const StartServerPlugin = require('start-server-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = {
-  entry: ['webpack/hot/poll?1000', './src/index'],
-  watch: true,
-  devtool: 'sourcemap',
+  entry: ['./src/index'],
   target: 'node',
   node: {
     __filename: true,
     __dirname: true
   },
-  externals: [nodeExternals({ whitelist: ['webpack/hot/poll?1000'] })],
   module: {
     rules: [
       {
@@ -46,17 +41,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new StartServerPlugin('server.js'),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv({
-      path: './.env.production', // load this now instead of the ones in '.env'
-      safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
-      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
-      silent: true, // hide any errors
-      defaults: false // load '.env.defaults' as the default values if empty.
+      path: './.env.development'
     }),
     new webpack.DefinePlugin({
       'process.env': { BUILD_TARGET: JSON.stringify('server') }

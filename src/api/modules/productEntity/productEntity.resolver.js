@@ -1,5 +1,3 @@
-import applyMiddleware from '@utils/applyMiddleware'
-import { requireAuthorization } from '@middlewares'
 import { images, color, size, product } from './productEntity.relation'
 
 /* ------------------------------- QUERY BRAND ------------------------------- */

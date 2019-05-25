@@ -1,12 +1,12 @@
 import http from 'http'
 import app from './server'
-import { graphQLRouter } from './api'
+// import { graphQLRouter } from './api'
 import { connect } from './db'
 
 // require('dotenv').config()
 require('custom-env').env(true)
 const server = http.createServer(app)
-graphQLRouter.installSubscriptionHandlers(server)
+// graphQLRouter.installSubscriptionHandlers(server)
 let currentApp = app
 console.log(process.env.PORT, 'port')
 connect()
