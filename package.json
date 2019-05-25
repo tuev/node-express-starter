@@ -4,8 +4,6 @@
   "description": "project research express +  graphQL",
   "main": "index.js",
   "scripts": {
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;",
     "start": "NODE_ENV=development webpack --webpack-config webpack.config.js --colors --progress",
     "start-docker": "bash start.sh",
     "test:unit": "NODE_ENV=testing rm -rf ./tmp/mocha-webpack && mocha-webpack --webpack-config webpack.testing.js \"src/**/*.spec.js\" --timeout 10000 --require source-map-support/register",
@@ -31,7 +29,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "mongoose": "^5.5.1",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "webpack": "^4.29.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
