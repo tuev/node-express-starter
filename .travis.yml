@@ -1,0 +1,131 @@
+###
+### .travis.yml
+###
+
+# ----------------------------- DEFINE STAGES IN CI ---------------------------- #
+
+# these are executed in order.  each must pass for the next to be run
+stages:
+  - smoke # this ensures a "user" install works properly
+  - precache # warm up cache for default Node.js version
+  - lint # lint code and docs
+  - test # all tests
+  
+
+# -------------------------- CD ENVIRONMENT SETTINGS ------------------------- #
+
+# defaults
+language: node_js
+node_js: '9'
+addons:
+  apt:
+    packages:
+      - libnotify-bin
+
+# ---------------------- INSTALL DEPENDENCIES CI SCRIPT ---------------------- #
+
+# this avoids compilation in most cases (where we don't need it)
+install: npm ci --ignore-scripts
+
+# `nvm install` happens before the cache is restored, which means
+# we must install our own npm elsewhere (`~/npm`)
+# ref: https://github.com/mochajs/mocha/blob/master/.travis.yml
+# ref: https://boneskull.com/mocha-and-travis-ci-build-stages/
+
+before_script: npm install -g npm@5.8.0
+before_install: |
+  [[ ! -x ~/npm/node_modules/.bin/npm ]] && {
+    # caching feature creates `~/npm` for us
+    cd ~/npm && npm install npm
+    cd -
+  } || true
+  # avoids bugs around https://github.com/travis-ci/travis-ci/issues/5092
+  export PATH=~/npm/node_modules/.bin:$PATH
+
+# ------------------------------ CACHING CI ENV ------------------------------ #
+
+# this avoids compilation in most cases (where we don't need it)
+cache:
+  directories:
+    - ~/.npm # cache npm's cache
+    - ~/npm # cache latest npm
+
+# ------------------------ DEFINE JOB IN EACH CI STAGE ----------------------- #
+
+jobs:
+  include:
+    # Jobs lacking a stage will use the same stage as the previous job in the list; 
+    # if there is no previous job, the default stage is test
+    # TEST STAGE
+    - &test 
+      stage: test
+      install:
+        - npm install -g mocha-webpack
+        - npm install
+      script: npm run test
+      before_install: true
+      after_success: npm run coverage
+      cache:
+        directories:
+          - ~/.npm
+          - node_modules # npm install, unlike npm ci, doesn't wipe node_modules
+    - <<: *test
+      node_js: '8'
+
+    - <<: *test
+      node_js: '10'
+
+    # LINT STAGE
+    #  linting code - that make code linting and fail which has any issue about code syntax 
+    - stage: lint
+      before_install: true
+      install:
+      - npm install -g standard
+      - npm install -g snazzy
+      script: npm run lint
+    
+    # SMOKE TEST STAGE
+    - &smoke
+      stage: smoke
+      env: null
+      before_install: true
+      install: 
+        - npm install -g mocha
+        - npm install --production --no-shrinkwrap
+      script: mocha --no-config --reporter spec test/sanity/sanity.spec.js
+      cache:
+        directories:
+          - ~/.npm
+          - node_modules # npm install, unlike npm ci, doesn't wipe node_modules
+
+    - <<: *smoke
+      node_js: '10'
+
+    - <<: *smoke
+      node_js: '8'
+
+    # PRECACHE STAGE 
+    # - script = true means it works on this stage and everything warmed-up OK
+    - stage: precache
+      script: true
+
+after_success: npm run coverage
+
+# --------------------------------- CI SETTINGS --------------------------------- #
+
+services: mongodb
+cache:
+  directories:
+    - ~/.npm
+sudo: false
+install: true
+
+# ----------------------------- DEPLOYMENT SCRIPT ---------------------------- #
+
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+
+# ----------------------------------- HOOKS ---------------------------------- #
+
+notifications:
+  webhooks: https://hooks.slack.com/services/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
