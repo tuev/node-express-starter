@@ -1,7 +1,0 @@
-{
-  "hooks": {
-    "orm": false,
-    "pubsub": false,
-    "blueprints": false
-  }
-}
