@@ -1,0 +1,35 @@
+import app from './server'
+import { setupMiddleware } from '@middlewares'
+import { graphQLRouter } from './modules'
+import http from 'http'
+import connectDB from '../config/db'
+const port = process.env.PORT || 4000
+let currentApp = app
+
+/* ----------------------------- DATABASE SETUP ----------------------------- */
+
+connectDB({ useNewUrlParser: true })
+
+/* ---------------------------- MIDDLEWARE SETUP ---------------------------- */
+
+setupMiddleware(app)
+
+/* ------------------------------ GRAPHQL SETUP ----------------------------- */
+
+graphQLRouter.applyMiddleware({ app })
+const server = http.createServer(app)
+graphQLRouter.installSubscriptionHandlers(server)
+
+/* ------------------------------ SERVER SERVE ------------------------------ */
+
+server.listen(port, () => console.log('server is connected', port))
+
+/* ------------------------------- HMR ENABLE ------------------------------- */
+
+if (module.hot) {
+  module.hot.accept(['./server'], () => {
+    server.removeListener('request', currentApp)
+    server.on('request', app)
+    currentApp = app
+  })
+}

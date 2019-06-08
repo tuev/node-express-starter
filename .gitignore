@@ -88,6 +88,8 @@ config/local.js
 ################################################
 
 node_modules
+dist
+generated
 
 
 ################################################
@@ -123,6 +125,10 @@ nbproject
 .node_history
 dump.rdb
 
+build
+coverage
+.nyc_output
+
 npm-debug.log
 lib-cov
 *.seed
@@ -130,3 +136,6 @@ lib-cov
 *.out
 *.pid
 
+.env.development
+.env.test
+.env.production
