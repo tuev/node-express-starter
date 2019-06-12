@@ -3,7 +3,7 @@ const { get } = require('lodash')
 
 const expect = chai.expect
 
-describe('User test', () => {
+describe('User graphql test', () => {
   it('signup success', done => {
     chai
       .sendLocalRequest()

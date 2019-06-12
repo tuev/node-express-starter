@@ -32,7 +32,11 @@ const config = mergeWith(
       })
     ],
     plugins: [
-      new StartServerPlugin('main.js'),
+      new StartServerPlugin({
+        name: 'main.js',
+        nodeArgs: ['--inspect'], // allow debugging
+        signal: 'SIGUSR2'
+      }),
       new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),

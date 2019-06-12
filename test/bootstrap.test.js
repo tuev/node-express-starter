@@ -39,7 +39,7 @@ afterEach(done => {
 const boot = async done => {
   const { uri } = await mongoMem.boot()
   process.env.MONGO_URI = uri
-
+  
   app = require('../src/index')
   console.log(`http://localhost:${process.env.PORT}`, 'URL')
   chai.sendLocalRequest = token =>
