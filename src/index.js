@@ -1,6 +1,6 @@
 import app from './server'
 import { setupMiddleware } from '@middlewares'
-import { graphQLRouter } from './modules'
+import { graphQLRouter, restRouter } from './modules'
 import http from 'http'
 import connectDB from '../config/db'
 const port = process.env.PORT || 4000
@@ -13,6 +13,8 @@ connectDB({ useNewUrlParser: true })
 /* ---------------------------- MIDDLEWARE SETUP ---------------------------- */
 
 setupMiddleware(app)
+
+app.use('/api/v1', restRouter)
 
 /* ------------------------------ GRAPHQL SETUP ----------------------------- */
 

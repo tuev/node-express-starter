@@ -24,8 +24,8 @@ module.exports = mergeWith(
         algorithm: 'gzip',
         test: /\.js$/,
         threshold: 10240,
-        minRatio: 0.8,
-        deleteOriginalAssets: true
+        minRatio: 0.8
+        // deleteOriginalAssets: trues
       }),
       new HashedModuleIdsPlugin({
         hashFunction: 'sha256',
