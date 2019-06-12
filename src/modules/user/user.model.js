@@ -11,7 +11,8 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      select: false
     },
     dob: Date,
     email: {
@@ -24,9 +25,6 @@ const userSchema = new Schema(
 )
 
 userSchema.methods = {
-  authenticate (rawPassword) {
-    return bcrypt.compareSync(rawPassword, this.password)
-  },
   hashPassword (rawPassword) {
     if (!rawPassword) {
       throw new Error('Password is invalid!')

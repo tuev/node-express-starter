@@ -1,6 +1,8 @@
 import User from './user.model'
 import applyMiddleware from '@utils/applyMiddlewares'
 import { requireAuthorization } from '@middlewares'
+import bcrypt from 'bcrypt'
+
 import jwt from 'jsonwebtoken'
 
 /* ------------------------------- QUERY ------------------------------- */
@@ -11,16 +13,16 @@ const getUserList = async () => {
 }
 
 const signin = async (_, { username, password }) => {
-  const user = await User.findOne({ username })
+  const user = await User.findOne({ username }, 'username email password dob')
   if (!user) {
     throw new Error('Invalid username')
   }
-  const isValid = user.authenticate(password)
+  const isValid = bcrypt.compareSync(password, user.password)
   if (isValid) {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE_IN_MS
     })
-
+    delete user.password
     return {
       token,
       user
