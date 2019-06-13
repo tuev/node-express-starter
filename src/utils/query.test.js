@@ -1,4 +1,4 @@
-import User from '@modules/user/user.model'
+import User from '@modules/User/user.model'
 import chai from 'chai'
 import { controllers } from './query'
 
