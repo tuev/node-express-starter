@@ -6,7 +6,7 @@ import { merge } from 'lodash'
 
 /* --------------------------- RESOLVER FOR MODULE -------------------------- */
 
-import { userResolvers } from './user'
+import { userResolvers } from './User'
 
 /* ------------------------- DEFINE GRAPHQL RESOLVER ------------------------ */
 

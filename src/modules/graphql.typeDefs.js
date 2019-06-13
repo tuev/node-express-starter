@@ -6,7 +6,7 @@ import { gql } from 'apollo-server-express'
 
 /* --------------------------- TYPE FOR MODULE -------------------------- */
 
-import { userType } from './user'
+import { userType } from './User'
 
 /* ------------------------- DEFINE GRAPHQL TYPEDEF ------------------------ */
 

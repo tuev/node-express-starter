@@ -4,7 +4,7 @@
 
 import express from 'express'
 import { apiErrorHandler } from '@utils/errorHandler'
-import { userRouter } from './user'
+import { userRouter } from './User'
 
 export const restRouter = express.Router()
 
