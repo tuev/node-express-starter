@@ -1,4 +1,4 @@
-export const UserModel = [
+export const User = [
   {
     username: 'user_test',
     password: '123',

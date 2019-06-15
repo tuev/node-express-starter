@@ -1,5 +1,5 @@
 import { isError } from 'lodash'
-import User from '@modules/user/user.model'
+import User from '@modules/User/user.model'
 
 const jwt = require('jsonwebtoken')
 

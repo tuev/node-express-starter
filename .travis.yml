@@ -125,6 +125,13 @@ install: true
 before_deploy:
   - rm -rf node_modules # omit from the tarball, since we skip cleanup
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: e3K1aReDImTyM4piHRbAfq2E3V2bXMIXAejSLpoF+N1/xCkiQ+jKAAmLO6LEDhhLJNxBTLYVuHgCdH3VgMFNRmoLtgHuzeoqEEcQGY0RwzTxve9srkZz1bGJfLOb0OlVSM478CQ7wcPgQuLo0Wb7ZtPE9MzVgB6/jnFB6jg6ZKv5e17V3zYaOzCoC0pm8LKajx20nNYONnHdYg0TZyX296kZvkymhYHVw6EPnuTbnlCCiwUXFe/JlbwERwrvt190eImRnqMmdCL55CtS5K/IQnsub1qg+tPxnSnwOQqDMqp25taC5YGsAyqVBlaPPdG30bG0/mxExeQo94k2Z4e5t0msEatMmTU0OH+XZyFdRmnHyjHUaFvzHPJnBMjiwWwjFpIBRfSMRcaObXIi0z+y1b4omR30Yt7+wnUvAZFOvgoZx3lOf0DD2zZ0E1yf9Lumt8IS+wujfiTZVJK1cdsHLLilO+9WsS2wDkumijxnjbI2GhUGXCC6dOIzDGhIO+LNartLepa5Lpu/0nXWNxPs9aUwXofsN4+uMXjkDGo/e9445XEbuAxVrB6h1sSGCBr682l2ZPSVB116eP0nejSjN24H/uTNbXkejBecgG/XS7ZPOrY16kgVtUN5Fe3OpkBOv8ig/DQDmTPasAkcdTlfaVyhxkJULU5WBGKRo7BHNC8=
+  app: graphql-ec
+  skip_cleanup: true
+
 # ----------------------------------- HOOKS ---------------------------------- #
 
 notifications:

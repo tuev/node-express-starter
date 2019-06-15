@@ -2704,6 +2704,11 @@ enhanced-resolve@^4.1.0:
     memory-fs "^0.4.0"
     tapable "^1.0.0"
 
+ensure-array@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ensure-array/-/ensure-array-1.0.0.tgz#317e9fc632c656bb849eb649133528e205b23abc"
+  integrity sha512-A+3Ntl5WS+GjDnHtC67dKIjw+IoGoeFdNvjn3ZfKEmZgWUz0nxBPE4W52QMCbGZsat0VwWskD5T6AEpe3T2d1g==
+
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/errno/-/errno-0.1.7.tgz#4684d71779ad39af177e3f007996f7c67c852618"
@@ -3017,6 +3022,23 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   integrity sha1-l+gBqgUt8CRU3kawK/YhZCzchQI=
   dependencies:
     homedir-polyfill "^1.0.1"
+
+express-restify-mongoose@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/express-restify-mongoose/-/express-restify-mongoose-5.0.0.tgz#5b07b046cf0721d81ac4bb960522e48a3d0a9c59"
+  integrity sha512-1Slc4C13qM3jvS6xq2Dj0q4MCM4MlE9tjZqqxGhIPmSapxq5GI3vYKDSIBHVHjPQrVz1ZQhA88QcEo/rLMDkHg==
+  dependencies:
+    ensure-array "~1.0.0"
+    is-coordinates "~2.0.0"
+    lodash.defaults "~4.2.0"
+    lodash.get "~4.4.2"
+    lodash.has "~4.5.2"
+    lodash.isplainobject "~4.0.6"
+    mongoose-detective "~1.0.0"
+    moredots "~1.0.1"
+    run-series "~1.1.8"
+    serialize-error "~2.1.0"
+    weedout "~1.0.1"
 
 express@^4.17.0:
   version "4.17.1"
@@ -3962,6 +3984,11 @@ is-ci@^2.0.0:
   dependencies:
     ci-info "^2.0.0"
 
+is-coordinates@~2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/is-coordinates/-/is-coordinates-2.0.2.tgz#c313bb6ece24ed39b6ad3fdfcf6e8e93ae117370"
+  integrity sha1-wxO7bs4k7Tm2rT/fz26Ok64Rc3A=
+
 is-data-descriptor@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/is-data-descriptor/-/is-data-descriptor-0.1.4.tgz#0b5ee648388e2c860282e793f1856fec3f301b56"
@@ -4580,10 +4607,25 @@ lockfile@^1.0.4:
   dependencies:
     signal-exit "^3.0.2"
 
+lodash.defaults@~4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
+  integrity sha1-0JF4cW/+pN3p5ft7N/bwgCJ0WAw=
+
 lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
   integrity sha1-+wMJF/hqMTTlvJvsDWngAT3f7bI=
+
+lodash.get@~4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+
+lodash.has@~4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.has/-/lodash.has-4.5.2.tgz#d19f4dc1095058cccbe2b0cdf4ee0fe4aa37c862"
+  integrity sha1-0Z9NwQlQWMzL4rDN9O4P5Ko3yGI=
 
 lodash.includes@^4.3.0:
   version "4.3.0"
@@ -4605,7 +4647,7 @@ lodash.isnumber@^3.0.3:
   resolved "https://registry.yarnpkg.com/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
   integrity sha1-POdoEMWSjQM1IwGsKHMX8RwLH/w=
 
-lodash.isplainobject@^4.0.6:
+lodash.isplainobject@^4.0.6, lodash.isplainobject@~4.0.0, lodash.isplainobject@~4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
   integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
@@ -4792,6 +4834,16 @@ merge-source-map@^1.1.0:
   integrity sha512-Qkcp7P2ygktpMPh2mCQZaf3jhN6D3Z/qVZHSdWvQ+2Ef5HgRAPBO57A77+ENm0CPx2+1Ce/MYKi3ymqdfuqibw==
   dependencies:
     source-map "^0.6.1"
+
+method-override@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/method-override/-/method-override-3.0.0.tgz#6ab0d5d574e3208f15b0c9cf45ab52000468d7a2"
+  integrity sha512-IJ2NNN/mSl9w3kzWB92rcdHpz+HjkxhDJWNDBqSlas+zQdP8wBiJzITPg08M/k2uVvMow7Sk41atndNtt/PHSA==
+  dependencies:
+    debug "3.1.0"
+    methods "~1.1.2"
+    parseurl "~1.3.2"
+    vary "~1.1.2"
 
 methods@^1.1.1, methods@^1.1.2, methods@~1.1.2:
   version "1.1.2"
@@ -5050,6 +5102,11 @@ mongodb@>=3.2.7:
     mongodb-core "3.2.7"
     safe-buffer "^5.1.2"
 
+mongoose-detective@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mongoose-detective/-/mongoose-detective-1.0.0.tgz#076a34e1355a57fa8d24ea5bcabbd3b49a5f21b7"
+  integrity sha512-u9XnSBT3XvsAT3rO8Z2FkR7KcMxDdYDcuK1PynXPeo9w36cxl4N3YO1OX2DJNSQ8cHP0Y2a0ozqTlil7FwZOlg==
+
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
@@ -5073,6 +5130,13 @@ mongoose@^5.5.11:
     safe-buffer "5.1.2"
     sift "7.0.1"
     sliced "1.0.1"
+
+moredots@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/moredots/-/moredots-1.0.1.tgz#3b8ae32a4d66d72751cb29033dd16eb2d155d98d"
+  integrity sha512-kwHfWclqmAxU7nBTjJh3Coh2tCZJCrdVecXREJGEseRFRTCTDXN+/5KJg3p6C6380q/xaxrWN1QYM9w9M54otA==
+  dependencies:
+    lodash.isplainobject "~4.0.0"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -5644,7 +5708,7 @@ parse-passwd@^1.0.0:
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
 
-parseurl@~1.3.3:
+parseurl@~1.3.2, parseurl@~1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
@@ -6329,6 +6393,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
+run-series@~1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/run-series/-/run-series-1.1.8.tgz#2c4558f49221e01cd6371ff4e0a1e203e460fc36"
+  integrity sha512-+GztYEPRpIsQoCSraWHDBs9WVy4eVME16zhOtDB4H9J4xN0XRhknnmLOl+4gRgZtu8dpp9N/utSPjKH/xmDzXg==
+
 rxjs@^5.5.2:
   version "5.5.12"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.12.tgz#6fa61b8a77c3d793dbaf270bee2f43f652d741cc"
@@ -6428,6 +6497,11 @@ send@0.17.1:
     on-finished "~2.3.0"
     range-parser "~1.2.1"
     statuses "~1.5.0"
+
+serialize-error@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-2.1.0.tgz#50b679d5635cdf84667bdc8e59af4e5b81d5f60a"
+  integrity sha1-ULZ51WNc34Rme9yOWa9OW4HV9go=
 
 serialize-javascript@^1.4.0, serialize-javascript@^1.7.0:
   version "1.7.0"
@@ -7442,6 +7516,11 @@ webpack@^4.32.2:
     terser-webpack-plugin "^1.1.0"
     watchpack "^1.5.0"
     webpack-sources "^1.3.0"
+
+weedout@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/weedout/-/weedout-1.0.1.tgz#9ef94de969fc3ee36f62e3fb1cb5680e752963d5"
+  integrity sha512-FvqG3/BxYjmNJqPDsHtaoaQAGwa6iJXu6Kxu09WC3nr9ClBz61dGxDSTwc5VPVzT+6CBH1j4MwtUMa9hZXOeIw==
 
 which-module@^2.0.0:
   version "2.0.0"

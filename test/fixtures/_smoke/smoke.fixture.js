@@ -1,4 +1,4 @@
-export const UserModel = [
+export const User = [
   {
     name: 'user_test'
   },

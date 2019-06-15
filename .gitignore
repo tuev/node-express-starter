@@ -90,6 +90,8 @@ config/local.js
 node_modules
 dist
 generated
+build
+coverage
 
 
 ################################################
