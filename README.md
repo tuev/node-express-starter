@@ -1,2 +1,2 @@
 # express-mongoGraph 
-[![Build Status](https://travis-ci.com/tuev/ecommerce-BO.svg?branch=master)](https://travis-ci.com/tuev/ecommerce-BO)
+[![Build Status](https://travis-ci.com/tuev/express-starter.svg?branch=master)](https://travis-ci.com/tuev/express-starter)
