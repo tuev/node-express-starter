@@ -8,6 +8,6 @@ import { userRouter } from './User'
 
 export const restRouter = express.Router()
 
-restRouter.use('/user', userRouter)
+restRouter.use(userRouter)
 
 restRouter.use(apiErrorHandler)

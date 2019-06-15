@@ -1,17 +1,9 @@
 import express from 'express'
-import userController from './user.controller'
+import User from './user.model'
+import restify from 'express-restify-mongoose'
 
-export const userRouter = express.Router()
+const userRouter = express.Router()
 
-userRouter.param('id', userController.findByParam)
+restify.serve(userRouter, User)
 
-userRouter
-  .route('/')
-  .get(userController.getAll)
-  .post(userController.createOne)
-
-userRouter
-  .route('/:id')
-  .get(userController.getOne)
-  .put(userController.updateOne)
-  .delete(userController.createOne)
+export { userRouter }

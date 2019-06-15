@@ -14,7 +14,7 @@ connectDB({ useNewUrlParser: true })
 
 setupMiddleware(app)
 
-app.use('/api/v1', restRouter)
+app.use(restRouter)
 
 /* ------------------------------ GRAPHQL SETUP ----------------------------- */
 
