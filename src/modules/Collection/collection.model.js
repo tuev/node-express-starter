@@ -13,13 +13,29 @@ const collectionSchema = new Schema(
       required: true
     },
     url: String,
-    brands: [String],
-    categories: [String],
-    images: [String]
+    brands: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'BrandCollection'
+      }
+    ],
+    categories: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'CategoryCollection'
+      }
+    ],
+    images: [String],
+    SKUs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Collection = mongoose.model('CollectionModel', collectionSchema)
+const Collection = mongoose.model('Collection', collectionSchema)
 
 export default Collection

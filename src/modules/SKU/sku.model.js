@@ -19,13 +19,31 @@ const skuSchema = new Schema(
       type: Boolean,
       default: false
     },
-    color: String,
-    size: String,
-    brand: String,
-    collection: String,
-    category: String,
+    color: {
+      type: Schema.Types.ObjectId,
+      ref: 'Color'
+    },
+    size: {
+      type: Schema.Types.ObjectId,
+      ref: 'Size'
+    },
+    brand: {
+      type: Schema.Types.ObjectId,
+      ref: 'Brand'
+    },
+    collection: {
+      type: Schema.Types.ObjectId,
+      ref: 'Collection'
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category'
+    },
     images: [String],
-    product: String
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }
   },
   { timestamps: true }
 )

@@ -18,6 +18,6 @@ const imageSchema = new Schema(
   { timestamps: true }
 )
 
-const Image = mongoose.model('ImageModel', imageSchema)
+const Image = mongoose.model('Image', imageSchema)
 
 export default Image

@@ -14,13 +14,29 @@ const categorySchema = new Schema(
     },
     url: String,
     description: String,
-    brands: [String],
-    collections: [String],
-    images: [String]
+    images: [String],
+    brands: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'BrandCategory'
+      }
+    ],
+    collections: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'CategoryCollection'
+      }
+    ],
+    SKUs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Category = mongoose.model('CategoryModel', categorySchema)
+const Category = mongoose.model('Category', categorySchema)
 
 export default Category
