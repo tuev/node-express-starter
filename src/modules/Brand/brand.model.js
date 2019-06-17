@@ -12,7 +12,10 @@ const brandSchema = new Schema(
       type: String,
       required: true
     },
-    description: String
+    description: String,
+    categories: [String],
+    collections: [String],
+    image: [String]
   },
   { timestamps: true }
 )

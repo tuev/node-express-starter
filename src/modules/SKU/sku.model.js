@@ -14,7 +14,18 @@ const skuSchema = new Schema(
     },
     quantity: Number,
     price: String,
-    discount: String
+    discount: String,
+    isPublic: {
+      type: Boolean,
+      default: false
+    },
+    color: String,
+    size: String,
+    brand: String,
+    collection: String,
+    category: String,
+    images: [String],
+    product: String
   },
   { timestamps: true }
 )

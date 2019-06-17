@@ -18,7 +18,8 @@ const productSchema = new Schema(
     likes: Number,
     status: Boolean,
     releaseDate: Date,
-    rate: Number
+    rate: Number,
+    skus: [String]
   },
   { timestamps: true }
 )

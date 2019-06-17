@@ -12,7 +12,8 @@ const colorSchema = new Schema(
       type: String,
       required: true
     },
-    value: String
+    value: String,
+    description: String
   },
   { timestamps: true }
 )

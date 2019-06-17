@@ -16,7 +16,8 @@ const sizeSchema = new Schema(
       type: String,
       enum: ['S', 'M', 'L', 'XL', 'XXL'],
       default: 'M'
-    }
+    },
+    description: String
   },
   { timestamps: true }
 )

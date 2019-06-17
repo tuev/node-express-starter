@@ -12,7 +12,8 @@ const imageSchema = new Schema(
       type: String,
       required: true
     },
-    url: String
+    url: String,
+    description: String
   },
   { timestamps: true }
 )

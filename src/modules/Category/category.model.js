@@ -12,7 +12,11 @@ const categorySchema = new Schema(
       type: String,
       required: true
     },
-    url: String
+    url: String,
+    description: String,
+    brands: [String],
+    collections: [String],
+    images: [String]
   },
   { timestamps: true }
 )

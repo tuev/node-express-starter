@@ -12,7 +12,10 @@ const collectionSchema = new Schema(
       type: String,
       required: true
     },
-    url: String
+    url: String,
+    brands: [String],
+    categories: [String],
+    images: [String]
   },
   { timestamps: true }
 )
