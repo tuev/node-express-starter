@@ -39,7 +39,12 @@ const skuSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Category'
     },
-    images: [String],
+    images: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+      }
+    ],
     product: {
       type: Schema.Types.ObjectId,
       ref: 'Product'

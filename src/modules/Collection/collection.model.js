@@ -25,7 +25,12 @@ const collectionSchema = new Schema(
         ref: 'CategoryCollection'
       }
     ],
-    images: [String],
+    images: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+      }
+    ],
     SKUs: [
       {
         type: Schema.Types.ObjectId,

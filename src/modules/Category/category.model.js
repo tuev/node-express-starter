@@ -14,7 +14,12 @@ const categorySchema = new Schema(
     },
     url: String,
     description: String,
-    images: [String],
+    images: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+      }
+    ],
     brands: [
       {
         type: Schema.Types.ObjectId,
