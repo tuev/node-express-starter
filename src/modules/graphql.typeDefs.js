@@ -7,6 +7,7 @@ import { gql } from 'apollo-server-express'
 /* --------------------------- TYPE FOR MODULE -------------------------- */
 
 import { userType } from './User'
+import { brandType } from './Brand'
 
 /* ------------------------- DEFINE GRAPHQL TYPEDEF ------------------------ */
 
@@ -26,6 +27,6 @@ const baseType = gql`
     subscription: Subscription
   }
 `
-const typeDefs = [baseType, userType]
+const typeDefs = [baseType, userType, brandType]
 
 export default typeDefs

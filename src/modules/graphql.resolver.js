@@ -7,9 +7,10 @@ import { merge } from 'lodash'
 /* --------------------------- RESOLVER FOR MODULE -------------------------- */
 
 import { userResolvers } from './User'
+import { brandResolvers } from './Brand'
 
 /* ------------------------- DEFINE GRAPHQL RESOLVER ------------------------ */
 
-const resolvers = merge({}, userResolvers)
+const resolvers = merge({}, userResolvers, brandResolvers)
 
 export default resolvers

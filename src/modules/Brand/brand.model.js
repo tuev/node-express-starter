@@ -25,10 +25,12 @@ const brandSchema = new Schema(
         ref: 'BrandCollection'
       }
     ],
-    image: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Image'
-    }],
+    image: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+      }
+    ],
     SKUs: [
       {
         type: Schema.Types.ObjectId,
