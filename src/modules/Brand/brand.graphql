@@ -3,7 +3,9 @@ type Brand {
   name: String!
   slug: String!
   description: String
-  # createdAt: Date
+  categories: [String]
+  collections: [String]
+  SKUs: [String]
 }
 
 extend type Query {

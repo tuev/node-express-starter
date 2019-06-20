@@ -1,0 +1,18 @@
+type Color {
+  id: ID!
+  name: String!
+  slug: String!
+  value: String!
+  description: String
+  SKUs: [String]
+}
+
+extend type Query {
+  colors: [Color]!
+  color(id: String): Color!
+}
+
+extend type Mutation {
+  addColor(name: String!, value: String!, description: String): Color!
+  deleteColor(id: String!): Boolean
+}
