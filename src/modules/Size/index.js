@@ -1,2 +1,1 @@
-import { graphQLRouter } from './graphQLRouter'
-export { graphQLRouter }
+export * from './size.graphQLRouter'

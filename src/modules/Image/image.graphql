@@ -1,0 +1,25 @@
+enum onModel {
+  Brand
+  Category
+  Collection
+  SKU
+}
+
+type Image {
+  id: ID!
+  name: String
+  url: String!
+  slug: String
+  description: String
+  on: Brand | Category | Collection | SKU
+}
+
+extend type Query {
+  images: [Images]!
+  image(id: String): Image
+}
+
+extend type Mutation {
+  addImage(name: String!, url: String!, description: String, on: String, onModel: onModel): Image
+  deleteImage(id: String): Boolean
+}

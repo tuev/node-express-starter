@@ -14,12 +14,27 @@ const productSchema = new Schema(
     },
     description: String,
     isPublic: Boolean,
-    views: Number,
-    likes: Number,
-    status: Boolean,
-    releaseDate: Date,
-    rate: Number,
-    skus: [
+    views: {
+      type: Number,
+      default: 0
+    },
+    likes: {
+      type: Number,
+      default: 0
+    },
+    status: {
+      type: Boolean,
+      default: false
+    },
+    releaseDate: {
+      type: Date,
+      default: new Date()
+    },
+    rate: {
+      type: Number,
+      default: 0
+    },
+    SKUs: [
       {
         type: Schema.Types.ObjectId,
         ref: 'SKU'
