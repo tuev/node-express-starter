@@ -1,16 +1,11 @@
 stages:
-  - name: smoke # this ensures a "user" install works properly
+  - name: smoke
     if: branch != master
-  - name: precache # warm up cache for default Node.js version
+  - name: precache
     if: branch != master
-  - name: lint # lint code and docs
+  - name: lint
     if: branch != master
-  - test # all tests
-  
-
-# -------------------------- CD ENVIRONMENT SETTINGS ------------------------- #
-
-# defaults
+  - test
 language: node_js
 node_js: 
   - 'stable'
@@ -22,20 +17,15 @@ install: true
 before_script: npm install -g npm@5.8.0
 before_install: |
   [[ ! -x ~/npm/node_modules/.bin/npm ]] && {
-    # caching feature creates `~/npm` for us
     cd ~/npm && npm install npm
     cd -
   } || true
-  # avoids bugs around https://github.com/travis-ci/travis-ci/issues/5092
   export PATH=~/npm/node_modules/.bin:$PATH
 cache:
   directories:
   - "~/.npm"
 jobs:
   include:
-    # Jobs lacking a stage will use the same stage as the previous job in the list; 
-    # if there is no previous job, the default stage is test
-    # TEST STAGE
     - &test 
       stage: test
       install:
@@ -47,25 +37,19 @@ jobs:
       cache:
         directories:
           - ~/.npm
-          - node_modules # npm install, unlike npm ci, doesn't wipe node_modules
+          - node_modules
     - <<: *test
       node_js: '8'
       if: branch != master
-
     - <<: *test
       node_js: '10'
       if: branch != master
-
-    # LINT STAGE
-    #  linting code - that make code linting and fail which has any issue about code syntax 
     - stage: lint
       before_install: true
       install:
       - npm install -g standard
       - npm install -g snazzy
       script: npm run lint
-
-    # SMOKE TEST STAGE
     - &smoke
       stage: smoke
       env: null
@@ -77,19 +61,13 @@ jobs:
       cache:
         directories:
           - ~/.npm
-          - node_modules # npm install, unlike npm ci, doesn't wipe node_modules
-
+          - node_modules
     - <<: *smoke
       node_js: '10'
-
     - <<: *smoke
       node_js: '8'
-
-    # PRECACHE STAGE 
-    # - script = true means it works on this stage and everything warmed-up OK
     - stage: precache
       script: true
-
 after_success: npm run coverage
 services: mongodb
 sudo: false

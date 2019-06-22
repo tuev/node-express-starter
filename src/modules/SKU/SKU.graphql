@@ -1,0 +1,40 @@
+type SKU {
+  id: ID!
+  name: String
+  slug: String!
+  quantity: Int!
+  price: Int!
+  discount: Int
+  isPublic: Boolean
+  color: String
+  size: String
+  brand: String
+  collection: String
+  category: String
+  images: [String]
+  product: String
+}
+
+extend type Query {
+  skus: [SKU]!
+  sku: SKU
+}
+
+extend type Mutation {
+  addSKU(
+    name: String
+    slug: String
+    quantity: Int
+    price: Int
+    discount: Int
+    isPublic: Boolean
+    color: String
+    size: String
+    brand: String
+    collection: String
+    category: String
+    images: [String]
+    product: String
+  ): SKU!
+  deleteSKU(id: String): Boolean
+}
