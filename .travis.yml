@@ -6,9 +6,12 @@
 
 # these are executed in order.  each must pass for the next to be run
 stages:
-  - smoke # this ensures a "user" install works properly
-  - precache # warm up cache for default Node.js version
-  - lint # lint code and docs
+  - name: smoke # this ensures a "user" install works properly
+    if: branch != master
+  - name: precache # warm up cache for default Node.js version
+    if: branch != master
+  - name: lint # lint code and docs
+    if: branch != master
   - test # all tests
   
 
@@ -16,7 +19,8 @@ stages:
 
 # defaults
 language: node_js
-node_js: '9'
+node_js: 
+  - 'stable'
 addons:
   apt:
     packages:
@@ -71,9 +75,11 @@ jobs:
           - node_modules # npm install, unlike npm ci, doesn't wipe node_modules
     - <<: *test
       node_js: '8'
+      if: branch != master
 
     - <<: *test
       node_js: '10'
+      if: branch != master
 
     # LINT STAGE
     #  linting code - that make code linting and fail which has any issue about code syntax 
@@ -83,7 +89,7 @@ jobs:
       - npm install -g standard
       - npm install -g snazzy
       script: npm run lint
-    
+
     # SMOKE TEST STAGE
     - &smoke
       stage: smoke
