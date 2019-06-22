@@ -1,10 +1,3 @@
-###
-### .travis.yml
-###
-
-# ----------------------------- DEFINE STAGES IN CI ---------------------------- #
-
-# these are executed in order.  each must pass for the next to be run
 stages:
   - name: smoke # this ensures a "user" install works properly
     if: branch != master
@@ -24,18 +17,8 @@ node_js:
 addons:
   apt:
     packages:
-      - libnotify-bin
-
-# ---------------------- INSTALL DEPENDENCIES CI SCRIPT ---------------------- #
-
-# this avoids compilation in most cases (where we don't need it)
-install: npm ci --ignore-scripts
-
-# `nvm install` happens before the cache is restored, which means
-# we must install our own npm elsewhere (`~/npm`)
-# ref: https://github.com/mochajs/mocha/blob/master/.travis.yml
-# ref: https://boneskull.com/mocha-and-travis-ci-build-stages/
-
+    - libnotify-bin
+install: true
 before_script: npm install -g npm@5.8.0
 before_install: |
   [[ ! -x ~/npm/node_modules/.bin/npm ]] && {
@@ -45,17 +28,9 @@ before_install: |
   } || true
   # avoids bugs around https://github.com/travis-ci/travis-ci/issues/5092
   export PATH=~/npm/node_modules/.bin:$PATH
-
-# ------------------------------ CACHING CI ENV ------------------------------ #
-
-# this avoids compilation in most cases (where we don't need it)
 cache:
   directories:
-    - ~/.npm # cache npm's cache
-    - ~/npm # cache latest npm
-
-# ------------------------ DEFINE JOB IN EACH CI STAGE ----------------------- #
-
+  - "~/.npm"
 jobs:
   include:
     # Jobs lacking a stage will use the same stage as the previous job in the list; 
@@ -116,29 +91,15 @@ jobs:
       script: true
 
 after_success: npm run coverage
-
-# --------------------------------- CI SETTINGS --------------------------------- #
-
 services: mongodb
-cache:
-  directories:
-    - ~/.npm
 sudo: false
-install: true
-
-# ----------------------------- DEPLOYMENT SCRIPT ---------------------------- #
-
 before_deploy:
-  - rm -rf node_modules # omit from the tarball, since we skip cleanup
-
+- rm -rf node_modules
 deploy:
   provider: heroku
   api_key:
-    secure: e3K1aReDImTyM4piHRbAfq2E3V2bXMIXAejSLpoF+N1/xCkiQ+jKAAmLO6LEDhhLJNxBTLYVuHgCdH3VgMFNRmoLtgHuzeoqEEcQGY0RwzTxve9srkZz1bGJfLOb0OlVSM478CQ7wcPgQuLo0Wb7ZtPE9MzVgB6/jnFB6jg6ZKv5e17V3zYaOzCoC0pm8LKajx20nNYONnHdYg0TZyX296kZvkymhYHVw6EPnuTbnlCCiwUXFe/JlbwERwrvt190eImRnqMmdCL55CtS5K/IQnsub1qg+tPxnSnwOQqDMqp25taC5YGsAyqVBlaPPdG30bG0/mxExeQo94k2Z4e5t0msEatMmTU0OH+XZyFdRmnHyjHUaFvzHPJnBMjiwWwjFpIBRfSMRcaObXIi0z+y1b4omR30Yt7+wnUvAZFOvgoZx3lOf0DD2zZ0E1yf9Lumt8IS+wujfiTZVJK1cdsHLLilO+9WsS2wDkumijxnjbI2GhUGXCC6dOIzDGhIO+LNartLepa5Lpu/0nXWNxPs9aUwXofsN4+uMXjkDGo/e9445XEbuAxVrB6h1sSGCBr682l2ZPSVB116eP0nejSjN24H/uTNbXkejBecgG/XS7ZPOrY16kgVtUN5Fe3OpkBOv8ig/DQDmTPasAkcdTlfaVyhxkJULU5WBGKRo7BHNC8=
+    secure: KL6xG6pcxhW14Jsc0ATp+iRp0JCjfCJB2ZhLP8n57jK+G9ooEE+YMm8ongI3sFJb+tXbwIb0ye9NbOIR/iNlt9xCwmDs02+LILlBmUU+JvLcL9ImJT6GTu3nLbqsq4QDfuAGAcvWOYa5YRmmITEymf8c8zt9infWbBHhEkxe82OkNKvFlxPvueHD6KlCCmMjm4ygod8ME85OldbUE/R3QeGGZgGV/UlEZjD0CKBIo2/6GF3PnTl5sOoAqpx38I3gX8mc8uLngy2oUVEr4mPIz7lviRisLwk0xKQvLh5gUtLCFOLBwYLbUJf+0jtVyZ8Rv3VDCFPaS+KOQzfqMFpBag9rqCqv3ZFKfaL28xv245cpsMsF4b2W0767EFV7XmWcmDKkKEtNVi6QVZiflr0LaKbvQhgs/S8St5r8Xe46m5vy0ht3EI3KtMAn8cIMSOKctWfExucyK4t1YaQiB7vWZr/OJb+v14le9bvPgki42mRP3RNWWI15C/XZ9tvmrJBVGw9yRTZjzByL6ggHk/GpFy+tiP9mCrol7P5wtTu5COVSfcEVVpajn069dPzkhbZbqoWc67LodOht3JWKg9j30i39ifVIT5SE1ae74Pa0DqHlhPR2T1hon4Q3QhDOKxMT6ooK96hb26jFXyUbMrf1NZyc1a6+8jzQmwdhREYJJWE=
   app: graphql-ec
   skip_cleanup: true
-
-# ----------------------------------- HOOKS ---------------------------------- #
-
 notifications:
   webhooks: https://hooks.slack.com/services/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
