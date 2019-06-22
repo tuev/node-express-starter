@@ -16,11 +16,18 @@ const sizeSchema = new Schema(
       type: String,
       enum: ['S', 'M', 'L', 'XL', 'XXL'],
       default: 'M'
-    }
+    },
+    description: String,
+    SKUs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Size = mongoose.model('SizeModel', sizeSchema)
+const Size = mongoose.model('Size', sizeSchema)
 
 export default Size

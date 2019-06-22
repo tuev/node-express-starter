@@ -12,11 +12,28 @@ const imageSchema = new Schema(
       type: String,
       required: true
     },
-    url: String
+    url: String,
+    description: String,
+    on: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      refPath: 'onModel'
+    },
+    onModel: {
+      type: String,
+      required: true,
+      enum: ['Brand', 'Category', 'Collection', 'SKU']
+    }
   },
   { timestamps: true }
 )
 
-const Image = mongoose.model('ImageModel', imageSchema)
+imageSchema.virtual('SKU', {
+  ref: 'SKU',
+  localField: '_id',
+  foreignField: 'images'
+})
+
+const Image = mongoose.model('Image', imageSchema)
 
 export default Image

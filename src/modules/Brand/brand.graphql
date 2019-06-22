@@ -1,0 +1,19 @@
+type Brand {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  categories: [String]
+  collections: [String]
+  SKUs: [String]
+}
+
+extend type Query {
+  brands: [Brand]!
+  brand(id: String!): Brand
+}
+
+extend type Mutation {
+  addBrand(name: String!, description: String): Brand!
+  deleteBrand(id: ID): Boolean!
+}

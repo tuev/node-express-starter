@@ -6,7 +6,7 @@ const { mergeWith, isArray } = require('lodash')
 const basicConfig = require('./webpack.config')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const nodeExternals = require('webpack-node-externals')
-const StartServerPlugin = require('start-server-webpack-plugin')
+const NodemonPlugin = require('nodemon-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
@@ -32,11 +32,7 @@ const config = mergeWith(
       })
     ],
     plugins: [
-      new StartServerPlugin({
-        name: 'main.js',
-        nodeArgs: ['--inspect'], // allow debugging
-        signal: 'SIGUSR2'
-      }),
+      new NodemonPlugin(),
       new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),

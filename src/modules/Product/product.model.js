@@ -18,11 +18,17 @@ const productSchema = new Schema(
     likes: Number,
     status: Boolean,
     releaseDate: Date,
-    rate: Number
+    rate: Number,
+    skus: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Product = mongoose.model('ProductModel', productSchema)
+const Product = mongoose.model('Product', productSchema)
 
 export default Product

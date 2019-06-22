@@ -12,11 +12,35 @@ const brandSchema = new Schema(
       type: String,
       required: true
     },
-    description: String
+    description: String,
+    categories: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'BrandCategory'
+      }
+    ],
+    collections: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'BrandCollection'
+      }
+    ],
+    image: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+      }
+    ],
+    SKUs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Brand = mongoose.model('BrandModel', brandSchema)
+const Brand = mongoose.model('Brand', brandSchema)
 
 export default Brand

@@ -12,11 +12,18 @@ const colorSchema = new Schema(
       type: String,
       required: true
     },
-    value: String
+    value: String,
+    description: String,
+    SKUs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'SKU'
+      }
+    ]
   },
   { timestamps: true }
 )
 
-const Color = mongoose.model('ColorModel', colorSchema)
+const Color = mongoose.model('Color', colorSchema)
 
 export default Color

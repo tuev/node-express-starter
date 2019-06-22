@@ -1,0 +1,20 @@
+type Collection {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  brands: [String]
+  categories: [String]
+  SKUs: [String]
+  images: [String]
+}
+
+extend type Query {
+  collections: [Collection]!
+  collection(id: String!): Collection!
+}
+
+extend type Mutation {
+  addCollection(name: String!, description: String): Collection!
+  deleteCollection(id: String!): Boolean!
+}
