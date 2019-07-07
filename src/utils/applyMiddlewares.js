@@ -1,4 +1,4 @@
-const { isError } = require('lodash')
+import { isError } from 'lodash'
 
 const applyMiddleware = (middlwares = []) => resolver => async (
   root,

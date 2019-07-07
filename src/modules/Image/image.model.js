@@ -14,14 +14,12 @@ const imageSchema = new Schema(
     },
     url: String,
     description: String,
-    on: {
+    onPath: {
       type: Schema.Types.ObjectId,
-      required: true,
       refPath: 'onModel'
     },
     onModel: {
       type: String,
-      required: true,
       enum: ['Brand', 'Category', 'Collection', 'SKU']
     }
   },
