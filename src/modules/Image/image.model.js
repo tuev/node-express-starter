@@ -13,24 +13,24 @@ const imageSchema = new Schema(
       required: true
     },
     url: String,
-    description: String,
-    onPath: {
-      type: Schema.Types.ObjectId,
-      refPath: 'onModel'
-    },
-    onModel: {
-      type: String,
-      enum: ['Brand', 'Category', 'Collection', 'SKU']
-    }
+    description: String
+    // onPath: {
+    //   type: Schema.Types.ObjectId,
+    //   refPath: 'onModel'
+    // },
+    // onModel: {
+    //   type: String,
+    //   enum: ['Brand', 'Category', 'Collection', 'SKU']
+    // }
   },
   { timestamps: true }
 )
 
-imageSchema.virtual('SKU', {
-  ref: 'SKU',
-  localField: '_id',
-  foreignField: 'images'
-})
+// imageSchema.virtual('SKU', {
+//   ref: 'SKU',
+//   localField: '_id',
+//   foreignField: 'images'
+// })
 
 const Image = mongoose.model('Image', imageSchema)
 

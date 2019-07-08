@@ -11,6 +11,7 @@ import { brandType } from './Brand'
 import { categoryType } from './Category'
 import { collectionType } from './Collection'
 import { colorType } from './Color'
+import { imageType } from './Image'
 
 /* ------------------------- DEFINE GRAPHQL TYPEDEF ------------------------ */
 
@@ -36,7 +37,8 @@ const typeDefs = [
   brandType,
   categoryType,
   collectionType,
-  colorType
+  colorType,
+  imageType
 ]
 
 export default typeDefs
