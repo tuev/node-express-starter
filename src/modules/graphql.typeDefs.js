@@ -12,6 +12,8 @@ import { categoryType } from './Category'
 import { collectionType } from './Collection'
 import { colorType } from './Color'
 import { imageType } from './Image'
+import { productType } from './Product'
+import { sizeType } from './Size'
 
 /* ------------------------- DEFINE GRAPHQL TYPEDEF ------------------------ */
 
@@ -38,7 +40,9 @@ const typeDefs = [
   categoryType,
   collectionType,
   colorType,
-  imageType
+  imageType,
+  productType,
+  sizeType
 ]
 
 export default typeDefs

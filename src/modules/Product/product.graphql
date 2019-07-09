@@ -1,4 +1,5 @@
 type Product {
+  id: ID!
   name: String!
   slug: String!
   description: String
@@ -17,12 +18,13 @@ extend type Query {
 }
 
 extend type Mutation {
-  addProduct (
-    name: String!, 
-    slug: String, 
-    description: String, 
-    isPublic: Boolean, 
-    status: Boolean, 
-    releaseDate: String,): Product!
-  deleteProduct(id): Boolean
+  addProduct(
+    name: String!
+    slug: String
+    description: String
+    isPublic: Boolean
+    status: Boolean
+    releaseDate: String
+  ): Product!
+  deleteProduct(id: String!): Boolean
 }

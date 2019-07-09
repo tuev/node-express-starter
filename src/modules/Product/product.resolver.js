@@ -5,6 +5,7 @@ import { camelCase, get } from 'lodash'
 
 const products = async () => {
   const products = await Product.find({})
+  console.log(products, 'products')
   return products
 }
 

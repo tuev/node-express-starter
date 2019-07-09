@@ -2,7 +2,7 @@ import Size from '../size.model'
 const chai = require('chai')
 const expect = chai.expect
 
-describe.skip('size graphql test', () => {
+describe.only('size graphql test', () => {
   it('get sizes', done => {
     chai
       .sendLocalRequest()
@@ -49,7 +49,8 @@ describe.skip('size graphql test', () => {
   it('add size', done => {
     const newsize = {
       name: 'new size',
-      value: 'blue'
+      value: 'S',
+      description: 'test size'
     }
     chai
       .sendLocalRequest()
@@ -58,7 +59,7 @@ describe.skip('size graphql test', () => {
       .send({
         query: `
           mutation{
-            addsize(name: "${newsize.name}", value: "${newsize.value}"){
+            addSize(name: "${newsize.name}", value: ${newsize.value}){
               id
              }
            }`
@@ -74,9 +75,10 @@ describe.skip('size graphql test', () => {
 
   it('delete size', async () => {
     const newsize = await Size.create({
-      name: 'size',
+      name: 'new size',
+      value: 'S',
       slug: 'slug',
-      value: 'yellow'
+      description: 'test size'
     })
     const result = await chai
       .sendLocalRequest()
@@ -85,13 +87,13 @@ describe.skip('size graphql test', () => {
       .send({
         query: `
           mutation{
-            deletesize(id: "${newsize._id}")
+            deleteSize(id: "${newsize._id}")
            }`
       })
     const status = result.status
     expect(status).to.be.equal(200)
     const data = result.body.data
     expect(data).is.to.be.an('object')
-    expect(data.deletesize).is.to.be.equal(true)
+    expect(data.deleteSize).is.to.be.equal(true)
   })
 })

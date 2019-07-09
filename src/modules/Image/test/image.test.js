@@ -75,7 +75,7 @@ describe('image graphql test', () => {
       })
   })
 
-  it.only('delete image', async () => {
+  it('delete image', async () => {
     const newimage = await Image.create({
       name: 'image',
       slug: 'slug',
