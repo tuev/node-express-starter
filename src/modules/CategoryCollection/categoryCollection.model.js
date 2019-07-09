@@ -3,11 +3,11 @@ const { Schema } = mongoose
 
 const categoryCollectionSchema = new Schema(
   {
-    category: {
+    Category: {
       type: Schema.Types.ObjectId,
       ref: 'Category'
     },
-    collection: {
+    Collection: {
       type: Schema.Types.ObjectId,
       ref: 'Collection'
     }

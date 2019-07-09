@@ -3,11 +3,11 @@ const { Schema } = mongoose
 
 const brandCategorySchema = new Schema(
   {
-    brand: {
+    Brand: {
       type: Schema.Types.ObjectId,
       ref: 'Brand'
     },
-    category: {
+    Category: {
       type: Schema.Types.ObjectId,
       ref: 'Category'
     }

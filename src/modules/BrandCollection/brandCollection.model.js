@@ -3,7 +3,7 @@ const { Schema } = mongoose
 
 const brandCollectionSchema = new Schema(
   {
-    brand: {
+    Brand: {
       type: Schema.Types.ObjectId,
       ref: 'Brand'
     },

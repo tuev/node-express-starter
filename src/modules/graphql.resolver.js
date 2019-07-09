@@ -14,6 +14,7 @@ import { colorResolvers } from './Color'
 import { imageResolvers } from './Image'
 import { productResolvers } from './Product'
 import { sizeResolvers } from './Size'
+import { SKUResolvers } from './SKU'
 
 /* ------------------------- DEFINE GRAPHQL RESOLVER ------------------------ */
 
@@ -26,7 +27,8 @@ const resolvers = merge(
   colorResolvers,
   imageResolvers,
   productResolvers,
-  sizeResolvers
+  sizeResolvers,
+  SKUResolvers
 )
 
 export default resolvers

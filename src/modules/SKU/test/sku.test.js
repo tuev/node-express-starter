@@ -1,9 +1,9 @@
-import Size from '../size.model'
+import SKU from '../sku.model'
 const chai = require('chai')
 const expect = chai.expect
 
-describe('size graphql test', () => {
-  it('get sizes', done => {
+describe('sku graphql test', () => {
+  it('get skus', done => {
     chai
       .sendLocalRequest()
       .post('/graphql')
@@ -11,7 +11,7 @@ describe('size graphql test', () => {
       .send({
         query: `
           query{
-            sizes{
+            skus{
               id
              }
            }`
@@ -19,14 +19,14 @@ describe('size graphql test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-        const data = res.body.data.sizes
+        const data = res.body.data.skus
         expect(data).is.to.be.an('array')
         done()
       })
   })
 
-  it('get size', async () => {
-    const findsize = await Size.findOne({ name: 'size_test' })
+  it('get sku', async () => {
+    const findsku = await SKU.findOne({ name: 'sku_test' })
     const result = await chai
       .sendLocalRequest()
       .post('/graphql')
@@ -34,7 +34,7 @@ describe('size graphql test', () => {
       .send({
         query: `
           query{
-            size(id: "${findsize._id}"){
+            sku(id: "${findsku._id}"){
               id
              }
            }`
@@ -46,11 +46,11 @@ describe('size graphql test', () => {
     expect(data).is.to.be.an('object')
   })
 
-  it('add size', done => {
-    const newsize = {
-      name: 'new size',
-      value: 'S',
-      description: 'test size'
+  it('add sku', done => {
+    const newsku = {
+      name: 'new sku',
+      slug: 'sku slug',
+      description: 'test sku'
     }
     chai
       .sendLocalRequest()
@@ -59,7 +59,7 @@ describe('size graphql test', () => {
       .send({
         query: `
           mutation{
-            addSize(name: "${newsize.name}", value: ${newsize.value}){
+            addSKU(name: "${newsku.name}", slug: "${newsku.slug}"){
               id
              }
            }`
@@ -73,12 +73,11 @@ describe('size graphql test', () => {
       })
   })
 
-  it('delete size', async () => {
-    const newsize = await Size.create({
-      name: 'new size',
-      value: 'S',
+  it('delete sku', async () => {
+    const newsku = await SKU.create({
+      name: 'new sku',
       slug: 'slug',
-      description: 'test size'
+      description: 'test sku'
     })
     const result = await chai
       .sendLocalRequest()
@@ -87,13 +86,13 @@ describe('size graphql test', () => {
       .send({
         query: `
           mutation{
-            deleteSize(id: "${newsize._id}")
+            deleteSKU(id: "${newsku._id}")
            }`
       })
     const status = result.status
     expect(status).to.be.equal(200)
     const data = result.body.data
     expect(data).is.to.be.an('object')
-    expect(data.deleteSize).is.to.be.equal(true)
+    expect(data.deleteSKU).is.to.be.equal(true)
   })
 })
