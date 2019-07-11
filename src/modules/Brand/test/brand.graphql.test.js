@@ -47,7 +47,7 @@ describe('Brand graphql test', () => {
     expect(data).is.to.be.an('object')
   })
 
-  it.only('add brands', done => {
+  it('add brands', done => {
     const newBrand = {
       name: 'new brand'
     }

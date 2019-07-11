@@ -3,7 +3,7 @@ const chai = require('chai')
 const expect = chai.expect
 
 describe('test collection', () => {
-  it.only('get collections', done => {
+  it('get collections', done => {
     chai
       .sendLocalRequest()
       .post('/graphql')
