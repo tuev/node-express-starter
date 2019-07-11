@@ -8,11 +8,11 @@ type SKU {
   isPublic: Boolean
   color: String
   size: String
-  Brand: String
-  Collection: String
-  Category: String
-  images: [String]
-  Product: String
+  Brand: Brand
+  Collection: Collection
+  Category: Category
+  images: [Image]
+  Product: Product
 }
 
 extend type Query {
