@@ -9,7 +9,7 @@ type Product {
   status: Boolean
   releaseDate: String
   rate: Int
-  SKUs: [String]
+  SKUs: [SKU]
 }
 
 extend type Query {
