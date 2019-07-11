@@ -19,6 +19,7 @@ describe('Category graphql test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
+
         const data = res.body.data.categories
         expect(data).is.to.be.an('array')
         done()

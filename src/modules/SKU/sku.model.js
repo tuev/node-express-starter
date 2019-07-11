@@ -18,37 +18,14 @@ const skuSchema = new Schema(
     isPublic: {
       type: Boolean,
       default: false
-    }
-    // color: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Color'
-    // },
-    // size: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Size'
-    // },
-    // Brand: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Brand'
-    // },
-    // Collection: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Collection'
-    // },
-    // Category: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Category'
-    // },
-    // images: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Image'
-    //   }
-    // ],
-    // Product: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Product'
-    // }
+    },
+    color: Schema.Types.ObjectId,
+    size: Schema.Types.ObjectId,
+    Brand: Schema.Types.ObjectId,
+    Collection: Schema.Types.ObjectId,
+    Category: Schema.Types.ObjectId,
+    Images: [Schema.Types.ObjectId],
+    Product: Schema.Types.ObjectId
   },
   { timestamps: true }
 )

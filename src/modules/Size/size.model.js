@@ -18,12 +18,7 @@ const sizeSchema = new Schema(
       default: 'M'
     },
     description: String,
-    SKUs: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'SKU'
-      }
-    ]
+    SKUs: [Schema.Types.ObjectId]
   },
   { timestamps: true }
 )
