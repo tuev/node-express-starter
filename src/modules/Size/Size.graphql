@@ -12,7 +12,7 @@ type Size {
   slug: String!
   value: SIZE_VALUE
   description: String
-  SKUs: [String]
+  SKUs: [SKU]
 }
 
 extend type Query {
