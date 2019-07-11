@@ -3,9 +3,10 @@ type Brand {
   name: String!
   slug: String!
   description: String
-  categories: [String]
-  collections: [String]
-  SKUs: [String]
+  Categories: [Category]
+  Collections: [Collection]
+  SKUs: [SKU]
+  Images: [Image]
 }
 
 extend type Query {
