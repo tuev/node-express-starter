@@ -1,0 +1,26 @@
+enum SIZE_VALUE {
+  S
+  M
+  L
+  XL
+  XXL
+}
+
+type Size {
+  id: ID!
+  name: String
+  slug: String!
+  value: SIZE_VALUE
+  description: String
+  SKUs: [SKU]
+}
+
+extend type Query {
+  sizes: [Size]!
+  size(id: String): Size
+}
+
+extend type Mutation {
+  addSize(name: String, description: String, value: SIZE_VALUE): Size!
+  deleteSize(id: String!): Boolean
+}
