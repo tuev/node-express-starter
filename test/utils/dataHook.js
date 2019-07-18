@@ -39,7 +39,7 @@ const loadDir = async dir => {
 }
 
 export const loadObject = async data => {
-  for (let key in data) {
+  for (const key in data) {
     await insertCollection(key, data[key])
   }
 }
