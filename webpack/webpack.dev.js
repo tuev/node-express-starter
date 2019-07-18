@@ -7,7 +7,7 @@ const basicConfig = require('./webpack.config')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const nodeExternals = require('webpack-node-externals')
 const NodemonPlugin = require('nodemon-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
 

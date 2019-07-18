@@ -6,11 +6,11 @@ const applyMiddleware = (middlwares = []) => resolver => async (
   context,
   info
 ) => {
-  let rootPipe = root
-  let argsPipe = args
+  const rootPipe = root
+  const argsPipe = args
   let contextPipe = context
-  let infoPipe = info
-  for (let middlware of middlwares) {
+  const infoPipe = info
+  for (const middlware of middlwares) {
     const result = await middlware(rootPipe, argsPipe, contextPipe, infoPipe)
     if (!isError(result)) {
       contextPipe = { ...contextPipe, ...result }
