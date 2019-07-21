@@ -1,6 +1,6 @@
 import app from './server'
 import { setupMiddleware } from '@middlewares'
-import { graphQLRouter, restRouter } from './modules'
+import { graphQLRouter, restRouter } from './routers'
 import http from 'http'
 import connectDB from '../config/db'
 const port = process.env.PORT || 4000

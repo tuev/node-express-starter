@@ -2,19 +2,23 @@ import { gql } from 'apollo-server-express'
 
 /* ------------------------- TYPE FOR DIRECTIVE ------------------------- */
 
+import { directives } from '@directives'
+
 /* --------------------------- TYPE FOR SCALAR -------------------------- */
+
+import { scalars } from '@scalars'
 
 /* --------------------------- TYPE FOR MODULE -------------------------- */
 
-import { userType } from './User'
-import { brandType } from './Brand'
-import { categoryType } from './Category'
-import { collectionType } from './Collection'
-import { colorType } from './Color'
-import { imageType } from './Image'
-import { productType } from './Product'
-import { sizeType } from './Size'
-import { SKUType } from './SKU'
+import { userType } from '@modules/User'
+import { brandType } from '@modules/Brand'
+import { categoryType } from '@modules/Category'
+import { collectionType } from '@modules/Collection'
+import { colorType } from '@modules/Color'
+import { imageType } from '@modules/Image'
+import { productType } from '@modules/Product'
+import { sizeType } from '@modules/Size'
+import { SKUType } from '@modules/SKU'
 
 /* ------------------------- DEFINE GRAPHQL TYPEDEF ------------------------ */
 
@@ -36,6 +40,8 @@ const baseType = gql`
 `
 const typeDefs = [
   baseType,
+  scalars,
+  directives,
   userType,
   brandType,
   categoryType,

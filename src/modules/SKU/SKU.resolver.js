@@ -24,12 +24,12 @@ const addSKU = async (
     price = 0,
     discount = 0,
     isPublic = false,
-    color = '',
-    size = '',
+    Color = '',
+    Size = '',
     Brand = '',
     Collection = '',
     Category = '',
-    images = [],
+    Images = [],
     Product = ''
   }
 ) => {
@@ -41,12 +41,12 @@ const addSKU = async (
     price,
     discount,
     isPublic,
-    color,
-    size,
+    Color,
+    Size,
     Brand,
     Collection,
     Category,
-    images,
+    Images,
     Product
   })
   console.log(result, 'result')

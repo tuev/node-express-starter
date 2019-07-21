@@ -46,7 +46,7 @@ describe('sku graphql test', () => {
     expect(data).is.to.be.an('object')
   })
 
-  it('add sku', done => {
+  it.skip('add sku', done => {
     const newsku = {
       name: 'new sku',
       slug: 'sku slug',

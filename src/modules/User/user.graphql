@@ -2,7 +2,7 @@ type User {
   id: ID!
   username: String!
   dob: String
-  email: String!
+  email: Email!
 }
 
 type AuthPayLoad {
@@ -16,5 +16,5 @@ extend type Query {
 }
 
 extend type Mutation {
-  signup(email: String!, password: String!, username: String!): AuthPayLoad!
+  signup(email: Email!, password: String!, username: String!): AuthPayLoad!
 }

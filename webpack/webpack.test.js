@@ -70,6 +70,8 @@ module.exports = {
       '@utils': resolvePath('src/utils'),
       '@middlewares': resolvePath('src/middlewares'),
       '@modules': resolvePath('src/modules'),
+      '@directives': resolvePath('src/directives'),
+      '@scalars': resolvePath('src/scalars'),
       test: resolvePath('test/')
     }
   }

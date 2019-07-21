@@ -19,8 +19,8 @@ const skuSchema = new Schema(
       type: Boolean,
       default: false
     },
-    color: Schema.Types.ObjectId,
-    size: Schema.Types.ObjectId,
+    Color: Schema.Types.ObjectId,
+    Size: Schema.Types.ObjectId,
     Brand: Schema.Types.ObjectId,
     Collection: Schema.Types.ObjectId,
     Category: Schema.Types.ObjectId,
