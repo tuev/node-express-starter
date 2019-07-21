@@ -1,4 +1,4 @@
-import { ProductResolvers } from './product.resolver'
-import * as ProductType from './product.graphql'
+import { productResolvers } from './product.resolver'
+import * as productType from './product.graphql'
 
-export { ProductResolvers, ProductType }
+export { productResolvers, productType }

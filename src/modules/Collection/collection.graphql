@@ -3,10 +3,10 @@ type Collection {
   name: String!
   slug: String!
   description: String
-  brands: [String]
-  categories: [String]
-  SKUs: [String]
-  images: [String]
+  Brands: [Brand]
+  Categories: [Category]
+  SKUs: [SKU]
+  Images: [Image]
 }
 
 extend type Query {

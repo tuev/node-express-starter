@@ -24,13 +24,13 @@ const addSKU = async (
     price = 0,
     discount = 0,
     isPublic = false,
-    color = '',
-    size = '',
-    brand = '',
-    collection = '',
-    category = '',
-    images = [],
-    product = ''
+    Color = '',
+    Size = '',
+    Brand = '',
+    Collection = '',
+    Category = '',
+    Images = [],
+    Product = ''
   }
 ) => {
   const slug = slugInfo || camelCase(name)
@@ -41,14 +41,15 @@ const addSKU = async (
     price,
     discount,
     isPublic,
-    color,
-    size,
-    brand,
-    collection,
-    category,
-    images,
-    product
+    Color,
+    Size,
+    Brand,
+    Collection,
+    Category,
+    Images,
+    Product
   })
+  console.log(result, 'result')
   return result
 }
 

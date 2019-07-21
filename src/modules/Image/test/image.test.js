@@ -1,9 +1,9 @@
-import Category from '../category.model'
+import Image from '../image.model'
 const chai = require('chai')
 const expect = chai.expect
 
-describe('Category graphql test', () => {
-  it('get categories', done => {
+describe('image graphql test', () => {
+  it('get images', done => {
     chai
       .sendLocalRequest()
       .post('/graphql')
@@ -11,7 +11,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           query{
-            categories{
+            images{
               id
              }
            }`
@@ -19,15 +19,16 @@ describe('Category graphql test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-
-        const data = res.body.data.categories
+        const data = res.body.data.images
         expect(data).is.to.be.an('array')
         done()
       })
   })
 
-  it('get category', async () => {
-    const findCategory = await Category.findOne({ name: 'category_test' })
+  it('get image', async () => {
+    const findimage = await Image.findOne({ name: 'image_test' })
+    const images = await Image.find()
+    console.log(images, 'iage')
     const result = await chai
       .sendLocalRequest()
       .post('/graphql')
@@ -35,7 +36,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           query{
-            category(id: "${findCategory._id}"){
+            image(id: "${findimage._id}"){
               id
              }
            }`
@@ -47,9 +48,11 @@ describe('Category graphql test', () => {
     expect(data).is.to.be.an('object')
   })
 
-  it('add category', done => {
-    const newCategory = {
-      name: 'new Category'
+  it('add image', done => {
+    const newimage = {
+      name: 'new image',
+      value: 'blue',
+      url: 'test'
     }
     chai
       .sendLocalRequest()
@@ -58,7 +61,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           mutation{
-            addCategory(name: "${newCategory.name}"){
+            addImage(name: "${newimage.name}", url: "${newimage.value}"){
               id
              }
            }`
@@ -72,12 +75,14 @@ describe('Category graphql test', () => {
       })
   })
 
-  it('delete category', async () => {
-    const newCategory = await Category.create({
-      name: 'Category',
-      slug: 'slug'
+  it('delete image', async () => {
+    const newimage = await Image.create({
+      name: 'image',
+      slug: 'slug',
+      value: 'yellow',
+      url: 'test'
     })
-
+    console.log(newimage, 'image')
     const result = await chai
       .sendLocalRequest()
       .post('/graphql')
@@ -85,13 +90,13 @@ describe('Category graphql test', () => {
       .send({
         query: `
           mutation{
-            deleteCategory(id: "${newCategory._id}")
+            deleteImage(id: "${newimage._id}")
            }`
       })
     const status = result.status
     expect(status).to.be.equal(200)
     const data = result.body.data
     expect(data).is.to.be.an('object')
-    expect(data.deleteCategory).is.to.be.equal(true)
+    expect(data.deleteImage).is.to.be.equal(true)
   })
 })

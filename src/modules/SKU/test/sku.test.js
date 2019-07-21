@@ -1,9 +1,9 @@
-import Category from '../category.model'
+import SKU from '../sku.model'
 const chai = require('chai')
 const expect = chai.expect
 
-describe('Category graphql test', () => {
-  it('get categories', done => {
+describe('sku graphql test', () => {
+  it('get skus', done => {
     chai
       .sendLocalRequest()
       .post('/graphql')
@@ -11,7 +11,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           query{
-            categories{
+            skus{
               id
              }
            }`
@@ -19,15 +19,14 @@ describe('Category graphql test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-
-        const data = res.body.data.categories
+        const data = res.body.data.skus
         expect(data).is.to.be.an('array')
         done()
       })
   })
 
-  it('get category', async () => {
-    const findCategory = await Category.findOne({ name: 'category_test' })
+  it('get sku', async () => {
+    const findsku = await SKU.findOne({ name: 'sku_test' })
     const result = await chai
       .sendLocalRequest()
       .post('/graphql')
@@ -35,7 +34,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           query{
-            category(id: "${findCategory._id}"){
+            sku(id: "${findsku._id}"){
               id
              }
            }`
@@ -47,9 +46,11 @@ describe('Category graphql test', () => {
     expect(data).is.to.be.an('object')
   })
 
-  it('add category', done => {
-    const newCategory = {
-      name: 'new Category'
+  it.skip('add sku', done => {
+    const newsku = {
+      name: 'new sku',
+      slug: 'sku slug',
+      description: 'test sku'
     }
     chai
       .sendLocalRequest()
@@ -58,7 +59,7 @@ describe('Category graphql test', () => {
       .send({
         query: `
           mutation{
-            addCategory(name: "${newCategory.name}"){
+            addSKU(name: "${newsku.name}", slug: "${newsku.slug}"){
               id
              }
            }`
@@ -72,12 +73,12 @@ describe('Category graphql test', () => {
       })
   })
 
-  it('delete category', async () => {
-    const newCategory = await Category.create({
-      name: 'Category',
-      slug: 'slug'
+  it('delete sku', async () => {
+    const newsku = await SKU.create({
+      name: 'new sku',
+      slug: 'slug',
+      description: 'test sku'
     })
-
     const result = await chai
       .sendLocalRequest()
       .post('/graphql')
@@ -85,13 +86,13 @@ describe('Category graphql test', () => {
       .send({
         query: `
           mutation{
-            deleteCategory(id: "${newCategory._id}")
+            deleteSKU(id: "${newsku._id}")
            }`
       })
     const status = result.status
     expect(status).to.be.equal(200)
     const data = result.body.data
     expect(data).is.to.be.an('object')
-    expect(data.deleteCategory).is.to.be.equal(true)
+    expect(data.deleteSKU).is.to.be.equal(true)
   })
 })

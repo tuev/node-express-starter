@@ -13,26 +13,10 @@ const imageSchema = new Schema(
       required: true
     },
     url: String,
-    description: String,
-    on: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      refPath: 'onModel'
-    },
-    onModel: {
-      type: String,
-      required: true,
-      enum: ['Brand', 'Category', 'Collection', 'SKU']
-    }
+    description: String
   },
   { timestamps: true }
 )
-
-imageSchema.virtual('SKU', {
-  ref: 'SKU',
-  localField: '_id',
-  foreignField: 'images'
-})
 
 const Image = mongoose.model('Image', imageSchema)
 

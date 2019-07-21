@@ -12,7 +12,7 @@ type Size {
   slug: String!
   value: SIZE_VALUE
   description: String
-  SKUs: [String]
+  SKUs: [SKU]
 }
 
 extend type Query {
@@ -22,5 +22,5 @@ extend type Query {
 
 extend type Mutation {
   addSize(name: String, description: String, value: SIZE_VALUE): Size!
-  deleteSize(id: String): Boolean
+  deleteSize(id: String!): Boolean
 }
