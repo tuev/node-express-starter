@@ -34,12 +34,7 @@ const productSchema = new Schema(
       type: Number,
       default: 0
     },
-    SKUs: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'SKU'
-      }
-    ]
+    SKUs: [Schema.Types.ObjectId]
   },
   { timestamps: true }
 )

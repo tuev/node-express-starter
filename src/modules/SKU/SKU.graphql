@@ -8,16 +8,16 @@ type SKU {
   isPublic: Boolean
   color: String
   size: String
-  brand: String
-  collection: String
-  category: String
-  images: [String]
-  product: String
+  Brand: Brand
+  Collection: Collection
+  Category: Category
+  images: [Image]
+  Product: Product
 }
 
 extend type Query {
   skus: [SKU]!
-  sku: SKU
+  sku(id: String): SKU
 }
 
 extend type Mutation {
@@ -30,11 +30,11 @@ extend type Mutation {
     isPublic: Boolean
     color: String
     size: String
-    brand: String
-    collection: String
-    category: String
+    Brand: String
+    Collection: String
+    Category: String
     images: [String]
-    product: String
+    Product: String
   ): SKU!
   deleteSKU(id: String): Boolean
 }

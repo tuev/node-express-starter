@@ -20,6 +20,7 @@ describe('Brand graphql test', () => {
       .end((err, res) => {
         if (err) return done(err)
         const data = res.body.data.brands
+        console.log(data, 'data')
         expect(data).is.to.be.an('array')
         done()
       })
@@ -57,7 +58,7 @@ describe('Brand graphql test', () => {
       .send({
         query: `
           mutation{
-            addBrand(name: "${newBrand.name}"){
+            addBrand(name: "${newBrand.name}", collections: ["5d260d58fba1a8859baff6f7"]){
               id
              }
            }`

@@ -3,9 +3,10 @@ type Brand {
   name: String!
   slug: String!
   description: String
-  categories: [String]
-  collections: [String]
-  SKUs: [String]
+  Categories: [Category]
+  Collections: [Collection]
+  SKUs: [SKU]
+  Images: [Image]
 }
 
 extend type Query {
@@ -14,6 +15,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  addBrand(name: String!, description: String): Brand!
+  addBrand(name: String!, description: String, collections: [String]): Brand!
   deleteBrand(id: ID): Boolean!
 }

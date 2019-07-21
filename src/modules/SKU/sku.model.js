@@ -19,40 +19,17 @@ const skuSchema = new Schema(
       type: Boolean,
       default: false
     },
-    color: {
-      type: Schema.Types.ObjectId,
-      ref: 'Color'
-    },
-    size: {
-      type: Schema.Types.ObjectId,
-      ref: 'Size'
-    },
-    brand: {
-      type: Schema.Types.ObjectId,
-      ref: 'Brand'
-    },
-    collection: {
-      type: Schema.Types.ObjectId,
-      ref: 'Collection'
-    },
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: 'Category'
-    },
-    images: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Image'
-      }
-    ],
-    product: {
-      type: Schema.Types.ObjectId,
-      ref: 'Product'
-    }
+    Color: Schema.Types.ObjectId,
+    Size: Schema.Types.ObjectId,
+    Brand: Schema.Types.ObjectId,
+    Collection: Schema.Types.ObjectId,
+    Category: Schema.Types.ObjectId,
+    Images: [Schema.Types.ObjectId],
+    Product: Schema.Types.ObjectId
   },
   { timestamps: true }
 )
 
-const SKU = mongoose.model('SKUModel', skuSchema)
+const SKU = mongoose.model('SKU', skuSchema)
 
 export default SKU

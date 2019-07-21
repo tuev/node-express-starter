@@ -13,13 +13,7 @@ const colorSchema = new Schema(
       required: true
     },
     value: String,
-    description: String,
-    SKUs: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'SKU'
-      }
-    ]
+    description: String
   },
   { timestamps: true }
 )

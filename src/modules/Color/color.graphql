@@ -4,7 +4,7 @@ type Color {
   slug: String!
   value: String!
   description: String
-  SKUs: [String]
+  SKUs: [SKU]
 }
 
 extend type Query {
