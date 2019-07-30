@@ -7,6 +7,6 @@ eventRouter.get('/', eventController.getEvent)
   .get('/:event_id', eventController.getEventById)
   .post('/', eventController.createEvent)
   .put('/:event_id', eventController.updateEvent)
-  .put('/:event_id', eventController.deleteEvent)
+  .delete('/:event_id', eventController.deleteEvent)
 
 export { eventRouter }

@@ -14,20 +14,11 @@ const eventSchema = new Schema(
     },
     description: {
       type: String,
-      required: false
+      required: true
     },
-    date: {
-      type: Date,
-      required: false
-    },
-    price: {
-      type: String,
-      required: false
-    },
-    location: {
-      type: String,
-      required: false
-    }
+    date: Date,
+    price: String,
+    location: String
   },
   { timestamps: true }
 )
