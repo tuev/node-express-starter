@@ -1,6 +1,6 @@
 import app from './server'
 import { setupMiddleware } from '@middlewares'
-import { graphQLRouter, restRouter } from './routers'
+import { restRouter } from './routers'
 import http from 'http'
 import connectDB from '../config/db'
 const port = process.env.PORT || 4000
@@ -18,9 +18,9 @@ app.use(restRouter)
 
 /* ------------------------------ GRAPHQL SETUP ----------------------------- */
 
-graphQLRouter.applyMiddleware({ app })
+// graphQLRouter.applyMiddleware({ app })
 const server = http.createServer(app)
-graphQLRouter.installSubscriptionHandlers(server)
+// graphQLRouter.installSubscriptionHandlers(server)
 
 /* ------------------------------ SERVER SERVE ------------------------------ */
 

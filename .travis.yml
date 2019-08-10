@@ -7,12 +7,12 @@ stages:
     if: branch != master
   - test
 language: node_js
-node_js: 
+node_js:
   - 'stable'
 addons:
   apt:
     packages:
-    - libnotify-bin
+      - libnotify-bin
 install: true
 before_script: npm install -g npm@5.8.0
 before_install: |
@@ -23,10 +23,10 @@ before_install: |
   export PATH=~/npm/node_modules/.bin:$PATH
 cache:
   directories:
-  - "~/.npm"
+    - '~/.npm'
 jobs:
   include:
-    - &test 
+    - &test
       stage: test
       install:
         - npm install -g mocha-webpack
@@ -47,14 +47,14 @@ jobs:
     - stage: lint
       before_install: true
       install:
-      - npm install -g standard
-      - npm install -g snazzy
+        - npm install -g standard
+        - npm install -g snazzy
       script: npm run lint
     - &smoke
       stage: smoke
       env: null
       before_install: true
-      install: 
+      install:
         - npm install -g mocha
         - npm install --production --no-shrinkwrap
       script: mocha --no-config --reporter spec test/sanity/sanity.spec.js
@@ -72,12 +72,12 @@ after_success: npm run coverage
 services: mongodb
 sudo: false
 before_deploy:
-- rm -rf node_modules
+  - rm -rf node_modules
 deploy:
-  provider: heroku
-  api_key:
-    secure: KL6xG6pcxhW14Jsc0ATp+iRp0JCjfCJB2ZhLP8n57jK+G9ooEE+YMm8ongI3sFJb+tXbwIb0ye9NbOIR/iNlt9xCwmDs02+LILlBmUU+JvLcL9ImJT6GTu3nLbqsq4QDfuAGAcvWOYa5YRmmITEymf8c8zt9infWbBHhEkxe82OkNKvFlxPvueHD6KlCCmMjm4ygod8ME85OldbUE/R3QeGGZgGV/UlEZjD0CKBIo2/6GF3PnTl5sOoAqpx38I3gX8mc8uLngy2oUVEr4mPIz7lviRisLwk0xKQvLh5gUtLCFOLBwYLbUJf+0jtVyZ8Rv3VDCFPaS+KOQzfqMFpBag9rqCqv3ZFKfaL28xv245cpsMsF4b2W0767EFV7XmWcmDKkKEtNVi6QVZiflr0LaKbvQhgs/S8St5r8Xe46m5vy0ht3EI3KtMAn8cIMSOKctWfExucyK4t1YaQiB7vWZr/OJb+v14le9bvPgki42mRP3RNWWI15C/XZ9tvmrJBVGw9yRTZjzByL6ggHk/GpFy+tiP9mCrol7P5wtTu5COVSfcEVVpajn069dPzkhbZbqoWc67LodOht3JWKg9j30i39ifVIT5SE1ae74Pa0DqHlhPR2T1hon4Q3QhDOKxMT6ooK96hb26jFXyUbMrf1NZyc1a6+8jzQmwdhREYJJWE=
-  app: graphql-ec
-  skip_cleanup: true
+  # provider: heroku
+  # api_key:
+  #   secure: KL6xG6pcxhW14Jsc0ATp+iRp0JCjfCJB2ZhLP8n57jK+G9ooEE+YMm8ongI3sFJb+tXbwIb0ye9NbOIR/iNlt9xCwmDs02+LILlBmUU+JvLcL9ImJT6GTu3nLbqsq4QDfuAGAcvWOYa5YRmmITEymf8c8zt9infWbBHhEkxe82OkNKvFlxPvueHD6KlCCmMjm4ygod8ME85OldbUE/R3QeGGZgGV/UlEZjD0CKBIo2/6GF3PnTl5sOoAqpx38I3gX8mc8uLngy2oUVEr4mPIz7lviRisLwk0xKQvLh5gUtLCFOLBwYLbUJf+0jtVyZ8Rv3VDCFPaS+KOQzfqMFpBag9rqCqv3ZFKfaL28xv245cpsMsF4b2W0767EFV7XmWcmDKkKEtNVi6QVZiflr0LaKbvQhgs/S8St5r8Xe46m5vy0ht3EI3KtMAn8cIMSOKctWfExucyK4t1YaQiB7vWZr/OJb+v14le9bvPgki42mRP3RNWWI15C/XZ9tvmrJBVGw9yRTZjzByL6ggHk/GpFy+tiP9mCrol7P5wtTu5COVSfcEVVpajn069dPzkhbZbqoWc67LodOht3JWKg9j30i39ifVIT5SE1ae74Pa0DqHlhPR2T1hon4Q3QhDOKxMT6ooK96hb26jFXyUbMrf1NZyc1a6+8jzQmwdhREYJJWE=
+  # app: graphql-ec
+  # skip_cleanup: true
 notifications:
   webhooks: https://hooks.slack.com/services/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
