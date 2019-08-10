@@ -42,15 +42,11 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    const eventUpdated = await Event.findByIdAndUpdate(req.params.event_id, {
-      name: req.body.name,
-      author: req.body.author,
-      description: req.body.description,
-      date: req.body.date,
-      price: req.body.price,
-      location: req.body.location
-    }, { new: true })
-    console.log(eventUpdated)
+    const id = req.params.event_id || ''
+    const updateData = req.body || {}
+    const eventUpdated = await Event.findByIdAndUpdate(id, updateData, {
+      new: true
+    })
     return res.json(eventUpdated)
   } catch (error) {
     return res.send(error)
