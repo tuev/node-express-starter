@@ -44,15 +44,6 @@ module.exports = {
       {
         test: /\.(eot|otf|ttf|woff|woff2)$/,
         use: 'file-loader'
-      },
-      {
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'graphql-tag/loader'
-          }
-        ]
       }
     )
   },
@@ -70,8 +61,6 @@ module.exports = {
       '@utils': resolvePath('src/utils'),
       '@middlewares': resolvePath('src/middlewares'),
       '@modules': resolvePath('src/modules'),
-      '@directives': resolvePath('src/directives'),
-      '@scalars': resolvePath('src/scalars'),
       test: resolvePath('test/')
     }
   }
