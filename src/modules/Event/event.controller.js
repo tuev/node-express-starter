@@ -1,4 +1,5 @@
 import Event from './event.model'
+import { pick } from 'lodash'
 
 const getEvent = async (req, res) => {
   const events = await Event.find()
@@ -8,25 +9,30 @@ const getEvent = async (req, res) => {
 }
 
 const getEventById = async (req, res) => {
-  await Event.findById(req.params.event_id, (err, event) => {
-    if (err) {
-      res.send(err)
-    }
-    res.json(event)
-  })
+  try {
+    await Event.findById(req.params.event_id, (_err, event) => {
+      return res.json(event)
+    })
+  } catch (error) {
+    return res.send(error)
+  }
 }
 
 const createEvent = async (req, res) => {
   const eventData = req.body || {}
+
+  const dataCreated = pick(eventData, [
+    'name',
+    'author',
+    'description',
+    'date',
+    'price',
+    'location'
+  ])
+
   try {
-    await Event.create(
-      { name: eventData.name,
-        author: eventData.author,
-        description: eventData.description,
-        date: eventData.date,
-        price: eventData.price,
-        location: eventData.location })
-    return res.json({ message: ` Event ${eventData.name} created ` })
+    const eventInfo = await Event.create(dataCreated)
+    return res.json(eventInfo)
   } catch (error) {
     return {
       error: res.json(error.errmsg)
@@ -36,14 +42,16 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    await Event.findById(req.params.event_id, (req, res) => {
-      res.name = req.body.name
-      res.author = req.body.author
-      res.description = req.body.description
-      res.date = req.body.date
-      res.price = req.body.price
-      res.location = req.body.location
-    })
+    const eventUpdated = await Event.findByIdAndUpdate(req.params.event_id, {
+      name: req.body.name,
+      author: req.body.author,
+      description: req.body.description,
+      date: req.body.date,
+      price: req.body.price,
+      location: req.body.location
+    }, { new: true })
+    console.log(eventUpdated)
+    return res.json(eventUpdated)
   } catch (error) {
     return res.send(error)
   }
@@ -51,7 +59,7 @@ const updateEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
   try {
-    await Event.remove({ _id: req.params.event_id })
+    await Event.findByIdAndRemove({ _id: req.params.event_id })
     return res.json({ message: 'Successfully deleted' })
   } catch (error) {
     return res.send(error)
