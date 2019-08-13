@@ -10,9 +10,8 @@ const getEvent = async (req, res) => {
 
 const getEventById = async (req, res) => {
   try {
-    await Event.findById(req.params.event_id, (_err, event) => {
-      return res.json(event)
-    })
+    const event = await Event.findById(req.params.event_id)
+    return res.json(event)
   } catch (error) {
     return res.send(error)
   }
@@ -20,20 +19,21 @@ const getEventById = async (req, res) => {
 
 const createEvent = async (req, res) => {
   const eventData = req.body || {}
-
   const dataCreated = pick(eventData, [
     'name',
     'author',
     'description',
     'date',
     'price',
-    'location'
+    'location',
+    'image'
   ])
 
   try {
     const eventInfo = await Event.create(dataCreated)
     return res.json(eventInfo)
   } catch (error) {
+    console.error(error)
     return {
       error: res.json(error.errmsg)
     }
@@ -45,7 +45,6 @@ const updateEvent = async (req, res) => {
   const id = req.params.event_id
   try {
     const eventUpdated = await Event.findByIdAndUpdate(id, dataUpdate, { new: true })
-    console.log(eventUpdated)
     return res.json(eventUpdated)
   } catch (error) {
     return res.send(error)

@@ -17,9 +17,7 @@ describe('event rest api test', () => {
         done()
       })
   })
-})
-// Get only 1 event
-describe('event rest api test', () => {
+
   it('it should be get only 1 event by id', done => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
@@ -35,9 +33,7 @@ describe('event rest api test', () => {
         done()
       })
   })
-})
-// Create event
-describe('event rest api test', () => {
+
   it('it should be created a new event', done => {
     const event = {
       name: 'The First Project ',
@@ -61,9 +57,7 @@ describe('event rest api test', () => {
         done()
       })
   })
-})
-// Updated all event
-describe('event rest api test', () => {
+
   it('it should be updated', done => {
     const event = {
       name: 'The First Project 3'
@@ -85,9 +79,7 @@ describe('event rest api test', () => {
         done()
       })
   })
-})
 
-describe('event rest api test', () => {
   it('it should be get only 1 event by id', done => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai

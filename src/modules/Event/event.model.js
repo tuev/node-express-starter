@@ -16,6 +16,7 @@ const eventSchema = new Schema(
       type: String,
       required: true
     },
+    image: String,
     date: Date,
     price: String,
     location: String
