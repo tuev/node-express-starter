@@ -90,6 +90,7 @@ after_success: npm run coverage
 services: mongodb
 sudo: false
 before_deploy:
+  - rm package-lock.json
   - rm -rf node_modules
 deploy:
   provider: heroku
