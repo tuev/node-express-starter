@@ -12,8 +12,7 @@ describe('event rest api test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-        console.log(res.body.data)
-        expect(res.body.data).is.an('array')
+        expect(res.body).is.an('array')
         done()
       })
   })
@@ -27,7 +26,6 @@ describe('event rest api test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-        console.log(res.body)
         expect(res.body).is.an('object')
         expect(res.body._id).to.equal(id)
         done()
@@ -45,11 +43,9 @@ describe('event rest api test', () => {
       .post('/api/v1/event')
       .send(event)
       .set('Accept', 'application/json')
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
         if (err) return done(err)
-        console.warn(res.body, '-------body')
-        // const eventInfo = res.body.eventInfo
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('name')
         expect(res.body).to.have.property('author')
@@ -80,18 +76,16 @@ describe('event rest api test', () => {
       })
   })
 
-  it('it should be get only 1 event by id', done => {
+  it('it should be delete only 1 event by id', done => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
       .delete(`/api/v1/event/${id}`)
       .set('Accept', 'application/json')
-      .expect(200)
+      .expect(204)
       .end(async (err, res) => {
         if (err) return done(err)
-        console.log(res.body)
         const event = await Event.findById(id)
-        console.log(event)
         // eslint-disable-next-line no-unused-expressions
         expect(event).to.be.null
         done()
