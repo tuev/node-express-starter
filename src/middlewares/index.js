@@ -2,6 +2,8 @@ import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import cors from 'cors'
 
+import morgan from 'morgan'
+
 export const setupMiddleware = app => {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
@@ -25,4 +27,5 @@ export const setupMiddleware = app => {
     next()
   })
   app.use(methodOverride())
+  app.use(morgan('combined'))
 }

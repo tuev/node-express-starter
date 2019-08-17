@@ -37,6 +37,7 @@
     "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "mongoose": "^5.6.5",
+    "morgan": "^1.9.1",
     "sift": "^8.5.0"
   },
   "devDependencies": {
