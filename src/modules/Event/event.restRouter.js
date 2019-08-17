@@ -8,5 +8,6 @@ eventRouter.get('/', eventController.getEvent)
   .post('/', eventController.createEvent)
   .put('/:event_id', eventController.updateEvent)
   .delete('/:event_id', eventController.deleteEvent)
+  // .post('/fake', eventController.fakeData)
 
 export { eventRouter }

@@ -5,8 +5,9 @@ import cors from 'cors'
 export const setupMiddleware = app => {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
-  app.use(methodOverride())
-  app.use(cors())
+  app.use(cors({
+    exposedHeaders: ['X-Total-Count']
+  }))
 
   app.all('*', function (req, res, next) {
     var origin = req.get('origin')
@@ -23,4 +24,5 @@ export const setupMiddleware = app => {
     )
     next()
   })
+  app.use(methodOverride())
 }
