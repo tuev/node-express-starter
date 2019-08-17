@@ -1,4 +1,4 @@
-# express-mongoGraph
+# node-express-starter
 
 [![Build Status](https://travis-ci.com/tuev/node-express-starter.svg?branch=master)](https://travis-ci.com/tuev/graphql-express-starter)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/tuev/node-express-starter/pulls)
