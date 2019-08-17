@@ -8,7 +8,7 @@ stages:
   - test
 language: node_js
 node_js:
-  - 'stable'
+  - stable
 addons:
   apt:
     packages:
@@ -26,22 +26,31 @@ cache:
     - '~/.npm'
 jobs:
   include:
-    - &test
-      stage: test
-      install:
+    - stage: test
+      install: &1
         - npm install -g mocha-webpack
         - npm install
       script: npm run test
       before_install: true
       after_success: npm run coverage
-      cache:
+      cache: &2
         directories:
-          - ~/.npm
+          - '~/.npm'
           - node_modules
-    - <<: *test
+    - stage: test
+      install: *1
+      script: npm run test
+      before_install: true
+      after_success: npm run coverage
+      cache: *2
       node_js: '8'
       if: branch != master
-    - <<: *test
+    - stage: test
+      install: *1
+      script: npm run test
+      before_install: true
+      after_success: npm run coverage
+      cache: *2
       node_js: '10'
       if: branch != master
     - stage: lint
@@ -50,21 +59,30 @@ jobs:
         - npm install -g standard
         - npm install -g snazzy
       script: npm run lint
-    - &smoke
-      stage: smoke
-      env: null
+    - stage: smoke
+      env:
       before_install: true
-      install:
+      install: &3
         - npm install -g mocha
         - npm install --production --no-shrinkwrap
       script: mocha --no-config --reporter spec test/sanity/sanity.spec.js
-      cache:
+      cache: &4
         directories:
-          - ~/.npm
+          - '~/.npm'
           - node_modules
-    - <<: *smoke
+    - stage: smoke
+      env:
+      before_install: true
+      install: *3
+      script: mocha --no-config --reporter spec test/sanity/sanity.spec.js
+      cache: *4
       node_js: '10'
-    - <<: *smoke
+    - stage: smoke
+      env:
+      before_install: true
+      install: *3
+      script: mocha --no-config --reporter spec test/sanity/sanity.spec.js
+      cache: *4
       node_js: '8'
     - stage: precache
       script: true
@@ -74,10 +92,9 @@ sudo: false
 before_deploy:
   - rm -rf node_modules
 deploy:
-  # provider: heroku
-  # api_key:
-  #   secure: KL6xG6pcxhW14Jsc0ATp+iRp0JCjfCJB2ZhLP8n57jK+G9ooEE+YMm8ongI3sFJb+tXbwIb0ye9NbOIR/iNlt9xCwmDs02+LILlBmUU+JvLcL9ImJT6GTu3nLbqsq4QDfuAGAcvWOYa5YRmmITEymf8c8zt9infWbBHhEkxe82OkNKvFlxPvueHD6KlCCmMjm4ygod8ME85OldbUE/R3QeGGZgGV/UlEZjD0CKBIo2/6GF3PnTl5sOoAqpx38I3gX8mc8uLngy2oUVEr4mPIz7lviRisLwk0xKQvLh5gUtLCFOLBwYLbUJf+0jtVyZ8Rv3VDCFPaS+KOQzfqMFpBag9rqCqv3ZFKfaL28xv245cpsMsF4b2W0767EFV7XmWcmDKkKEtNVi6QVZiflr0LaKbvQhgs/S8St5r8Xe46m5vy0ht3EI3KtMAn8cIMSOKctWfExucyK4t1YaQiB7vWZr/OJb+v14le9bvPgki42mRP3RNWWI15C/XZ9tvmrJBVGw9yRTZjzByL6ggHk/GpFy+tiP9mCrol7P5wtTu5COVSfcEVVpajn069dPzkhbZbqoWc67LodOht3JWKg9j30i39ifVIT5SE1ae74Pa0DqHlhPR2T1hon4Q3QhDOKxMT6ooK96hb26jFXyUbMrf1NZyc1a6+8jzQmwdhREYJJWE=
-  # app: graphql-ec
-  # skip_cleanup: true
+  provider: heroku
+  app: express-event
+  api_key:
+    secure: e5dXpyEQUKxm6J2Qxgaa1+DNTgaR6/o+YI/dxxabIpeelIcDHhnWuQlXjw1Yi+hZTPpx8GoQybPjSmjlzPwoIrgp2+Zu1I4QLghyQcMELuI0rA/rlYNaMEJF8iB7jJM68yGuF7jy13BRnfrG+NYjxZdwrFqbbeAk4fcsnjojrMqgmOmOXs+5qxuNJ83RYxC37ujXYsd3U2Z2G721tlxEuEWRowpjIGLwUd+DTHv1gsmswk8WSGg4kKSOKktdEzsmmqYF/Q/0ZzTr4Y79SXGlLfrUrcPJ0xyKJMO/O4t3ubrAVx2LL5MjR30oTocpW6eAlm2VRq6MMk56/QEK8kIrP4k6HTSxksTWIHXN4k3uan/xn1DBuGEUv8W7S/+daS58EiuPavWaFh6UGfAlj/YaczwUxBIz7aI931L0ALGlj+YljDertH/zBN9EdGHcamFp3xVztZX0YUt5Q+pZRSj5Pn14KRAnLu/MHilTLjN3JnY2XttzTmtdAavwwYiIfUEW6zHChMhyF5vgZpbBhz8ey4kMoXNHgVA/pN46eE5lL+mMmRkRxKObWbNrRhpNm6baA5tsXG365y0PQmC0BKdjMvCZktjcsTrABKbdLyPrkc6mZ9z87A/9hc51sqRc5ZHhxm+n+K4Pp0qx5gcWAQ7vYJQ6Tjg/LJ2ABvn18TdgZbU=
 notifications:
   webhooks: https://hooks.slack.com/services/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
