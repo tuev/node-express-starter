@@ -12,3 +12,13 @@ export const mockImgUrl = [
   'https://live.staticflickr.com/65535/48495847346_31cae76238_k.jpg',
   'https://live.staticflickr.com/65535/48495893266_42ee1efa6b_b.jpg'
 ]
+
+export const mockBannerImg = [
+  'https://live.staticflickr.com/65535/48495844927_09052884cd_k.jpg',
+  'https://live.staticflickr.com/65535/48495845117_4db44a2377_k.jpg',
+  'https://live.staticflickr.com/65535/48495676771_bee3d32949_k.jpg',
+  'https://live.staticflickr.com/65535/48495845652_700e3ed4ea_k.jpg',
+  'https://live.staticflickr.com/65535/48495677431_b069f17749_k.jpg',
+  'https://live.staticflickr.com/65535/48495677731_cc51999723_k.jpg',
+  'https://live.staticflickr.com/65535/48495678001_24ecc333f6_h.jpg'
+]

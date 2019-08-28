@@ -3,11 +3,12 @@ import * as eventController from './event.controller'
 
 const eventRouter = express.Router()
 
-eventRouter.get('/', eventController.getEvent)
+eventRouter
+  .get('/', eventController.getEvent)
   .get('/:event_id', eventController.getEventById)
   .post('/', eventController.createEvent)
   .put('/:event_id', eventController.updateEvent)
   .delete('/:event_id', eventController.deleteEvent)
-  // .post('/fake', eventController.fakeData)
+  .post('/fake', eventController.fakeData)
 
 export { eventRouter }
