@@ -25,7 +25,9 @@ const userSchema = new Schema(
       type: String,
       enum: ['user', 'admin', 'visitor', 'root'],
       default: 'visitor'
-    }
+    },
+    // making sure _id === uid
+    _id: String
   },
   { timestamps: true }
 )
