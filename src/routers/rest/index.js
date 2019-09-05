@@ -4,7 +4,7 @@
 
 import express from 'express'
 import { apiErrorHandler } from '@utils/errorHandler'
-// import { eventRouter } from '@modules/Event'
+import { userRouter } from '@modules/User'
 import event from '@modules/Event/event.model'
 import user from '@modules/User/user.model'
 import restify from 'express-restify-mongoose'
@@ -20,6 +20,6 @@ restify.serve(restRouter, user, {
   }
 })
 
-// restRouter.use('/api/v1/event', eventRouter)
+restRouter.use('/api/v1/oauth', userRouter)
 
 restRouter.use(apiErrorHandler)

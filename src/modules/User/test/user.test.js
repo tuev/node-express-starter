@@ -2,7 +2,6 @@ import User from '../user.model'
 const chai = require('chai')
 const expect = chai.expect
 
-// Get all user
 describe('user rest api test', () => {
   it('it should be get user', done => {
     chai
