@@ -18,7 +18,7 @@ const userSchema = new Schema(
       unique: true,
       required: true
     },
-    photoUrl: {
+    photoURL: {
       type: String
     },
     role: {
