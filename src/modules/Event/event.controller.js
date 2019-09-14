@@ -23,12 +23,17 @@ const createEvent = async (req, res) => {
   const eventData = req.body || {}
   const dataCreated = pick(eventData, [
     'name',
-    'author',
     'description',
+    'image',
+    'banner',
     'date',
     'price',
     'location',
-    'image'
+    'timeStart',
+    'timeEnd',
+    'organizer',
+    'locationType',
+    'category'
   ])
 
   try {

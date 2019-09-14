@@ -1,5 +1,6 @@
 import User from './user.model'
 
+import jwt from 'jsonwebtoken'
 const updateUser = async (req, res) => {
   const dataUpdate = req.body || {}
   const id = req.params.user_id
@@ -12,7 +13,11 @@ const updateUser = async (req, res) => {
         upsert: true
       }
     )
-    return res.json(userUpdated)
+
+    const token = jwt.sign({ userId: id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE_IN_MS
+    })
+    return res.json({ ...userUpdated.toJSON(), token })
   } catch (error) {
     return res.send(error)
   }

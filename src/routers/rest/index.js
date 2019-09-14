@@ -9,9 +9,16 @@ import event from '@modules/Event/event.model'
 import user from '@modules/User/user.model'
 import restify from 'express-restify-mongoose'
 
+import requireAuthorization from '@middlewares/requireAuthorization'
+
 export const restRouter = express.Router()
 
-restify.serve(restRouter, event, { totalCountHeader: true })
+restify.serve(restRouter, event, {
+  totalCountHeader: true,
+  preCreate: requireAuthorization,
+  preDelete: requireAuthorization,
+  preUpdate: requireAuthorization
+})
 restify.serve(restRouter, user, {
   totalCountHeader: true,
   preCreate: (req, res, next) => {

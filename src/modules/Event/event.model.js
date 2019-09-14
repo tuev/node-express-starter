@@ -8,19 +8,28 @@ const eventSchema = new Schema(
       unique: true,
       required: true
     },
-    author: {
-      type: String,
-      required: true
-    },
+    author: { type: String, ref: 'User' },
     description: {
-      type: String,
-      required: true
+      type: String
     },
     image: String,
     banner: String,
     date: Date,
     price: String,
-    location: String
+    location: String,
+    timeStart: Date,
+    timeEnd: Date,
+    organizer: String,
+    locationType: {
+      type: String,
+      enum: ['revenue', 'online'],
+      default: 'revenue'
+    },
+    category: {
+      type: String,
+      enum: ['education', 'charity'],
+      default: 'charity'
+    }
   },
   { timestamps: true }
 )

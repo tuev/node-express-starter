@@ -27,7 +27,8 @@ const userSchema = new Schema(
       default: 'visitor'
     },
     // making sure _id === uid
-    _id: String
+    _id: String,
+    events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
   },
   { timestamps: true }
 )

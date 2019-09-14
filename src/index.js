@@ -24,7 +24,7 @@ const server = http.createServer(app)
 
 /* ------------------------------ SERVER SERVE ------------------------------ */
 
-server.listen(port, () => console.log('server is connected', port))
+server.listen(port, () => console.log('🚀🚀🚀server is connected', port))
 
 /* ------------------------------- HMR ENABLE ------------------------------- */
 
