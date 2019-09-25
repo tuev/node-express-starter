@@ -12,6 +12,7 @@ const requireAuthorization = async (req, res, next) => {
       process.env.JWT_SECRET,
       (err, result) => err || result
     )
+
     if (!isError(tokenInfo)) {
       const { userId } = tokenInfo
       const userObj = await User.findById(userId)

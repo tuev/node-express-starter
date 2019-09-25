@@ -3,9 +3,11 @@ import methodOverride from 'method-override'
 import cors from 'cors'
 
 import morgan from 'morgan'
+import formData from 'express-form-data'
 
 export const setupMiddleware = app => {
   app.use(bodyParser.json())
+  app.use(formData.parse())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(
     cors({

@@ -134,7 +134,7 @@ describe('event rest api test', () => {
       .expect(201)
       .end((err, res) => {
         if (err) return done(err)
-        expect(res.body).to.be.a('object')
+        expect(res.body).to.be.an('object')
         expect(res.body).to.have.property('name')
         expect(res.body).to.have.property('author')
         expect(res.body).to.have.property('description')

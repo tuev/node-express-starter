@@ -3,12 +3,15 @@ import { setupMiddleware } from '@middlewares'
 import { restRouter } from './routers'
 import http from 'http'
 import connectDB from '../config/db'
+import cloudImg from '../config/cloudImg'
 const port = process.env.PORT || 4000
 let currentApp = app
 
 /* ----------------------------- DATABASE SETUP ----------------------------- */
 
 connectDB({ useNewUrlParser: true })
+
+cloudImg()
 
 /* ---------------------------- MIDDLEWARE SETUP ---------------------------- */
 

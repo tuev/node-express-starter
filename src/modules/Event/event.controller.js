@@ -1,13 +1,14 @@
 import Event from './event.model'
-import { pick } from 'lodash'
+import ImageModel from '../Image/image.model'
+
+import { pick, get, isEmpty, values } from 'lodash'
 import faker from 'faker'
 import { mockImgUrl, mockBannerImg } from './mockImageUrl'
+import cloudinary from 'cloudinary'
 
 const getEvent = async (req, res) => {
   const events = await Event.find()
-  return res.json({
-    data: events || []
-  })
+  return res.json(events || [])
 }
 
 const getEventById = async (req, res) => {
@@ -21,24 +22,25 @@ const getEventById = async (req, res) => {
 
 const createEvent = async (req, res) => {
   const eventData = req.body || {}
+  const author = req.body.author
   const dataCreated = pick(eventData, [
     'name',
     'description',
-    'image',
-    'banner',
     'date',
     'price',
-    'location',
+    'address',
     'timeStart',
     'timeEnd',
     'organizer',
-    'locationType',
-    'category'
+    'type',
+    'addressType',
+    'category',
+    'status'
   ])
 
   try {
-    const eventInfo = await Event.create(dataCreated)
-    return res.json(eventInfo)
+    const eventInfo = await Event.create({ ...dataCreated, author })
+    return res.status(201).json(eventInfo)
   } catch (error) {
     console.error(error)
     return {
@@ -49,11 +51,42 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   const dataUpdate = req.body
+  const newData = pick(dataUpdate, [
+    'name',
+    'description',
+    'date',
+    'price',
+    'address',
+    'timeStart',
+    'timeEnd',
+    'organizer',
+    'type',
+    'addressType',
+    'category',
+    'status'
+  ])
+
+  const fileValue = values(req.files)
+  let url =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSslRyHG-3YUlaYEcaMn_UegezhnRxH4leLUkTgCjwf0wr4re14'
+  if (!isEmpty(fileValue)) {
+    const promises = fileValue.map(image =>
+      cloudinary.uploader.upload(image.path)
+    )
+    const result = await Promise.all(promises)
+    const image = await ImageModel.create(result[0])
+    url = get(image, '_id')
+  }
+
   const id = req.params.event_id
   try {
-    const eventUpdated = await Event.findByIdAndUpdate(id, dataUpdate, {
-      new: true
-    })
+    const eventUpdated = await Event.findByIdAndUpdate(
+      id,
+      { ...newData, banner: url },
+      {
+        new: true
+      }
+    )
     return res.json(eventUpdated)
   } catch (error) {
     return res.send(error)
@@ -63,7 +96,8 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     await Event.findByIdAndRemove({ _id: req.params.event_id })
-    return res.json({ message: 'Successfully deleted' })
+    // todo: delete image from  cloudinary
+    return res.status(204).json({ message: 'Successfully deleted' })
   } catch (error) {
     return res.send(error)
   }

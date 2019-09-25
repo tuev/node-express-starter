@@ -13,7 +13,7 @@ const eventSchema = new Schema(
       type: String
     },
     image: String,
-    banner: String,
+    banner: { type: String, ref: 'Image' },
     date: Date,
     price: String,
     address: String,
