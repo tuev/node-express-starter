@@ -22,7 +22,7 @@ describe('event rest api test', () => {
   it('it should be get event', done => {
     chai
       .sendLocalRequest()
-      .get('/api/v1/event')
+      .get('/api/v1/evt')
       .set('Accept', 'application/json')
       .expect(200)
       .end((err, res) => {
@@ -36,7 +36,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .get(`/api/v1/event/${id}`)
+      .get(`/api/v1/evt/${id}`)
       .set('Accept', 'application/json')
       .expect(200)
       .end((err, res) => {
@@ -55,7 +55,7 @@ describe('event rest api test', () => {
     }
     chai
       .sendLocalRequest()
-      .post('/api/v1/event')
+      .post('/api/v1/evt')
       .send(event)
       .set('Accept', 'application/json')
       .expect(401)
@@ -70,7 +70,7 @@ describe('event rest api test', () => {
 
     chai
       .sendLocalRequest()
-      .put(`/api/v1/event/${id}`)
+      .put(`/api/v1/evt/${id}`)
       .send(event)
       .set('Accept', 'application/json')
       .expect(401)
@@ -86,7 +86,7 @@ describe('event rest api test', () => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ1.eyJ1c2VySWQiOiI2ZDRlN2Q5ZGYyNTQxZDNkZDliZDYyNzYiLCJpYXQiOjE1NjkzNDA4MjksImV4cCI6MTU2OTM0MzcwOX0.lcA0s0doSKlmjTl3gIzLU6TfzdtVK9xMWzW_FEaYQjQ infp'
     chai
       .sendLocalRequest()
-      .put(`/api/v1/event/${id}`)
+      .put(`/api/v1/evt/${id}`)
       .send(event)
       .set('Authorization', `Bearer ${fakeToken}`)
       .set('Accept', 'application/json')
@@ -98,7 +98,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/event/${id}`)
+      .delete(`/api/v1/evt/${id}`)
       .set('Accept', 'application/json')
       .expect(401)
       .end(done)
@@ -110,7 +110,7 @@ describe('event rest api test', () => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ1.eyJ1c2VySWQiOiI2ZDRlN2Q5ZGYyNTQxZDNkZDliZDYyNzYiLCJpYXQiOjE1NjkzNDA4MjksImV4cCI6MTU2OTM0MzcwOX0.lcA0s0doSKlmjTl3gIzLU6TfzdtVK9xMWzW_FEaYQjQ infp'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/event/${id}`)
+      .delete(`/api/v1/evt/${id}`)
       .set('Authorization', `Bearer ${fakeToken}`)
       .set('Accept', 'application/json')
       .expect(401)
@@ -127,7 +127,7 @@ describe('event rest api test', () => {
     }
     chai
       .sendLocalRequest()
-      .post('/api/v1/event')
+      .post('/api/v1/evt')
       .send(event)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${tokenInfo}`)
@@ -151,7 +151,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .put(`/api/v1/event/${id}`)
+      .put(`/api/v1/evt/${id}`)
       .send(event)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${tokenInfo}`)
@@ -173,7 +173,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/event/${id}`)
+      .delete(`/api/v1/evt/${id}`)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${tokenInfo}`)
       .expect(204)

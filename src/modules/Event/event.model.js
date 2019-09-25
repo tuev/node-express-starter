@@ -16,11 +16,16 @@ const eventSchema = new Schema(
     banner: String,
     date: Date,
     price: String,
-    location: String,
+    address: String,
     timeStart: Date,
     timeEnd: Date,
     organizer: String,
-    locationType: {
+    type: {
+      type: String,
+      enum: ['tour', 'convention'],
+      default: 'tour'
+    },
+    addressType: {
       type: String,
       enum: ['revenue', 'online'],
       default: 'revenue'
@@ -29,6 +34,11 @@ const eventSchema = new Schema(
       type: String,
       enum: ['education', 'charity'],
       default: 'charity'
+    },
+    status: {
+      type: String,
+      enum: ['published', 'draft'],
+      default: 'draft'
     }
   },
   { timestamps: true }
