@@ -50,7 +50,14 @@ const createEvent = async (req, res) => {
 }
 
 const updateEvent = async (req, res) => {
+  const id = req.params.event_id
+
+  const event = await Event.findById(id)
+  if (!event) {
+    return res.status(404).send('Event not found')
+  }
   const dataUpdate = req.body
+
   const newData = pick(dataUpdate, [
     'name',
     'description',
@@ -63,12 +70,12 @@ const updateEvent = async (req, res) => {
     'type',
     'addressType',
     'category',
-    'status'
+    'status',
+    'banner'
   ])
 
   const fileValue = values(req.files)
-  let url =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSslRyHG-3YUlaYEcaMn_UegezhnRxH4leLUkTgCjwf0wr4re14'
+  let url = newData.banner || event.banner
   if (!isEmpty(fileValue)) {
     const promises = fileValue.map(image =>
       cloudinary.uploader.upload(image.path)
@@ -78,7 +85,6 @@ const updateEvent = async (req, res) => {
     url = get(image, '_id')
   }
 
-  const id = req.params.event_id
   try {
     const eventUpdated = await Event.findByIdAndUpdate(
       id,

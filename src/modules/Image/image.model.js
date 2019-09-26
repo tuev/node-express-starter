@@ -8,7 +8,7 @@ const imageSchema = new Schema(
       unique: true,
       required: true
     },
-    id: String,
+    public_id: String,
     event: { type: String, ref: 'Event' }
   },
   { timestamps: true }
