@@ -1,19 +1,27 @@
 import Event from './event.model'
 import ImageModel from '../Image/image.model'
 
+import { checkAuthorization } from '@utils'
 import { pick, get, isEmpty, values } from 'lodash'
 import faker from 'faker'
 import { mockImgUrl, mockBannerImg } from './mockImageUrl'
 import cloudinary from 'cloudinary'
 
 const getEvent = async (req, res) => {
-  const events = await Event.find()
-  return res.json(events || [])
+  const isAuthorized = await checkAuthorization(req)
+  if (isAuthorized) {
+    const events = await Event.find()
+    return res.json(events || [])
+  } else {
+    const events = await Event.find({ status: 'published' })
+    return res.json(events || [])
+  }
 }
 
 const getEventById = async (req, res) => {
+  const { populate = [] } = req.query
   try {
-    const event = await Event.findById(req.params.event_id)
+    const event = await Event.findById(req.params.event_id).populate(populate)
     return res.json(event)
   } catch (error) {
     return res.send(error)

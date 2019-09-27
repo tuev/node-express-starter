@@ -5,7 +5,7 @@
 import express from 'express'
 import { apiErrorHandler } from '@utils/errorHandler'
 import { userRouter } from '@modules/User'
-import { isEmpty } from 'lodash'
+import { checkAuthorization } from '@utils'
 import { eventRouter } from '@modules/Event'
 import event from '@modules/Event/event.model'
 import user from '@modules/User/user.model'
@@ -20,10 +20,10 @@ restify.serve(restRouter, event, {
   preCreate: requireAuthorization,
   preDelete: requireAuthorization,
   preUpdate: requireAuthorization,
-  prereq: requireAuthorization,
-  contextFilter: (model, req, cb) => {
-    const userInfo = req.body
-    if (!isEmpty(userInfo)) {
+  contextFilter: async (model, req, cb) => {
+    const isAuthorized = await checkAuthorization(req)
+    console.log(isAuthorized, 'is author')
+    if (isAuthorized) {
       cb(model)
     } else {
       cb(

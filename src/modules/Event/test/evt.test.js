@@ -1,10 +1,10 @@
 import Event from '../event.model'
-import { get } from 'lodash'
+import { get, isEmpty } from 'lodash'
 const chai = require('chai')
 const expect = chai.expect
 
 // Get all event
-describe('event rest api test', () => {
+describe('evt rest api test', () => {
   let tokenInfo = ''
   beforeEach(async () => {
     const user = {
@@ -19,7 +19,7 @@ describe('event rest api test', () => {
     tokenInfo = get(response, ['body', 'token'])
   })
 
-  it('it should be get event', done => {
+  it('it should be get event for everyone', done => {
     chai
       .sendLocalRequest()
       .get('/api/v1/evt')
@@ -27,17 +27,74 @@ describe('event rest api test', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
+        const data = res.body
         expect(res.body).is.an('array')
+        if (!isEmpty(data)) {
+          const isAnyDraft = data.some(item => item.status === 'draft')
+          // eslint-disable-next-line no-unused-expressions
+          expect(isAnyDraft).is.false
+        }
+
         done()
       })
   })
 
-  it('it should be get only 1 event by id', done => {
+  it('it should be get event for owner manage', done => {
+    chai
+      .sendLocalRequest()
+      .get('/api/v1/evt')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${tokenInfo}`)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+        const data = res.body
+        expect(res.body).is.an('array')
+        if (!isEmpty(data)) {
+          const isAnyDraft = data.some(item => item.status === 'draft')
+          // eslint-disable-next-line no-unused-expressions
+          expect(isAnyDraft).is.true
+        }
+
+        done()
+      })
+  })
+
+  it('it should be get only 1 event by publish id with every one', done => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .get(`/api/v1/evt/${id}`)
+      .get(`/api/v1/event/${id}`)
       .set('Accept', 'application/json')
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+        expect(res.body).is.an('object')
+        expect(res.body._id).to.equal(id)
+        done()
+      })
+  })
+
+  it('it cannot get event by draft id with every one', done => {
+    const id = '5d4e7d9df2541d3dd9bd6271'
+    chai
+      .sendLocalRequest()
+      .get(`/api/v1/event/${id}`)
+      .set('Accept', 'application/json')
+      .expect(404)
+      .end((err, res) => {
+        if (err) return done(err)
+        done()
+      })
+  })
+
+  it('it can get event by draft id with owner', done => {
+    const id = '5d4e7d9df2541d3dd9bd6271'
+    chai
+      .sendLocalRequest()
+      .get(`/api/v1/event/${id}`)
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${tokenInfo}`)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
@@ -70,7 +127,7 @@ describe('event rest api test', () => {
 
     chai
       .sendLocalRequest()
-      .put(`/api/v1/evt/${id}`)
+      .put(`/api/v1/event/${id}`)
       .send(event)
       .set('Accept', 'application/json')
       .expect(401)
@@ -86,7 +143,7 @@ describe('event rest api test', () => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ1.eyJ1c2VySWQiOiI2ZDRlN2Q5ZGYyNTQxZDNkZDliZDYyNzYiLCJpYXQiOjE1NjkzNDA4MjksImV4cCI6MTU2OTM0MzcwOX0.lcA0s0doSKlmjTl3gIzLU6TfzdtVK9xMWzW_FEaYQjQ infp'
     chai
       .sendLocalRequest()
-      .put(`/api/v1/evt/${id}`)
+      .put(`/api/v1/event/${id}`)
       .send(event)
       .set('Authorization', `Bearer ${fakeToken}`)
       .set('Accept', 'application/json')
@@ -98,7 +155,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/evt/${id}`)
+      .delete(`/api/v1/event/${id}`)
       .set('Accept', 'application/json')
       .expect(401)
       .end(done)
@@ -110,7 +167,7 @@ describe('event rest api test', () => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ1.eyJ1c2VySWQiOiI2ZDRlN2Q5ZGYyNTQxZDNkZDliZDYyNzYiLCJpYXQiOjE1NjkzNDA4MjksImV4cCI6MTU2OTM0MzcwOX0.lcA0s0doSKlmjTl3gIzLU6TfzdtVK9xMWzW_FEaYQjQ infp'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/evt/${id}`)
+      .delete(`/api/v1/event/${id}`)
       .set('Authorization', `Bearer ${fakeToken}`)
       .set('Accept', 'application/json')
       .expect(401)
@@ -134,7 +191,7 @@ describe('event rest api test', () => {
       .expect(201)
       .end((err, res) => {
         if (err) return done(err)
-        expect(res.body).to.be.an('object')
+        expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('name')
         expect(res.body).to.have.property('author')
         expect(res.body).to.have.property('description')
@@ -151,7 +208,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .put(`/api/v1/evt/${id}`)
+      .put(`/api/v1/event/${id}`)
       .send(event)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${tokenInfo}`)
@@ -173,7 +230,7 @@ describe('event rest api test', () => {
     const id = '5d4e7d9df2541d3dd9bd6275'
     chai
       .sendLocalRequest()
-      .delete(`/api/v1/evt/${id}`)
+      .delete(`/api/v1/event/${id}`)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${tokenInfo}`)
       .expect(204)
