@@ -36,11 +36,7 @@ restify.serve(restRouter, event, {
 })
 
 restify.serve(restRouter, user, {
-  totalCountHeader: true,
-  preCreate: (req, res, next) => {
-    req.body._id = req.body.uid
-    next()
-  }
+  totalCountHeader: true
 })
 
 restRouter.use('/api/v1/oauth', userRouter)

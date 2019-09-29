@@ -25,8 +25,6 @@ const userSchema = new Schema(
       enum: ['user', 'admin', 'visitor', 'root'],
       default: 'visitor'
     },
-    // making sure _id === uid
-    _id: String,
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
   },
   { timestamps: true }
